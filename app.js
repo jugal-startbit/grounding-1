@@ -1,36 +1,33 @@
 'use strict';
 var createError = require('http-errors');
 var express = require('express');
-var path = require('path');
-var cookieParser = require('cookie-parser');
-var morgan = require('morgan');
-var bodyParser = require('body-parser')
-const config = require('./public/config');
+var bodyParser = require('body-parser');
 var mainRoute = require('./routes/routes');
 var signin = require('./routes/signin');
-
+var express = require('express');
+var bodyParser = require('body-parser');
+var gcm = require('node-gcm');
+const config = require('./config');
 var app = express();
 
+//Here we are configuring express to use body-parser as middle-ware.
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.json());
+
+//To server static assests in root dir
+app.use(express.static(__dirname));
+
+//To allow cross origin request
 app.use(function(req, res, next) {
-  res.header("Access-Control-Allow-Origin", "*");
-  res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE');
-  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+  res.header('Access-Control-Allow-Origin', '*');
+  res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
   next();
 });
 
-// view engine setup
-app.set('views', path.join(__dirname, 'views'));
-app.set('view engine', 'pug');
-
-app.use(morgan('dev'));
-// app.use(express.json());
-// app.use(express.urlencoded({ extended: false }));
-app.use(cookieParser());
-app.use(express.static(path.join(__dirname, 'public')));
-
-app.use( bodyParser.json({limit: "50mb"}));     // to support JSON-encoded bodies
-app.use(bodyParser.urlencoded({limit: "50mb", extended: true, parameterLimit:50000}));
-
+//To server index.html page
+app.get('/', function (req, res) {
+  res.sendFile(__dirname + '/index.html');
+});
 app.use((req,res,next)=>{config;
   next();
 });
@@ -75,6 +72,33 @@ app.post('/API/eventLogCreate', function(req, res,next) {
       })
   })
 });
+
+
+//To receive push request from client
+app.post('/send_notification', function (req, res) {
+  if (!req.body) {
+    res.status(400);
+  }
+
+  var message = new gcm.Message();
+  var temp = req.body.endpoint.split('/');
+  var regTokens = [temp[temp.length - 1]];
+
+  var sender = new gcm.Sender('AIzaSyCjrU5SqotSg2ybDLK_7rMMt9Rv0dMusvY'); //Replace with your GCM API key
+
+  // Now the sender can be used to send messages
+  sender.send(message, { registrationTokens: regTokens }, function (error, response) {
+  	if (error) {
+      console.error(error);
+      res.status(400);
+    }
+  	else {
+     	console.log(response);
+      res.status(200);
+    }
+  });
+});
+
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
   next(createError(404));
