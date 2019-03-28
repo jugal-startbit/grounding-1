@@ -1,9 +1,6 @@
 'use strict';
 var createError = require('http-errors');
 var express = require('express');
-var path = require('path');
-var cookieParser = require('cookie-parser');
-var morgan = require('morgan');
 var bodyParser = require('body-parser');
 var mainRoute = require('./routes/routes');
 var signin = require('./routes/signin');
@@ -23,18 +20,10 @@ app.use(express.static(__dirname));
 //To allow cross origin request
 app.use(function(req, res, next) {
   res.header('Access-Control-Allow-Origin', '*');
-  res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE');
   res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
   next();
 });
-// view engine setup
-app.set('views', path.join(__dirname, 'views'));
-app.set('view engine', 'pug');
 
-app.use(morgan('dev'));
-// app.use(express.json());
-// app.use(express.urlencoded({ extended: false }));
-app.use(cookieParser());
 //To server index.html page
 app.get('/', function (req, res) {
   res.sendFile(__dirname + '/index.html');
