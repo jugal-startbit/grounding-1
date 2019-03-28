@@ -25,7 +25,51 @@
 	<link rel="stylesheet" href="./css/styles.css" />
 </head>
 
-<body>
+<body id="BodyElement">
+	<script language="JavaScript">
+  /**
+    * Disable right-click of mouse, F12 key, and save key combinations on page
+    * By Arthur Gareginyan (arthurgareginyan@gmail.com)
+    * For full source code, visit https://mycyberuniverse.com
+    */
+  window.onload = function() {
+    document.addEventListener("contextmenu", function(e){
+      e.preventDefault();
+    }, false);
+    document.addEventListener("keydown", function(e) {
+    //document.onkeydown = function(e) {
+      // "I" key
+      if (e.ctrlKey && e.shiftKey && e.keyCode == 73) {
+        disabledEvent(e);
+      }
+      // "J" key
+      if (e.ctrlKey && e.shiftKey && e.keyCode == 74) {
+        disabledEvent(e);
+      }
+      // "S" key + macOS
+      if (e.keyCode == 83 && (navigator.platform.match("Mac") ? e.metaKey : e.ctrlKey)) {
+        disabledEvent(e);
+      }
+      // "U" key
+      if (e.ctrlKey && e.keyCode == 85) {
+        disabledEvent(e);
+      }
+      // "F12" key
+      if (event.keyCode == 123) {
+        disabledEvent(e);
+      }
+    }, false);
+    function disabledEvent(e){
+      if (e.stopPropagation){
+        e.stopPropagation();
+      } else if (window.event){
+        window.event.cancelBubble = true;
+      }
+      e.preventDefault();
+      return false;
+    }
+  };
+</script>
 	<div class="app app__layout">
 		<header id="menu_header">
 			<span class="header__icon">
@@ -52,13 +96,13 @@
 		<div id="loginDIV">
 
 			<div class="app__content">
-				<h3>Login</h3>
+				<h3 class="text-center">Login</h3>
 
 				<div class="card">
 					<div class="card__spinner"></div>
 					<div class="card__container">
 
-						<p class="card__temp"><b><input type="text" id="studyID" class="add__input" minlength="3" maxlength="3"  onkeypress='return event.charCode >= 48 && event.charCode <= 57'
+						<p class="card__temp"><b><input type="number" id="studyID" class="add__input" minlength="3" maxlength="3"  onkeypress='return event.charCode >= 48 && event.charCode <= 57'
 									placeholder="Your study ID (3 digits)" /> </b> <span></span></p>
 						<p class="card__following"><b><input type="text" id="studyInitials" class="add__input"  minlength="4" maxlength="4"  
 									placeholder="Your study initials (4 letters)" /></b> <span></span></p>
@@ -92,8 +136,8 @@
 
 		</div>
 
-		<!--SOURCE MENU-->
-		<div id="sourceMenuDIV">
+		<!--rating MENU-->
+		<div id="ratingMenuDIV">
 
 			<div class="app__content">
 				<h2> Rate this App </h2>
@@ -125,8 +169,8 @@
 			</div>
 
 		</div>
-		<!--rating MENU-->
-		<div id="ratingMenuDIV">
+		<!-- SOURCE MENU-->
+		<div id="sourceMenuDIV">
 
 			<div class="app__content">
 				<h3 align="center">Read about Grounding </h3>

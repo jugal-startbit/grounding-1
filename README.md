@@ -1,17 +1,11 @@
-### <p align="center"><img width="150px" height="150px" src="https://raw.githubusercontent.com/jugal/pwa-demo/master/images/icons/android-chrome-192x192.png"></p>
-
-# [Progressive Web Application](https://demopwa.com/)
-
 *A demo for progressive web application with features like offline, push notifications, background sync etc,*
-
-### [Live](https://demopwa.com/)
 
 ### Installation
 
 #### `Step 1` - clone the repo
   
 ```bash
-$ git clone https://github.com/jugal-startbit/pwa-demo
+$ git clone https://github.com/jugal-startbit/
 ```
 
 #### `Step 2` - cd in the repo
@@ -32,7 +26,7 @@ $ npm install
 $ npm run start
 ```
 
-In browser, open [https://localhost:3000](https://localhost:3000)
+In browser, open [https://localhost](https://localhost)
 
 ## Main Features
 
