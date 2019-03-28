@@ -1,12 +1,6 @@
 (function () {
   'use strict';
 
-  var cardElement = document.querySelector('.card');
-  var addCardBtnElement = document.querySelector('.add__btn');
-  var addCardInputElement = document.querySelector('.add__input');
-  var spinnerElement = document.querySelector('.card__spinner');
-  var bgSyncTextElement = document.querySelector('.bg-sync__text');
-  var bgSyncElement = document.querySelector('.custom__button-bg');
 
   /**
    * 
@@ -34,6 +28,10 @@
   var menusRatingElmt = document.querySelector('.menusRating');
   menusRatingElmt.myParam = menusRatingElmt.getAttribute('value');
   
+  var menusLogoutElmt = document.querySelector('.menusLogout');
+  menusLogoutElmt.myParam = menusLogoutElmt.getAttribute('value');
+  
+
   //Menus listing on first load loginDIV
     document.querySelector('#authorMenuDIV').style.display = 'none';
     document.querySelector('#contactMenuDIV').style.display = 'none';
@@ -46,6 +44,7 @@
   menusSourceElmt.addEventListener('click', displayMenusPage, false);
   menusContactElmt.addEventListener('click', displayMenusPage, false);
   menusRatingElmt.addEventListener('click', displayMenusPage, false);
+  menusLogoutElmt.addEventListener('click', displayMenusPage, false);
   function displayMenusPage(evt) {
     if(evt.target.myParam == 'author'){
       document.querySelector('#authorMenuDIV').style.display = 'inherit';
@@ -67,6 +66,18 @@
       document.querySelector('.menu').classList.remove("menu--show");
       document.querySelector('.menu__overlay').classList.remove("menu__overlay--show");
       document.querySelector('.menu').style.transform = 'translateX(-110%)';
+      $(".rating input:radio").attr("checked", false);
+
+      $('.rating input').click(function () {
+          $(".rating span").removeClass('checked');
+          $(this).parent().addClass('checked');
+      });
+  
+      $('input:radio').change(
+        function(){
+          var userRating = this.value;
+          //alert(userRating);
+      }); 
     }else if(evt.target.myParam == 'contact'){
       document.querySelector('#contactMenuDIV').style.display = 'inherit';
       
@@ -90,13 +101,22 @@
       document.querySelector('.menu').style.transform = 'translateX(-110%)';
 
     }
+    else if(evt.target.myParam == 'logout'){
+      window.location.reload();
 
+    }
+    
   }
 
+  var addCardBtnElement = document.querySelector('.add__btn');
   //Add github user data to the card
+  var addCardInputElement = document.querySelector('.card__temp');
+  var addCardInputElement1 = document.querySelector('.card__following');
   function addGitUserCard() {
     var userInput = addCardInputElement.value;
+    var userInput1 = addCardInputElement1.value;
     if (userInput === '') return;
+    if (userInput1 === '') return;
     addCardInputElement.value = '';
     localStorage.setItem('request', userInput);
     fetchGitUserInfo(userInput);
@@ -113,6 +133,17 @@
   //Add card click event
   addCardBtnElement.addEventListener('click', addGitUserCard, false);
 
+  var cardElement = document.querySelector('.card');
+  
+  var addReviewInputElement = document.querySelector('.add_review__btn');
+    //Add github user data to the card
+    function addReviewUserCard() {
+      alert('Thank you!');
+    }
+    addReviewInputElement.addEventListener('click', addReviewUserCard, false);
+  var spinnerElement = document.querySelector('.card__spinner');
+  var bgSyncTextElement = document.querySelector('.bg-sync__text');
+  var bgSyncElement = document.querySelector('.custom__button-bg');
 
   //To get github user data via `Fetch API`
   function fetchGitUserInfo(username, requestFromBGSync) {

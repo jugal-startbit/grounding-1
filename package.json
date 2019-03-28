@@ -1,23 +1,30 @@
 {
-	"name": "grounding",
-	"description": "Grounding App",
-	"version": "1.0.0",
-	"author": "https://github.com/jugal-startbit",
-	"dependencies": {
-		"body-parser": "^1.18.3",
-		"express": "^4.16.4",
-		"node-gcm": "^1.0.2"
-	},
-	"scripts": {
-		"start": "npm run css && node server.js",
-		"css": "postcss -u autoprefixer -r css/*"
-	},
-	"devDependencies": {
-		"autoprefixer": "^9.4.3",
-		"postcss-cli": "^6.1.0"
-	},
-	"engines": {
-		"node": ">=8.11.2"
-	},
-	"license": "MIT"
+  "name": "nodeapi",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "start": "nodemon ./bin/www"
+  },
+  "engines": {
+    "node": "10.2.1",
+    "npm": "6.5.0"
+  },
+  "dependencies": {
+    "atob": "^2.1.2",
+    "body-parser": "^1.18.3",
+    "btoa": "^1.2.1",
+    "cookie-parser": "~1.4.3",
+    "dateformat": "^3.0.3",
+    "debug": "~2.6.9",
+    "express": "~4.16.0",
+    "http-errors": "~1.6.2",
+    "mongodb": "^3.1.10",
+    "mongoose": "^5.4.2",
+    "mongoose-double": "0.0.1",
+    "morgan": "~1.9.0",
+    "node-cron": "^2.0.3",
+    "nodemon": "^1.18.10",
+    "pug": "2.0.0-beta11",
+    "request": "^2.88.0"
+  }
 }

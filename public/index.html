@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html>
+
 <head>
 	<meta charset="utf-8" />
 	<title>Grounding App</title>
@@ -23,6 +24,7 @@
 	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:200,300,400,500,700" />
 	<link rel="stylesheet" href="./css/styles.css" />
 </head>
+
 <body>
 	<div class="app app__layout">
 		<header id="menu_header">
@@ -38,10 +40,11 @@
 		<div id="menu_overlay" class="menu">
 			<div class="menu__header"></div>
 			<ul class="menu__list">
-				<li><a target="_blank" rel="noopener" class="menusAuthor" value="author">Author</a></li>
-				<li><a target="_blank" rel="noopener" class="menusSource" value="source">Source</a></li>
+				<li><a target="_blank" rel="noopener" class="menusAuthor" value="author">About this App</a></li>
+				<li><a target="_blank" rel="noopener" class="menusSource" value="source"> Read about Grounding </a></li>
 				<li><a target="_blank" rel="noopener" class="menusContact" value="contact">Contact</a></li>
-				<li><a target="_blank" rel="noopener" class="menusRating" value="rating">Rating</a></li>
+				<li><a target="_blank" rel="noopener" class="menusRating" value="rating"> Rate this App </a></li>
+				<li><a target="_blank" rel="noopener" class="menusLogout" value="logout"> Logout</a></li>
 			</ul>
 		</div>
 		<div class="menu__overlay"></div>
@@ -55,9 +58,9 @@
 					<div class="card__spinner"></div>
 					<div class="card__container">
 
-						<p class="card__temp"><b><input type="text" id="studyID" class="add__input"
+						<p class="card__temp"><b><input type="text" id="studyID" class="add__input" minlength="3" maxlength="3"  onkeypress='return event.charCode >= 48 && event.charCode <= 57'
 									placeholder="Your study ID (3 digits)" /> </b> <span></span></p>
-						<p class="card__following"><b><input type="text" id="studyInitials" class="add__input"
+						<p class="card__following"><b><input type="text" id="studyInitials" class="add__input"  minlength="4" maxlength="4"  
 									placeholder="Your study initials (4 letters)" /></b> <span></span></p>
 						<p class="card__followers"><b><button class="add__btn">ENTER</button></b> <span></span></p>
 
@@ -77,8 +80,12 @@
 		<div id="authorMenuDIV">
 
 			<div class="app__content">
-				<h3>Author Page</h3>
-
+				<h3>About this App</h3>
+				<br>
+				<p>This app was developed by Treatment Innovations for the project you are participating in, called the
+					Grounding Study. If you have any questions about the study or your participation, contact us at <a
+						href="mailto:info@treatment-innovations.org">info@treatment-innovations.org</a> or by text or
+					phone at <a href="tel:6172991610">617-299-1610</a>.</p>
 				<!-- Toast msg -->
 				<div class="toast__msg"></div>
 			</div>
@@ -89,12 +96,30 @@
 		<div id="sourceMenuDIV">
 
 			<div class="app__content">
-				<h2>Rating & Feedback</h2>
-				<span class="fa fa-star checked"></span>
-				<span class="fa fa-star checked"></span>
-				<span class="fa fa-star checked"></span>
-				<span class="fa fa-star"></span>
-				<span class="fa fa-star"></span>
+				<h2> Rate this App </h2>
+				<div class="card">
+					<div class="card__spinner"></div>
+					<div class="card__container">
+						
+						<div class="rating">
+							<span><input type="radio" name="rating" id="str5" value="5"><label
+									for="str5"></label></span>
+							<span><input type="radio" name="rating" id="str4" value="4"><label
+									for="str4"></label></span>
+							<span><input type="radio" name="rating" id="str3" value="3"><label
+									for="str3"></label></span>
+							<span><input type="radio" name="rating" id="str2" value="2"><label
+									for="str2"></label></span>
+							<span><input type="radio" name="rating" id="str1" value="1"><label
+									for="str1"></label></span>
+						</div>
+						<p class="card__following"><b><textarea id="comments"
+									placeholder="Provide your valuable comments." rows="4" cols="36"></textarea>
+							</b> <span></span></p>
+						<p class="card__followers"><b><button class="add_review__btn">SUBMIT</button></b> <span></span>
+						</p>
+					</div>
+				</div>
 				<!-- Toast msg -->
 				<div class="toast__msg"></div>
 			</div>
@@ -104,8 +129,9 @@
 		<div id="ratingMenuDIV">
 
 			<div class="app__content">
-				<h3 align="center">Source</h3>
-
+				<h3 align="center">Read about Grounding </h3>
+				<embed src="pdfs/Detaching from Emotional Pain - Grounding.pdf" width="320px" height="393px" alt="pdf"
+					pluginspage="http://www.adobe.com/products/acrobat/readstep2.html">
 				<!-- Toast msg -->
 				<div class="toast__msg"></div>
 			</div>
@@ -116,8 +142,10 @@
 
 			<div class="app__content">
 				<h1 align="center">Contact Us</h1>
-
-
+				<br>
+				<p>If you need to contact us relates to this app study you can email <a
+						href="mailto:info@treatment-innovations.org">info@treatment-innovations.org</a> or text or call
+					<a href="tel:6172991610">617-299-1610</a></p>
 
 				<!-- Toast msg -->
 				<div class="toast__msg"></div>
@@ -137,8 +165,9 @@
 	<script src="./js/sync.js"></script>
 	<script src="./js/share.js"></script>
 	<script src="./js/menu.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
 	<!-- My Google Analytics Report -->
-	<script>
+	<!-- 	<script>
 		(function (i, s, o, g, r, a, m) {
 			i['GoogleAnalyticsObject'] = r;
 			(i[r] =
@@ -155,6 +184,7 @@
 
 		ga('create', 'UA-136254207-1', 'auto');
 		ga('send', 'pageview');
-	</script>
+	</script> -->
 </body>
+
 </html>
