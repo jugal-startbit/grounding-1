@@ -178,7 +178,7 @@ exports.getAllLogin = function (req, res, next) {
                         if (err) res.send(err);
                         else
                             console.log("tiem");
-                        var let = result.map((row) => {
+                        var group = result.map((row) => {
                             var hor = parseInt(parseInt(row.totalAmount) / (60));
                             var h = hor.toString();
                             if(h.length == 1){
