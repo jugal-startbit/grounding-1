@@ -32,7 +32,7 @@ $ npm install
 $ npm run start
 ```
 
-In browser, open [http://localhost:3000](http://localhost:3000)
+In browser, open [https://localhost:3000](https://localhost:3000)
 
 ## Main Features
 
