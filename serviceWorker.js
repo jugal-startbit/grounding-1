@@ -180,7 +180,7 @@ self.addEventListener('sync', (event) => {
 
 //Adding `notification` click event listener
 self.addEventListener('notificationclick', (event) => {
-  var url = 'https://startbit-pwa.herokuapp.com/';
+  var url = 'https://grounding.herokuapp.com/';
 
   //Listen to custom action buttons in push notification
   if (event.action === 'yes') {
