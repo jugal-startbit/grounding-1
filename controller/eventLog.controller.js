@@ -6,20 +6,36 @@ const aboutUs = require('../models/aboutUs.model');
 const aboutGroundingLog = require('../models/aboutGroundingLog.model');
 const pdf = require('../models/pdf.model');
 const logout = require('../models/logout.model');
+const review = require('../models/review.model')
+const feedback = require('../models/feedback.model')
+var dateFormat = require('dateformat');
+
 
 // create
-exports.create = function(req, res, next){
+exports.create = function (req, res, next) {
     let data = req.body;
     data.dateTime = new Date();
     data.Active = 1;
     console.log(data);
     let localVar;
-    if(data.Event == 'doLogin') {localVar = login;}
-    else if(data.Event == 'dashboard') {localVar = dashboard;}
-    else if(data.Event == 'contactUs') {localVar = contactUs;}
-    else if(data.Event == 'aboutUs') {localVar = aboutUs;}
-    else if(data.Event == 'aboutGroundingLog') {localVar = aboutGroundingLog;}
-    else if(data.Event == 'logout') {localVar = logout;}
+    if (data.Event == 'doLogin') {
+        localVar = login;
+    }
+    else if (data.Event == 'dashboard') {
+        localVar = dashboard;
+    }
+    else if (data.Event == 'contactUs') {
+        localVar = contactUs;
+    }
+    else if (data.Event == 'aboutUs') {
+        localVar = aboutUs;
+    }
+    else if (data.Event == 'aboutGroundingLog') {
+        localVar = aboutGroundingLog;
+    }
+    else if (data.Event == 'logout') {
+        localVar = logout;
+    }
     else {
         res.status(200).json({
             'status': false,
@@ -40,126 +56,114 @@ exports.create = function(req, res, next){
     })
 }
 
+// Review Create
+exports.reviewCreate = function (req, res, next) {
+    let data = req.body;
+    data.DateTime = new Date();
+    data.Active = 1;
+    console.log(data);
+
+    localVar = new review(data);
+    localVar.save(function (err) {
+        if (err) {
+            return next(err);
+        }
+        res.status(200).json({
+            'status': true,
+            'message': 'Successfully review created',
+            'result': localVar
+        })
+    })
+}
+// FeedBack Create
+exports.feedbackCreate = function (req, res, next) {
+    let data = req.body;
+    data.DateTime = new Date();
+    data.Active = 1;
+    console.log(data);
+
+    localVar = new feedback(data);
+    localVar.save(function (err) {
+        if (err) {
+            return next(err);
+        }
+        res.status(200).json({
+            'status': true,
+            'message': 'Successfully review created',
+            'result': localVar
+        })
+    })
+}
+
 // getAlllogin
-exports.getAllLogin = function(req, res, next){
-    login.find()
+exports.getAllReview = function (req, res, next) {
+    review.find()
         .sort({_id: 'desc'})
-        .exec(function(err, data){
-            if(err) res.send(err);
-            else
-                login.aggregate([
-                    {"$project":
-                        {
-                            _id: 0,
-                            'StudyCode': "$StudyCode",
-                            'Duration': "$Duration",
-                            'UserInitial': "$UserInitial",
-                            "datePartDay": {
-                                "$concat": [
-                                    {"$substr": [{"$dayOfMonth": "$DateTime"}, 0, 2]}, "-",
-                                    {"$substr": [{"$month": "$DateTime"}, 0, 2]}, "-",
-                                    {"$substr": [{"$year": "$DateTime"}, 0, 4]}
-                                ]
-                            },
-                        }
-                        },
-            {
-                "$group"
-            :
-                {
-                    _id:{ day:  "$datePartDay", UserInitial: "$UserInitial" , StudyCode : "$StudyCode" },
-                        totalAmount
-                :
-                    {
-                        $sum: "$Duration"
-                    }
-                ,
-                    count: {
-                        $sum: 1
-                    }
-                }
+        .exec(function (err, data) {
+            if (err) res.send(err);
+            else{
+                res.status(200).json({
+                    'status': true,
+                    'message': 'Success',
+                    'result': data,
+                })
             }
-        ])
-                    .exec(function(err, result){
-                        if(err) res.send(err);
-                        else
-                            console.log("tiem");
-                           var group =  result.map( (row) => {
-                                 var time = parseInt(parseInt(row.totalAmount)/(60)) + ":" + parseInt(parseInt(row.totalAmount)%60) + ':' + '00';
-                                 row.Time = time;
-                                 return row;
-                            });
-                            res.status(200).json({
-                                'status': true,
-                                'message': 'Success',
-                                'result': data,
-                                'Group': group,
-                            })
-                    })
         })
 }
 
-// getAllLoginUsByFilter
-exports.getAllLoginByFilter = function(req, res, next){
-    let From = req.body.FromDate;
-    let To = req.body.ToDate;
+// getAlllogin
+exports.getAllReviewByFilter = function (req, res, next) {
     let StudyCode = req.body.StudyCode;
     let UserInitial = req.body.UserInitial;
     var condition = {};
-    if(StudyCode != null || StudyCode != undefined){
+    if (StudyCode != null || StudyCode != undefined) {
         condition.StudyCode = {'$regex': StudyCode};
     }
-    if(UserInitial != null || UserInitial != undefined){
+    if (UserInitial != null || UserInitial != undefined) {
         condition.UserInitial = {'$regex': UserInitial};
     }
-    if(From != null || From != undefined){
-        condition.DateTime = {"$gte": new Date(From), "$lt": new Date(To)};
-    }
-    console.log(condition)
-    login.find(condition)
+    review.find(condition)
         .sort({_id: 'desc'})
-        .exec(function(err, data){
-            if(err) res.send(err);
+        .exec(function (err, data) {
+            if (err) res.send(err);
             else
                 res.status(200).json({
                     'status': true,
                     'message': 'Success',
-                    'result': data
+                    'result': data,
                 })
         })
 }
 
-
-// getAllDashboard
-exports.getAllDashboard = function(req, res, next){
-    dashboard.find()
+// getAlllogin
+exports.getAllLogin = function (req, res, next) {
+    login.find()
         .sort({_id: 'desc'})
-        .exec(function(err, data){
-            if(err) res.send(err);
+        .exec(function (err, data) {
+            if (err) res.send(err);
             else
-                dashboard.aggregate([
-                    {"$project":
-                        {
-                            _id: 0,
-                            'StudyCode': "$StudyCode",
-                            'Duration': "$Duration",
-                            'UserInitial': "$UserInitial",
-                            "datePartDay": {
-                                "$concat": [
-                                    {"$substr": [{"$dayOfMonth": "$DateTime"}, 0, 2]}, "-",
-                                    {"$substr": [{"$month": "$DateTime"}, 0, 2]}, "-",
-                                    {"$substr": [{"$year": "$DateTime"}, 0, 4]}
-                                ]
-                            },
-                        }
+                login.aggregate([
+                    {
+                        "$project":
+                            {
+                                _id: 0,
+                                'StudyCode': "$StudyCode",
+                                'Duration': "$Duration",
+                                'UserInitial': "$UserInitial",
+                                "datePartDay": {
+                                    "$concat": [
+                                        {"$substr": [{"$dayOfMonth": "$DateTime"}, 0, 2]}, "-",
+                                        {"$substr": [{"$month": "$DateTime"}, 0, 2]}, "-",
+                                        {"$substr": [{"$year": "$DateTime"}, 0, 4]}
+                                    ]
+                                },
+                            }
                     },
                     {
-                        "$group"
-                            :
+                        "$group":
                             {
-                                _id:{ day:  "$datePartDay", UserInitial: "$UserInitial" , StudyCode : "$StudyCode" },
-                                totalAmount
-                                    :
+                                _id: {day: "$datePartDay", UserInitial: "$UserInitial", StudyCode: "$StudyCode"},
+                                totalAmount:
                                     {
                                         $sum: "$Duration"
                                     }
@@ -170,14 +174,185 @@ exports.getAllDashboard = function(req, res, next){
                             }
                     }
                 ])
-                    .exec(function(err, result){
-                        if(err) res.send(err);
+                    .exec(function (err, result) {
+                        if (err) res.send(err);
                         else
-                        var group =  result.map( (row) => {
-                            var time = parseInt(parseInt(row.totalAmount)/(60)) + ":" + parseInt(parseInt(row.totalAmount)%60) + ':' + '00';
+                            console.log("tiem");
+                        var let = result.map((row) => {
+                            var hor = parseInt(parseInt(row.totalAmount) / (60));
+                            var h = hor.toString();
+                            if(h.length == 1){
+                                h = "0"+h;
+                            }
+                            var min = parseInt(parseInt(row.totalAmount) % 60);
+                            var m = min.toString();
+                            if(m.length == 1){
+                                m = "0"+m;
+                            }
+                            var time = h + ":" + m + ':' + '00';
                         row.Time = time;
                         return row;
-                    });
+                    })
+                        ;
+                        res.status(200).json({
+                            'status': true,
+                            'message': 'Success',
+                            'result': data,
+                            'Group': group,
+                        })
+                    })
+        })
+}
+
+// getAllLoginUsByFilter
+exports.getAllLoginByFilter = function (req, res, next) {
+    let From = req.body.FromDate;
+    let To = req.body.ToDate;
+    startDate = dateFormat(From, 'yyyy-mm-dd 00:00:00');
+    endDate = dateFormat(To, 'yyyy-mm-dd 23:59:59');
+    let StudyCode = req.body.StudyCode;
+    let UserInitial = req.body.UserInitial;
+    var condition = {};
+    if (StudyCode != null || StudyCode != undefined) {
+        condition.StudyCode = {'$regex': StudyCode};
+    }
+    if (UserInitial != null || UserInitial != undefined) {
+        condition.UserInitial = {'$regex': UserInitial};
+    }
+    if (From != null || From != undefined) {
+        condition.DateTime = {"$gte": new Date(startDate), "$lt": new Date(endDate)};
+    }
+    console.log(condition)
+    login.find(condition)
+        .sort({_id: 'desc'})
+        .exec(function (err, data) {
+            if (err) res.send(err);
+            else
+                login.aggregate([
+                    {
+                        "$match": condition
+                    },
+                    {
+                        "$project":
+                            {
+                                _id: 0,
+                                'StudyCode': "$StudyCode",
+                                'Duration': "$Duration",
+                                'UserInitial': "$UserInitial",
+                                'DateTime': "$DateTime",
+                                "datePartDay": {
+                                    "$concat": [
+                                        {"$substr": [{"$dayOfMonth": "$DateTime"}, 0, 2]}, "-",
+                                        {"$substr": [{"$month": "$DateTime"}, 0, 2]}, "-",
+                                        {"$substr": [{"$year": "$DateTime"}, 0, 4]}
+                                    ]
+                                },
+                            }
+                    },
+                    {
+                        "$group":
+                            {
+                                _id: {day: "$datePartDay", UserInitial: "$UserInitial", StudyCode: "$StudyCode"},
+                                totalAmount:
+                                    {
+                                        $sum: "$Duration"
+                                    }
+                                ,
+                                count: {
+                                    $sum: 1
+                                }
+                            }
+                    }
+                ])
+                    .exec(function (err, result) {
+                        if (err) res.send(err);
+                        else
+                            console.log("tiem");
+                        var group = result.map((row) => {
+                            var hor = parseInt(parseInt(row.totalAmount) / (60));
+                        var h = hor.toString();
+                        if(h.length == 1){
+                            h = "0"+h;
+                        }
+                        var min = parseInt(parseInt(row.totalAmount) % 60);
+                        var m = min.toString();
+                        if(m.length == 1){
+                            m = "0"+m;
+                        }
+                        var time = h + ":" + m + ':' + '00';
+                        row.Time = time;
+                        return row;
+                    })
+                        ;
+                        res.status(200).json({
+                            'status': true,
+                            'message': 'Success',
+                            'result': data,
+                            'Group': group,
+                        })
+                    })
+        })
+}
+
+
+// getAllDashboard
+exports.getAllDashboard = function (req, res, next) {
+    dashboard.find()
+        .sort({_id: 'desc'})
+        .exec(function (err, data) {
+            if (err) res.send(err);
+            else
+                dashboard.aggregate([
+                    {
+                        "$project":
+                            {
+                                _id: 0,
+                                'StudyCode': "$StudyCode",
+                                'Duration': "$Duration",
+                                'UserInitial': "$UserInitial",
+                                "datePartDay": {
+                                    "$concat": [
+                                        {"$substr": [{"$dayOfMonth": "$DateTime"}, 0, 2]}, "-",
+                                        {"$substr": [{"$month": "$DateTime"}, 0, 2]}, "-",
+                                        {"$substr": [{"$year": "$DateTime"}, 0, 4]}
+                                    ]
+                                },
+                            }
+                    },
+                    {
+                        "$group":
+                            {
+                                _id: {day: "$datePartDay", UserInitial: "$UserInitial", StudyCode: "$StudyCode"},
+                                totalAmount:
+                                    {
+                                        $sum: "$Duration"
+                                    }
+                                ,
+                                count: {
+                                    $sum: 1
+                                }
+                            }
+                    }
+                ])
+                    .exec(function (err, result) {
+                        if (err) res.send(err);
+                        else
+                            var group = result.map((row) => {
+                                var hor = parseInt(parseInt(row.totalAmount) / (60));
+                        var h = hor.toString();
+                        if(h.length == 1){
+                            h = "0"+h;
+                        }
+                        var min = parseInt(parseInt(row.totalAmount) % 60);
+                        var m = min.toString();
+                        if(m.length == 1){
+                            m = "0"+m;
+                        }
+                        var time = h + ":" + m + ':' + '00';
+                        row.Time = time;
+                        return row;
+                    })
+                        ;
                         res.status(200).json({
                             'status': true,
                             'message': 'Success',
@@ -190,65 +365,54 @@ exports.getAllDashboard = function(req, res, next){
 
 
 // getAllLoginUsByFilter
-exports.getAllDashboardByFilter = function(req, res, next){
+exports.getAllDashboardByFilter = function (req, res, next) {
     let From = req.body.FromDate;
     let To = req.body.ToDate;
+    startDate = dateFormat(From, 'yyyy-mm-dd 00:00:00');
+    endDate = dateFormat(To, 'yyyy-mm-dd 23:59:59');
     let StudyCode = req.body.StudyCode;
     let UserInitial = req.body.UserInitial;
     var condition = {};
-    if(StudyCode != null || StudyCode != undefined){
+    if (StudyCode != null || StudyCode != undefined) {
         condition.StudyCode = {'$regex': StudyCode};
     }
-    if(UserInitial != null || UserInitial != undefined){
+    if (UserInitial != null || UserInitial != undefined) {
         condition.UserInitial = {'$regex': UserInitial};
     }
-    if(From != null || From != undefined){
-        condition.DateTime = {"$gte": new Date(From), "$lt": new Date(To)};
+    if (From != null || From != undefined) {
+        condition.DateTime = {"$gte": new Date(startDate), "$lt": new Date(endDate)};
     }
     console.log(condition)
     dashboard.find(condition)
         .sort({_id: 'desc'})
-        .exec(function(err, data){
-            if(err) res.send(err);
+        .exec(function (err, data) {
+            if (err) res.send(err);
             else
-                res.status(200).json({
-                    'status': true,
-                    'message': 'Success',
-                    'result': data
-                })
-        })
-}
-
-// getAllContactUs
-exports.getAllContactUs = function(req, res, next){
-    contactUs.find()
-        .sort({_id: 'desc'})
-        .exec(function(err, data){
-            if(err) res.send(err);
-            else
-                contactUs.aggregate([
-                    {"$project":
-                        {
-                            _id: 0,
-                            'StudyCode': "$StudyCode",
-                            'Duration': "$Duration",
-                            'UserInitial': "$UserInitial",
-                            "datePartDay": {
-                                "$concat": [
-                                    {"$substr": [{"$dayOfMonth": "$DateTime"}, 0, 2]}, "-",
-                                    {"$substr": [{"$month": "$DateTime"}, 0, 2]}, "-",
-                                    {"$substr": [{"$year": "$DateTime"}, 0, 4]}
-                                ]
-                            },
-                        }
+                dashboard.aggregate([
+                    {
+                        "$match": condition
                     },
                     {
-                        "$group"
-                            :
+                        "$project":
                             {
-                                _id:{ day:  "$datePartDay", UserInitial: "$UserInitial" , StudyCode : "$StudyCode" },
-                                totalAmount
-                                    :
+                                _id: 0,
+                                'StudyCode': "$StudyCode",
+                                'Duration': "$Duration",
+                                'UserInitial': "$UserInitial",
+                                "datePartDay": {
+                                    "$concat": [
+                                        {"$substr": [{"$dayOfMonth": "$DateTime"}, 0, 2]}, "-",
+                                        {"$substr": [{"$month": "$DateTime"}, 0, 2]}, "-",
+                                        {"$substr": [{"$year": "$DateTime"}, 0, 4]}
+                                    ]
+                                },
+                            }
+                    },
+                    {
+                        "$group":
+                            {
+                                _id: {day: "$datePartDay", UserInitial: "$UserInitial", StudyCode: "$StudyCode"},
+                                totalAmount:
                                     {
                                         $sum: "$Duration"
                                     }
@@ -259,14 +423,94 @@ exports.getAllContactUs = function(req, res, next){
                             }
                     }
                 ])
-                    .exec(function(err, result){
-                        if(err) res.send(err);
+                    .exec(function (err, result) {
+                        if (err) res.send(err);
                         else
-                            var group =  result.map( (row) => {
-                                var time = parseInt(parseInt(row.totalAmount)/(60)) + ":" + parseInt(parseInt(row.totalAmount)%60) + ':' + '00';
+                            console.log("tiem");
+                        var group = result.map((row) => {
+                            var hor = parseInt(parseInt(row.totalAmount) / (60));
+                        var h = hor.toString();
+                        if(h.length == 1){
+                            h = "0"+h;
+                        }
+                        var min = parseInt(parseInt(row.totalAmount) % 60);
+                        var m = min.toString();
+                        if(m.length == 1){
+                            m = "0"+m;
+                        }
+                        var time = h + ":" + m + ':' + '00';
                         row.Time = time;
                         return row;
-                    });
+                    })
+                        ;
+                        res.status(200).json({
+                            'status': true,
+                            'message': 'Success',
+                            'result': data,
+                            'Group': group,
+                        })
+                    })
+        })
+}
+
+// getAllContactUs
+exports.getAllContactUs = function (req, res, next) {
+    contactUs.find()
+        .sort({_id: 'desc'})
+        .exec(function (err, data) {
+            if (err) res.send(err);
+            else
+                contactUs.aggregate([
+                    {
+                        "$project":
+                            {
+                                _id: 0,
+                                'StudyCode': "$StudyCode",
+                                'Duration': "$Duration",
+                                'UserInitial': "$UserInitial",
+                                "datePartDay": {
+                                    "$concat": [
+                                        {"$substr": [{"$dayOfMonth": "$DateTime"}, 0, 2]}, "-",
+                                        {"$substr": [{"$month": "$DateTime"}, 0, 2]}, "-",
+                                        {"$substr": [{"$year": "$DateTime"}, 0, 4]}
+                                    ]
+                                },
+                            }
+                    },
+                    {
+                        "$group":
+                            {
+                                _id: {day: "$datePartDay", UserInitial: "$UserInitial", StudyCode: "$StudyCode"},
+                                totalAmount:
+                                    {
+                                        $sum: "$Duration"
+                                    }
+                                ,
+                                count: {
+                                    $sum: 1
+                                }
+                            }
+                    }
+                ])
+                    .exec(function (err, result) {
+                        if (err) res.send(err);
+                        else
+                            var group = result.map((row) => {
+                                var hor = parseInt(parseInt(row.totalAmount) / (60));
+                        var h = hor.toString();
+                        if(h.length == 1){
+                            h = "0"+h;
+                        }
+                        var min = parseInt(parseInt(row.totalAmount) % 60);
+                        var m = min.toString();
+                        if(m.length == 1){
+                            m = "0"+m;
+                        }
+                        var time = h + ":" + m + ':' + '00';
+                        row.Time = time;
+                        return row;
+                    })
+                        ;
                         res.status(200).json({
                             'status': true,
                             'message': 'Success',
@@ -279,65 +523,54 @@ exports.getAllContactUs = function(req, res, next){
 
 
 // getAllContactUsByFilter
-exports.getAllContactUsByFilter = function(req, res, next){
+exports.getAllContactUsByFilter = function (req, res, next) {
     let From = req.body.FromDate;
     let To = req.body.ToDate;
+    startDate = dateFormat(From, 'yyyy-mm-dd 00:00:00');
+    endDate = dateFormat(To, 'yyyy-mm-dd 23:59:59');
     let StudyCode = req.body.StudyCode;
     let UserInitial = req.body.UserInitial;
     var condition = {};
-    if(StudyCode != null || StudyCode != undefined){
+    if (StudyCode != null || StudyCode != undefined) {
         condition.StudyCode = {'$regex': StudyCode};
     }
-    if(UserInitial != null || UserInitial != undefined){
+    if (UserInitial != null || UserInitial != undefined) {
         condition.UserInitial = {'$regex': UserInitial};
     }
-    if(From != null || From != undefined){
-        condition.DateTime = {"$gte": new Date(From), "$lt": new Date(To)};
+    if (From != null || From != undefined) {
+        condition.DateTime = {"$gte": new Date(startDate), "$lt": new Date(endDate)};
     }
     console.log(condition)
     contactUs.find(condition)
         .sort({_id: 'desc'})
-        .exec(function(err, data){
-            if(err) res.send(err);
+        .exec(function (err, data) {
+            if (err) res.send(err);
             else
-                res.status(200).json({
-                    'status': true,
-                    'message': 'Success',
-                    'result': data
-                })
-        })
-}
-
-// getAllAboutUs
-exports.getAllAboutUs = function(req, res, next){
-    aboutUs.find()
-        .sort({_id: 'desc'})
-        .exec(function(err, data){
-            if(err) res.send(err);
-            else
-                aboutUs.aggregate([
-                    {"$project":
-                        {
-                            _id: 0,
-                            'StudyCode': "$StudyCode",
-                            'Duration': "$Duration",
-                            'UserInitial': "$UserInitial",
-                            "datePartDay": {
-                                "$concat": [
-                                    {"$substr": [{"$dayOfMonth": "$DateTime"}, 0, 2]}, "-",
-                                    {"$substr": [{"$month": "$DateTime"}, 0, 2]}, "-",
-                                    {"$substr": [{"$year": "$DateTime"}, 0, 4]}
-                                ]
-                            },
-                        }
+                contactUs.aggregate([
+                    {
+                        "$match": condition
                     },
                     {
-                        "$group"
-                            :
+                        "$project":
                             {
-                                _id:{ day:  "$datePartDay", UserInitial: "$UserInitial" , StudyCode : "$StudyCode" },
-                                totalAmount
-                                    :
+                                _id: 0,
+                                'StudyCode': "$StudyCode",
+                                'Duration': "$Duration",
+                                'UserInitial': "$UserInitial",
+                                "datePartDay": {
+                                    "$concat": [
+                                        {"$substr": [{"$dayOfMonth": "$DateTime"}, 0, 2]}, "-",
+                                        {"$substr": [{"$month": "$DateTime"}, 0, 2]}, "-",
+                                        {"$substr": [{"$year": "$DateTime"}, 0, 4]}
+                                    ]
+                                },
+                            }
+                    },
+                    {
+                        "$group":
+                            {
+                                _id: {day: "$datePartDay", UserInitial: "$UserInitial", StudyCode: "$StudyCode"},
+                                totalAmount:
                                     {
                                         $sum: "$Duration"
                                     }
@@ -348,14 +581,94 @@ exports.getAllAboutUs = function(req, res, next){
                             }
                     }
                 ])
-                    .exec(function(err, result){
-                        if(err) res.send(err);
+                    .exec(function (err, result) {
+                        if (err) res.send(err);
                         else
-                            var group =  result.map( (row) => {
-                                var time = parseInt(parseInt(row.totalAmount)/(60)) + ":" + parseInt(parseInt(row.totalAmount)%60) + ':' + '00';
+                            console.log("tiem");
+                        var group = result.map((row) => {
+                            var hor = parseInt(parseInt(row.totalAmount) / (60));
+                        var h = hor.toString();
+                        if(h.length == 1){
+                            h = "0"+h;
+                        }
+                        var min = parseInt(parseInt(row.totalAmount) % 60);
+                        var m = min.toString();
+                        if(m.length == 1){
+                            m = "0"+m;
+                        }
+                        var time = h + ":" + m + ':' + '00';
                         row.Time = time;
                         return row;
-                    });
+                    })
+                        ;
+                        res.status(200).json({
+                            'status': true,
+                            'message': 'Success',
+                            'result': data,
+                            'Group': group,
+                        })
+                    })
+        })
+}
+
+// getAllAboutUs
+exports.getAllAboutUs = function (req, res, next) {
+    aboutUs.find()
+        .sort({_id: 'desc'})
+        .exec(function (err, data) {
+            if (err) res.send(err);
+            else
+                aboutUs.aggregate([
+                    {
+                        "$project":
+                            {
+                                _id: 0,
+                                'StudyCode': "$StudyCode",
+                                'Duration': "$Duration",
+                                'UserInitial': "$UserInitial",
+                                "datePartDay": {
+                                    "$concat": [
+                                        {"$substr": [{"$dayOfMonth": "$DateTime"}, 0, 2]}, "-",
+                                        {"$substr": [{"$month": "$DateTime"}, 0, 2]}, "-",
+                                        {"$substr": [{"$year": "$DateTime"}, 0, 4]}
+                                    ]
+                                },
+                            }
+                    },
+                    {
+                        "$group":
+                            {
+                                _id: {day: "$datePartDay", UserInitial: "$UserInitial", StudyCode: "$StudyCode"},
+                                totalAmount:
+                                    {
+                                        $sum: "$Duration"
+                                    }
+                                ,
+                                count: {
+                                    $sum: 1
+                                }
+                            }
+                    }
+                ])
+                    .exec(function (err, result) {
+                        if (err) res.send(err);
+                        else
+                            var group = result.map((row) => {
+                                var hor = parseInt(parseInt(row.totalAmount) / (60));
+                        var h = hor.toString();
+                        if(h.length == 1){
+                            h = "0"+h;
+                        }
+                        var min = parseInt(parseInt(row.totalAmount) % 60);
+                        var m = min.toString();
+                        if(m.length == 1){
+                            m = "0"+m;
+                        }
+                        var time = h + ":" + m + ':' + '00';
+                        row.Time = time;
+                        return row;
+                    })
+                        ;
                         res.status(200).json({
                             'status': true,
                             'message': 'Success',
@@ -367,65 +680,54 @@ exports.getAllAboutUs = function(req, res, next){
 }
 
 // getAllAboutUsByDate
-exports.getAllAboutUsByFilter = function(req, res, next){
+exports.getAllAboutUsByFilter = function (req, res, next) {
     let From = req.body.FromDate;
     let To = req.body.ToDate;
+    startDate = dateFormat(From, 'yyyy-mm-dd 00:00:00');
+    endDate = dateFormat(To, 'yyyy-mm-dd 23:59:59');
     let StudyCode = req.body.StudyCode;
     let UserInitial = req.body.UserInitial;
     var condition = {};
-    if(StudyCode != null || StudyCode != undefined){
+    if (StudyCode != null || StudyCode != undefined) {
         condition.StudyCode = {'$regex': StudyCode};
     }
-    if(UserInitial != null || UserInitial != undefined){
+    if (UserInitial != null || UserInitial != undefined) {
         condition.UserInitial = {'$regex': UserInitial};
     }
-    if(From != null || From != undefined){
-        condition.DateTime = {"$gte": new Date(From), "$lt": new Date(To)};
+    if (From != null || From != undefined) {
+        condition.DateTime = {"$gte": new Date(startDate), "$lt": new Date(endDate)};
     }
     console.log(condition)
     aboutUs.find(condition)
         .sort({_id: 'desc'})
-        .exec(function(err, data){
-            if(err) res.send(err);
+        .exec(function (err, data) {
+            if (err) res.send(err);
             else
-                res.status(200).json({
-                    'status': true,
-                    'message': 'Success',
-                    'result': data
-                })
-        })
-}
-
-// getAllAboutGroundingLog
-exports.getAllAboutGroundingLog = function(req, res, next){
-    aboutGroundingLog.find()
-        .sort({_id: 'desc'})
-        .exec(function(err, data){
-            if(err) res.send(err);
-            else
-                aboutGroundingLog.aggregate([
-                    {"$project":
-                        {
-                            _id: 0,
-                            'StudyCode': "$StudyCode",
-                            'Duration': "$Duration",
-                            'UserInitial': "$UserInitial",
-                            "datePartDay": {
-                                "$concat": [
-                                    {"$substr": [{"$dayOfMonth": "$DateTime"}, 0, 2]}, "-",
-                                    {"$substr": [{"$month": "$DateTime"}, 0, 2]}, "-",
-                                    {"$substr": [{"$year": "$DateTime"}, 0, 4]}
-                                ]
-                            },
-                        }
+                aboutUs.aggregate([
+                    {
+                        "$match": condition
                     },
                     {
-                        "$group"
-                            :
+                        "$project":
                             {
-                                _id:{ day:  "$datePartDay", UserInitial: "$UserInitial" , StudyCode : "$StudyCode" },
-                                totalAmount
-                                    :
+                                _id: 0,
+                                'StudyCode': "$StudyCode",
+                                'Duration': "$Duration",
+                                'UserInitial': "$UserInitial",
+                                "datePartDay": {
+                                    "$concat": [
+                                        {"$substr": [{"$dayOfMonth": "$DateTime"}, 0, 2]}, "-",
+                                        {"$substr": [{"$month": "$DateTime"}, 0, 2]}, "-",
+                                        {"$substr": [{"$year": "$DateTime"}, 0, 4]}
+                                    ]
+                                },
+                            }
+                    },
+                    {
+                        "$group":
+                            {
+                                _id: {day: "$datePartDay", UserInitial: "$UserInitial", StudyCode: "$StudyCode"},
+                                totalAmount:
                                     {
                                         $sum: "$Duration"
                                     }
@@ -436,14 +738,94 @@ exports.getAllAboutGroundingLog = function(req, res, next){
                             }
                     }
                 ])
-                    .exec(function(err, result){
-                        if(err) res.send(err);
+                    .exec(function (err, result) {
+                        if (err) res.send(err);
                         else
-                            var group =  result.map( (row) => {
-                                var time = parseInt(parseInt(row.totalAmount)/(60)) + ":" + parseInt(parseInt(row.totalAmount)%60) + ':' + '00';
+                            console.log("tiem");
+                        var group = result.map((row) => {
+                            var hor = parseInt(parseInt(row.totalAmount) / (60));
+                        var h = hor.toString();
+                        if(h.length == 1){
+                            h = "0"+h;
+                        }
+                        var min = parseInt(parseInt(row.totalAmount) % 60);
+                        var m = min.toString();
+                        if(m.length == 1){
+                            m = "0"+m;
+                        }
+                        var time = h + ":" + m + ':' + '00';
                         row.Time = time;
                         return row;
-                    });
+                    })
+                        ;
+                        res.status(200).json({
+                            'status': true,
+                            'message': 'Success',
+                            'result': data,
+                            'Group': group,
+                        })
+                    })
+        })
+}
+
+// getAllAboutGroundingLog
+exports.getAllAboutGroundingLog = function (req, res, next) {
+    aboutGroundingLog.find()
+        .sort({_id: 'desc'})
+        .exec(function (err, data) {
+            if (err) res.send(err);
+            else
+                aboutGroundingLog.aggregate([
+                    {
+                        "$project":
+                            {
+                                _id: 0,
+                                'StudyCode': "$StudyCode",
+                                'Duration': "$Duration",
+                                'UserInitial': "$UserInitial",
+                                "datePartDay": {
+                                    "$concat": [
+                                        {"$substr": [{"$dayOfMonth": "$DateTime"}, 0, 2]}, "-",
+                                        {"$substr": [{"$month": "$DateTime"}, 0, 2]}, "-",
+                                        {"$substr": [{"$year": "$DateTime"}, 0, 4]}
+                                    ]
+                                },
+                            }
+                    },
+                    {
+                        "$group":
+                            {
+                                _id: {day: "$datePartDay", UserInitial: "$UserInitial", StudyCode: "$StudyCode"},
+                                totalAmount:
+                                    {
+                                        $sum: "$Duration"
+                                    }
+                                ,
+                                count: {
+                                    $sum: 1
+                                }
+                            }
+                    }
+                ])
+                    .exec(function (err, result) {
+                        if (err) res.send(err);
+                        else
+                            var group = result.map((row) => {
+                                var hor = parseInt(parseInt(row.totalAmount) / (60));
+                        var h = hor.toString();
+                        if(h.length == 1){
+                            h = "0"+h;
+                        }
+                        var min = parseInt(parseInt(row.totalAmount) % 60);
+                        var m = min.toString();
+                        if(m.length == 1){
+                            m = "0"+m;
+                        }
+                        var time = h + ":" + m + ':' + '00';
+                        row.Time = time;
+                        return row;
+                    })
+                        ;
                         res.status(200).json({
                             'status': true,
                             'message': 'Success',
@@ -456,65 +838,54 @@ exports.getAllAboutGroundingLog = function(req, res, next){
 
 
 // getAllAboutGroundingLogByFilter
-exports.getAllAboutGroungingLogByFilter = function(req, res, next){
+exports.getAllAboutGroungingLogByFilter = function (req, res, next) {
     let From = req.body.FromDate;
     let To = req.body.ToDate;
+    startDate = dateFormat(From, 'yyyy-mm-dd 00:00:00');
+    endDate = dateFormat(To, 'yyyy-mm-dd 23:59:59');
     let StudyCode = req.body.StudyCode;
     let UserInitial = req.body.UserInitial;
     var condition = {};
-    if(StudyCode != null || StudyCode != undefined){
+    if (StudyCode != null || StudyCode != undefined) {
         condition.StudyCode = {'$regex': StudyCode};
     }
-    if(UserInitial != null || UserInitial != undefined){
+    if (UserInitial != null || UserInitial != undefined) {
         condition.UserInitial = {'$regex': UserInitial};
     }
-    if(From != null || From != undefined){
-        condition.DateTime = {"$gte": new Date(From), "$lt": new Date(To)};
+    if (From != null || From != undefined) {
+        condition.DateTime = {"$gte": new Date(startDate), "$lt": new Date(endDate)};
     }
     console.log(condition)
     aboutGroundingLog.find(condition)
         .sort({_id: 'desc'})
-        .exec(function(err, data){
-            if(err) res.send(err);
+        .exec(function (err, data) {
+            if (err) res.send(err);
             else
-                res.status(200).json({
-                    'status': true,
-                    'message': 'Success',
-                    'result': data
-                })
-        })
-}
-
-// getAllPdf
-exports.getAllPdf = function(req, res, next){
-    pdf.find()
-        .sort({_id: 'desc'})
-        .exec(function(err, data){
-            if(err) res.send(err);
-            else
-                pdf.aggregate([
-                    {"$project":
-                        {
-                            _id: 0,
-                            'StudyCode': "$StudyCode",
-                            'Duration': "$Duration",
-                            'UserInitial': "$UserInitial",
-                            "datePartDay": {
-                                "$concat": [
-                                    {"$substr": [{"$dayOfMonth": "$DateTime"}, 0, 2]}, "-",
-                                    {"$substr": [{"$month": "$DateTime"}, 0, 2]}, "-",
-                                    {"$substr": [{"$year": "$DateTime"}, 0, 4]}
-                                ]
-                            },
-                        }
+                aboutGroundingLog.aggregate([
+                    {
+                        "$match": condition
                     },
                     {
-                        "$group"
-                            :
+                        "$project":
                             {
-                                _id:{ day:  "$datePartDay", UserInitial: "$UserInitial" , StudyCode : "$StudyCode" },
-                                totalAmount
-                                    :
+                                _id: 0,
+                                'StudyCode': "$StudyCode",
+                                'Duration': "$Duration",
+                                'UserInitial': "$UserInitial",
+                                "datePartDay": {
+                                    "$concat": [
+                                        {"$substr": [{"$dayOfMonth": "$DateTime"}, 0, 2]}, "-",
+                                        {"$substr": [{"$month": "$DateTime"}, 0, 2]}, "-",
+                                        {"$substr": [{"$year": "$DateTime"}, 0, 4]}
+                                    ]
+                                },
+                            }
+                    },
+                    {
+                        "$group":
+                            {
+                                _id: {day: "$datePartDay", UserInitial: "$UserInitial", StudyCode: "$StudyCode"},
+                                totalAmount:
                                     {
                                         $sum: "$Duration"
                                     }
@@ -525,14 +896,94 @@ exports.getAllPdf = function(req, res, next){
                             }
                     }
                 ])
-                    .exec(function(err, result){
-                        if(err) res.send(err);
+                    .exec(function (err, result) {
+                        if (err) res.send(err);
                         else
-                            var group =  result.map( (row) => {
-                                var time = parseInt(parseInt(row.totalAmount)/(60)) + ":" + parseInt(parseInt(row.totalAmount)%60) + ':' + '00';
+                            console.log("tiem");
+                        var group = result.map((row) => {
+                            var hor = parseInt(parseInt(row.totalAmount) / (60));
+                        var h = hor.toString();
+                        if(h.length == 1){
+                            h = "0"+h;
+                        }
+                        var min = parseInt(parseInt(row.totalAmount) % 60);
+                        var m = min.toString();
+                        if(m.length == 1){
+                            m = "0"+m;
+                        }
+                        var time = h + ":" + m + ':' + '00';
                         row.Time = time;
                         return row;
-                    });
+                    })
+                        ;
+                        res.status(200).json({
+                            'status': true,
+                            'message': 'Success',
+                            'result': data,
+                            'Group': group,
+                        })
+                    })
+        })
+}
+
+// getAllPdf
+exports.getAllPdf = function (req, res, next) {
+    pdf.find()
+        .sort({_id: 'desc'})
+        .exec(function (err, data) {
+            if (err) res.send(err);
+            else
+                pdf.aggregate([
+                    {
+                        "$project":
+                            {
+                                _id: 0,
+                                'StudyCode': "$StudyCode",
+                                'Duration': "$Duration",
+                                'UserInitial': "$UserInitial",
+                                "datePartDay": {
+                                    "$concat": [
+                                        {"$substr": [{"$dayOfMonth": "$DateTime"}, 0, 2]}, "-",
+                                        {"$substr": [{"$month": "$DateTime"}, 0, 2]}, "-",
+                                        {"$substr": [{"$year": "$DateTime"}, 0, 4]}
+                                    ]
+                                },
+                            }
+                    },
+                    {
+                        "$group":
+                            {
+                                _id: {day: "$datePartDay", UserInitial: "$UserInitial", StudyCode: "$StudyCode"},
+                                totalAmount:
+                                    {
+                                        $sum: "$Duration"
+                                    }
+                                ,
+                                count: {
+                                    $sum: 1
+                                }
+                            }
+                    }
+                ])
+                    .exec(function (err, result) {
+                        if (err) res.send(err);
+                        else
+                            var group = result.map((row) => {
+                                var hor = parseInt(parseInt(row.totalAmount) / (60));
+                        var h = hor.toString();
+                        if(h.length == 1){
+                            h = "0"+h;
+                        }
+                        var min = parseInt(parseInt(row.totalAmount) % 60);
+                        var m = min.toString();
+                        if(m.length == 1){
+                            m = "0"+m;
+                        }
+                        var time = h + ":" + m + ':' + '00';
+                        row.Time = time;
+                        return row;
+                    })
+                        ;
                         res.status(200).json({
                             'status': true,
                             'message': 'Success',
@@ -544,66 +995,54 @@ exports.getAllPdf = function(req, res, next){
 }
 
 // getAllPdfByFilter
-exports.getAllPdfByFilter = function(req, res, next){
+exports.getAllPdfByFilter = function (req, res, next) {
     let From = req.body.FromDate;
     let To = req.body.ToDate;
+    startDate = dateFormat(From, 'yyyy-mm-dd 00:00:00');
+    endDate = dateFormat(To, 'yyyy-mm-dd 23:59:59');
     let StudyCode = req.body.StudyCode;
     let UserInitial = req.body.UserInitial;
     var condition = {};
-    if(StudyCode != null || StudyCode != undefined){
+    if (StudyCode != null || StudyCode != undefined) {
         condition.StudyCode = {'$regex': StudyCode};
     }
-    if(UserInitial != null || UserInitial != undefined){
+    if (UserInitial != null || UserInitial != undefined) {
         condition.UserInitial = {'$regex': UserInitial};
     }
-    if(From != null || From != undefined){
-        condition.DateTime = {"$gte": new Date(From), "$lt": new Date(To)};
+    if (From != null || From != undefined) {
+        condition.DateTime = {"$gte": new Date(startDate), "$lt": new Date(endDate)};
     }
     console.log(condition)
     pdf.find(condition)
         .sort({_id: 'desc'})
-        .exec(function(err, data){
-            if(err) res.send(err);
+        .exec(function (err, data) {
+            if (err) res.send(err);
             else
-                res.status(200).json({
-                    'status': true,
-                    'message': 'Success',
-                    'result': data
-                })
-        })
-}
-
-
-// getAlllogout
-exports.getAllLogout = function(req, res, next){
-    logout.find()
-        .sort({_id: 'desc'})
-        .exec(function(err, data){
-            if(err) res.send(err);
-            else
-                logout.aggregate([
-                    {"$project":
-                        {
-                            _id: 0,
-                            'StudyCode': "$StudyCode",
-                            'Duration': "$Duration",
-                            'UserInitial': "$UserInitial",
-                            "datePartDay": {
-                                "$concat": [
-                                    {"$substr": [{"$dayOfMonth": "$DateTime"}, 0, 2]}, "-",
-                                    {"$substr": [{"$month": "$DateTime"}, 0, 2]}, "-",
-                                    {"$substr": [{"$year": "$DateTime"}, 0, 4]}
-                                ]
-                            },
-                        }
+                pdf.aggregate([
+                    {
+                        "$match": condition
                     },
                     {
-                        "$group"
-                            :
+                        "$project":
                             {
-                                _id:{ day:  "$datePartDay", UserInitial: "$UserInitial" , StudyCode : "$StudyCode" },
-                                totalAmount
-                                    :
+                                _id: 0,
+                                'StudyCode': "$StudyCode",
+                                'Duration': "$Duration",
+                                'UserInitial': "$UserInitial",
+                                "datePartDay": {
+                                    "$concat": [
+                                        {"$substr": [{"$dayOfMonth": "$DateTime"}, 0, 2]}, "-",
+                                        {"$substr": [{"$month": "$DateTime"}, 0, 2]}, "-",
+                                        {"$substr": [{"$year": "$DateTime"}, 0, 4]}
+                                    ]
+                                },
+                            }
+                    },
+                    {
+                        "$group":
+                            {
+                                _id: {day: "$datePartDay", UserInitial: "$UserInitial", StudyCode: "$StudyCode"},
+                                totalAmount:
                                     {
                                         $sum: "$Duration"
                                     }
@@ -614,14 +1053,95 @@ exports.getAllLogout = function(req, res, next){
                             }
                     }
                 ])
-                    .exec(function(err, result){
-                        if(err) res.send(err);
+                    .exec(function (err, result) {
+                        if (err) res.send(err);
                         else
-                            var group =  result.map( (row) => {
-                                var time = parseInt(parseInt(row.totalAmount)/(60)) + ":" + parseInt(parseInt(row.totalAmount)%60) + ':' + '00';
+                            console.log("tiem");
+                        var group = result.map((row) => {
+                            var hor = parseInt(parseInt(row.totalAmount) / (60));
+                        var h = hor.toString();
+                        if(h.length == 1){
+                            h = "0"+h;
+                        }
+                        var min = parseInt(parseInt(row.totalAmount) % 60);
+                        var m = min.toString();
+                        if(m.length == 1){
+                            m = "0"+m;
+                        }
+                        var time = h + ":" + m + ':' + '00';
                         row.Time = time;
                         return row;
-                    });
+                    })
+                        ;
+                        res.status(200).json({
+                            'status': true,
+                            'message': 'Success',
+                            'result': data,
+                            'Group': group,
+                        })
+                    })
+        })
+}
+
+
+// getAlllogout
+exports.getAllLogout = function (req, res, next) {
+    logout.find()
+        .sort({_id: 'desc'})
+        .exec(function (err, data) {
+            if (err) res.send(err);
+            else
+                logout.aggregate([
+                    {
+                        "$project":
+                            {
+                                _id: 0,
+                                'StudyCode': "$StudyCode",
+                                'Duration': "$Duration",
+                                'UserInitial': "$UserInitial",
+                                "datePartDay": {
+                                    "$concat": [
+                                        {"$substr": [{"$dayOfMonth": "$DateTime"}, 0, 2]}, "-",
+                                        {"$substr": [{"$month": "$DateTime"}, 0, 2]}, "-",
+                                        {"$substr": [{"$year": "$DateTime"}, 0, 4]}
+                                    ]
+                                },
+                            }
+                    },
+                    {
+                        "$group":
+                            {
+                                _id: {day: "$datePartDay", UserInitial: "$UserInitial", StudyCode: "$StudyCode"},
+                                totalAmount:
+                                    {
+                                        $sum: "$Duration"
+                                    }
+                                ,
+                                count: {
+                                    $sum: 1
+                                }
+                            }
+                    }
+                ])
+                    .exec(function (err, result) {
+                        if (err) res.send(err);
+                        else
+                            var group = result.map((row) => {
+                                var hor = parseInt(parseInt(row.totalAmount) / (60));
+                        var h = hor.toString();
+                        if(h.length == 1){
+                            h = "0"+h;
+                        }
+                        var min = parseInt(parseInt(row.totalAmount) % 60);
+                        var m = min.toString();
+                        if(m.length == 1){
+                            m = "0"+m;
+                        }
+                        var time = h + ":" + m + ':' + '00';
+                        row.Time = time;
+                        return row;
+                    })
+                        ;
                         res.status(200).json({
                             'status': true,
                             'message': 'Success',
@@ -633,32 +1153,91 @@ exports.getAllLogout = function(req, res, next){
 }
 
 // getAllLogoutByFilter
-exports.getAllLogoutByFilter = function(req, res, next){
+exports.getAllLogoutByFilter = function (req, res, next) {
     let From = req.body.FromDate;
     let To = req.body.ToDate;
+    startDate = dateFormat(From, 'yyyy-mm-dd 00:00:00');
+    endDate = dateFormat(To, 'yyyy-mm-dd 23:59:59');
     let StudyCode = req.body.StudyCode;
     let UserInitial = req.body.UserInitial;
     var condition = {};
-    if(StudyCode != null || StudyCode != undefined){
+    if (StudyCode != null || StudyCode != undefined) {
         condition.StudyCode = {'$regex': StudyCode};
     }
-    if(UserInitial != null || UserInitial != undefined){
+    if (UserInitial != null || UserInitial != undefined) {
         condition.UserInitial = {'$regex': UserInitial};
     }
-    if(From != null || From != undefined){
-        condition.DateTime = {"$gte": new Date(From), "$lt": new Date(To)};
+    if (From != null || From != undefined) {
+        condition.DateTime = {"$gte": new Date(startDate), "$lt": new Date(endDate)};
     }
     console.log(condition)
     logout.find(condition)
         .sort({_id: 'desc'})
-        .exec(function(err, data){
-            if(err) res.send(err);
+        .exec(function (err, data) {
+            if (err) res.send(err);
             else
-                res.status(200).json({
-                    'status': true,
-                    'message': 'Success',
-                    'result': data
-                })
+                logout.aggregate([
+                    {
+                        "$match": condition
+                    },
+                    {
+                        "$project":
+                            {
+                                _id: 0,
+                                'StudyCode': "$StudyCode",
+                                'Duration': "$Duration",
+                                'UserInitial': "$UserInitial",
+                                "datePartDay": {
+                                    "$concat": [
+                                        {"$substr": [{"$dayOfMonth": "$DateTime"}, 0, 2]}, "-",
+                                        {"$substr": [{"$month": "$DateTime"}, 0, 2]}, "-",
+                                        {"$substr": [{"$year": "$DateTime"}, 0, 4]}
+                                    ]
+                                },
+                            }
+                    },
+                    {
+                        "$group":
+                            {
+                                _id: {day: "$datePartDay", UserInitial: "$UserInitial", StudyCode: "$StudyCode"},
+                                totalAmount:
+                                    {
+                                        $sum: "$Duration"
+                                    }
+                                ,
+                                count: {
+                                    $sum: 1
+                                }
+                            }
+                    }
+                ])
+                    .exec(function (err, result) {
+                        if (err) res.send(err);
+                        else
+                            console.log("tiem");
+                        var group = result.map((row) => {
+                            var hor = parseInt(parseInt(row.totalAmount) / (60));
+                        var h = hor.toString();
+                        if(h.length == 1){
+                            h = "0"+h;
+                        }
+                        var min = parseInt(parseInt(row.totalAmount) % 60);
+                        var m = min.toString();
+                        if(m.length == 1){
+                            m = "0"+m;
+                        }
+                        var time = h + ":" + m + ':' + '00';
+                        row.Time = time;
+                        return row;
+                    })
+                        ;
+                        res.status(200).json({
+                            'status': true,
+                            'message': 'Success',
+                            'result': data,
+                            'Group': group,
+                        })
+                    })
         })
 }
 

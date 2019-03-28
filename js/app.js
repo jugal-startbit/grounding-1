@@ -234,7 +234,7 @@
         }
       });
 
-      xhr.open("POST", "https://grounding.herokuapp.com/API/eventLogCreate");
+      xhr.open("POST", "http://facing-forward.org:8080/API/eventLogCreate");
       xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
       xhr.setRequestHeader("cache-control", "no-cache");
       xhr.setRequestHeader("Postman-Token", "a5a1754d-842e-46d6-88f1-478c94bdf132");
@@ -275,7 +275,7 @@
         }
       });
 
-      xhr.open("POST", "https://grounding.herokuapp.com/API/eventLogCreate");
+      xhr.open("POST", "http://facing-forward.org:8080/API/eventLogCreate");
       xhr.withCredentials = false;
       xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
       xhr.setRequestHeader("cache-control", "no-cache");
@@ -342,7 +342,7 @@
         }
       });
 
-      xhr.open("POST", "https://grounding.herokuapp.com/API/eventLogCreate");
+      xhr.open("POST", "http://facing-forward.org:8080/API/eventLogCreate");
       xhr.withCredentials = false;
       xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
       xhr.setRequestHeader("cache-control", "no-cache");
@@ -395,7 +395,7 @@
         }
       });
 
-      xhr.open("POST", "https://grounding.herokuapp.com/reviewCreate");
+      xhr.open("POST", "http://facing-forward.org:8080/reviewCreate");
       xhr.withCredentials = false;
       xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
       xhr.setRequestHeader("cache-control", "no-cache");
@@ -507,7 +507,7 @@
     //         }
     //       });
 
-    //       xhr.open("POST", "https://grounding.herokuapp.com/API/eventLogCreate");
+    //       xhr.open("POST", "http://facing-forward.org:8080/API/eventLogCreate");
     //       xhr.withCredentials = false;
     //       xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
     //       xhr.setRequestHeader("cache-control", "no-cache");

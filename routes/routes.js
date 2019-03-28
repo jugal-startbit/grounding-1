@@ -5,6 +5,12 @@ var router = express.Router();
 var eventLogCtrl = require('../controller/eventLog.controller');
 
 router.post('/eventLog/create', eventLogCtrl.create);
+router.post('/reviewCreate', eventLogCtrl.reviewCreate);
+router.post('/feedbackCreate', eventLogCtrl.feedbackCreate);
+
+// Login Model Record
+router.get('/events/getAllReview', eventLogCtrl.getAllReview);
+router.post('/events/getAllReviewByFilter', eventLogCtrl.getAllReviewByFilter);
 
 // Login Model Record
 router.get('/events/getAlllogin', eventLogCtrl.getAllLogin);

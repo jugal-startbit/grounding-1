@@ -2,6 +2,7 @@
 	"name": "grounding",
 	"description": "Grounding App",
 	"version": "1.0.0",
+  	"private": true,
 	"author": "https://github.com/jugal-startbit",
 	"dependencies": {
 		"atob": "^2.1.2",
@@ -25,7 +26,7 @@
 		"postcss-cli": "^6.1.0"
 	},
 	"scripts": {
-		"start": "npm run css && nodemon ./bin/www"
+		"start": "nodemon ./bin/www"
 ,
 		"css": "postcss -u autoprefixer -r css/*"
 	},
