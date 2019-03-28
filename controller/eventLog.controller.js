@@ -59,10 +59,11 @@ exports.create = function (req, res, next) {
 // Review Create
 exports.reviewCreate = function (req, res, next) {
     let data = req.body;
+    let localVar;
     data.DateTime = new Date();
     data.Active = 1;
     console.log(data);
-
+    localVar = review;
     localVar = new review(data);
     localVar.save(function (err) {
         if (err) {
