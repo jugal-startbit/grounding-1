@@ -1,21 +1,5 @@
 (function () {
   'use strict';
-
-
-  /**
-   * 
-   * 
-					<li><a target="_blank" rel="noopener" class="menusAuthor" value="author">Author</a></li>
-					<li><a target="_blank" rel="noopener" class="menusSource" value="source">Source</a></li>
-					<li><a target="_blank" rel="noopener" class="menusContact" value="contact">Contact</a></li>
-          <li><a target="_blank" rel="noopener" class="menusRating" value="contact">Rating</a></li>
-          
-          loginDIV
-          authorMenuDIV
-          sourceMenuDIV
-          ratingMenuDIV
-          contactMenuDIV
-   */
   var menusAuthorElmt = document.querySelector('.menusAuthor');
   menusAuthorElmt.myParam = menusAuthorElmt.getAttribute('value');
   
@@ -36,9 +20,6 @@
   var UserInitial = localStorage.getItem('UserInitial');
   var StudyCode =  localStorage.getItem('StudyCode');
   if(UserInitial !== null && StudyCode !== null){
-    //alert("UserInitial : " + UserInitial);
-    //alert("StudyCode : " + StudyCode);
-
     document.querySelector('#menu_header').style.display = 'inherit';
     document.querySelector('#authorMenuDIV').style.display = 'inherit';
     document.querySelector('#sourceMenuDIV').style.display = 'none';
@@ -49,7 +30,6 @@
     document.querySelector('.menu__overlay').classList.remove("menu__overlay--show");
     document.querySelector('.menu').style.transform = 'translateX(-110%)';
   }else{
-
   //Menus listing on first load loginDIV
     document.querySelector('#authorMenuDIV').style.display = 'none';
     document.querySelector('#contactMenuDIV').style.display = 'none';
@@ -65,8 +45,6 @@
   menusRatingElmt.addEventListener('click', displayMenusPage, false);
   menusLogoutElmt.addEventListener('click', displayMenusPage, false);
 
-
-  // menusAuthorElmt.addEventListener("unload", unLoadAuthorPage);
   function displayMenusPage(evt) {
 
 
@@ -79,7 +57,8 @@
       var entryTimeStamp = localStorage.getItem("CurrentPageTimeStamp");
       var currentTimeStamp = Date.now();
 
-      var timeDifference = (currentTimeStamp - entryTimeStamp)/1000;
+      var timeDifferenceseconds = (currentTimeStamp - entryTimeStamp)/1000;
+      var timeDifference = Math.floor(timeDifferenceseconds / 60);
       if(previouspage !== 'aboutUs'){
           localStorage.setItem("CurrentPageTimeStamp", Date.now());
       }
@@ -120,7 +99,8 @@
       var entryTimeStamp = localStorage.getItem("CurrentPageTimeStamp");
       var currentTimeStamp = Date.now();
 
-      var timeDifference = (currentTimeStamp - entryTimeStamp)/1000;
+      var timeDifferenceseconds = (currentTimeStamp - entryTimeStamp)/1000;
+      var timeDifference = Math.floor(timeDifferenceseconds / 60);
       if(previouspage !== 'review'){
         
           localStorage.setItem("CurrentPageTimeStamp", Date.now());
@@ -165,7 +145,6 @@
       $('input:radio').change(
         function(){
           var userRating = this.value;
-          //alert(userRating);
       }); 
     }else if(evt.target.myParam == 'contact'){
 
@@ -174,7 +153,8 @@
       var entryTimeStamp = localStorage.getItem("CurrentPageTimeStamp");
       var currentTimeStamp = Date.now();
 
-      var timeDifference = (currentTimeStamp - entryTimeStamp)/1000;
+      var timeDifferenceseconds = (currentTimeStamp - entryTimeStamp)/1000;
+      var timeDifference = Math.floor(timeDifferenceseconds / 60);
       if(previouspage !== 'contactUs'){
         
           localStorage.setItem("CurrentPageTimeStamp", Date.now());
@@ -219,7 +199,8 @@
       var entryTimeStamp = localStorage.getItem("CurrentPageTimeStamp");
       var currentTimeStamp = Date.now();
 
-      var timeDifference = (currentTimeStamp - entryTimeStamp)/1000;
+      var timeDifferenceseconds = (currentTimeStamp - entryTimeStamp)/1000;
+      var timeDifference = Math.floor(timeDifferenceseconds / 60);
       if(previouspage !== 'aboutGroundingLog'){
           localStorage.setItem("CurrentPageTimeStamp", Date.now());
       }
@@ -261,7 +242,8 @@
       var entryTimeStamp = localStorage.getItem("CurrentPageTimeStamp");
       var currentTimeStamp = Date.now();
 
-      var timeDifference = (currentTimeStamp - entryTimeStamp)/1000;
+      var timeDifferenceseconds = (currentTimeStamp - entryTimeStamp)/1000;
+      var timeDifference = Math.floor(timeDifferenceseconds / 60);
       var data = "Event="+previouspage+"&UserInitial="+UserInitial+"&StudyCode="+StudyCode+"&Duration="+timeDifference;
 
       var xhr = new XMLHttpRequest();
@@ -314,7 +296,7 @@
     localStorage.setItem('UserInitial', userInput);
     localStorage.setItem('StudyCode', userInput1);
 
-    fetchGitUserInfo(userInput);
+    fetchReqInfo(userInput);
 
     var previouspage  = localStorage.getItem("CurrentPage");
 
@@ -373,12 +355,6 @@
 
     //Add github user data to the card
   function addReviewUserCard() {
-      //alert('Thank you!');
-    //   UserInitial: {type: String},
-    // StudyCode: {type: String},
-    // RatingComment: {type: String},
-    // Rating:{type:Number},
-    //alert(rating);
     var comments = document.querySelector('#comments').value;
     var UserInitial = localStorage.getItem('UserInitial');
     var StudyCode =  localStorage.getItem('StudyCode');
@@ -411,43 +387,10 @@
   var bgSyncElement = document.querySelector('.custom__button-bg');
 
   //To get github user data via `Fetch API`
-  function fetchGitUserInfo(username, requestFromBGSync) {
-    /* var name = username || 'jugal-startbit';
-    var url = 'https://api.github.com/users/' + name;
-
-    spinnerElement.classList.add('show'); //show spinner
-
-    fetch(url, { method: 'GET' })
-    .then(function(fetchResponse){ return fetchResponse.json() })
-      .then(function(response) {
-        if (!requestFromBGSync) {
-          localStorage.removeItem('request'); //Once API is success, remove request data from localStorage
-        }
-        //cardElement.querySelector('.card__title').textContent = response.name;
-        //cardElement.querySelector('.card__desc').textContent = response.bio;
-        //cardElement.querySelector('.card__img').setAttribute('src', response.avatar_url);
-        //cardElement.querySelector('.card__following span').textContent = response.following;
-        //cardElement.querySelector('.card__followers span').textContent = response.followers;
-        //cardElement.querySelector('.card__temp span').textContent = response.company;
-        spinnerElement.classList.remove('show'); //hide spinner
-      })
-      .catch(function (error) {
-        //If user is offline and sent a request, store it in localStorage
-        //Once user comes online, trigger bg sync fetch from application tab to make the failed request
-        localStorage.setItem('request', name);
-        spinnerElement.classList.remove('show'); //hide spinner
-        console.error(error);
-      }); */
+  function fetchReqInfo(username, requestFromBGSync) {
   }
 
-  fetchGitUserInfo(localStorage.getItem('request')); //Fetch github users data
-  //Listen postMessage when `background sync` is triggered
- /* navigator.serviceWorker.addEventListener('message', function (event) {
-    console.info('From background sync: ', event.data);
-    fetchGitUserInfo(localStorage.getItem('request'), true);
-    bgSyncElement.classList.remove('hide'); //Once sync event fires, show register toggle button
-    bgSyncTextElement.setAttribute('hidden', true); //Once sync event fires, remove registered label
-  }); */
+  fetchReqInfo(localStorage.getItem('request')); //Fetch github users data
 
 
   var timeoutID;
@@ -484,43 +427,6 @@
         window.location.reload();
     }, 10000);
     alert('InActive since last 4 mintues');
-
-    // var r = confirm("InActive since last 4 mintues so do you want to logout?");
-    //   if (r == true) {
-    //       var previouspage  = localStorage.getItem("CurrentPage");
-    //       var previouspage1  = localStorage.getItem("PreviousPage");
-    //       var entryTimeStamp = localStorage.getItem("CurrentPageTimeStamp");
-    //       var currentTimeStamp = Date.now();
-
-    //       var timeDifference = (currentTimeStamp - entryTimeStamp)/1000;
-          
-    //       var data = "Event="+previouspage+"&UserInitial="+UserInitial+"&StudyCode="+StudyCode+"&Duration="+timeDifference;
-
-    //       var xhr = new XMLHttpRequest();
-    //       xhr.withCredentials = true;
-
-    //       xhr.addEventListener("readystatechange", function () {
-    //         if (this.readyState === 4) {
-    //           console.log(this.responseText);
-    //           localStorage.clear();
-    //           window.location.reload();
-    //         }
-    //       });
-
-    //       xhr.open("POST", "https://grounding.herokuapp.com/API/eventLogCreate");
-    //       xhr.withCredentials = false;
-    //       xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-    //       xhr.setRequestHeader("cache-control", "no-cache");
-    //       xhr.setRequestHeader("Postman-Token", "a5a1754d-842e-46d6-88f1-478c94bdf132");
-
-    //       xhr.send(data);
-          
-    //   } else {
-    //     window.clearTimeout(timeoutID);
-    //     goActive();
-    //   }
-
-
   }
    
   function goActive() {

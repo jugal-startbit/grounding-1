@@ -1,8 +1,3 @@
-/*
-  Source: https://github.com/coonsta/cache-polyfill
-  Author: https://github.com/coonsta
-*/
-
 if (!Cache.prototype.add) {
   Cache.prototype.add = function add(request) {
     return this.addAll([request]);

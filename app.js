@@ -40,7 +40,6 @@ const dashboard = require('./models/dashboard.model');
 const contactUs = require('./models/contactUs.model');
 const aboutUs = require('./models/aboutUs.model');
 const aboutGroundingLog = require('./models/aboutGroundingLog.model');
-const pdf = require('./models/pdf.model');
 const logout = require('./models/logout.model');
 app.post('/API/eventLogCreate', function(req, res,next) {
   let data = req.body;
@@ -72,32 +71,6 @@ app.post('/API/eventLogCreate', function(req, res,next) {
           'result': localVar
       })
   })
-});
-
-
-//To receive push request from client
-app.post('/send_notification', function (req, res) {
-  if (!req.body) {
-    res.status(400);
-  }
-
-  var message = new gcm.Message();
-  var temp = req.body.endpoint.split('/');
-  var regTokens = [temp[temp.length - 1]];
-
-  var sender = new gcm.Sender('AIzaSyCjrU5SqotSg2ybDLK_7rMMt9Rv0dMusvY'); //Replace with your GCM API key
-
-  // Now the sender can be used to send messages
-  sender.send(message, { registrationTokens: regTokens }, function (error, response) {
-  	if (error) {
-      console.error(error);
-      res.status(400);
-    }
-  	else {
-     	console.log(response);
-      res.status(200);
-    }
-  });
 });
 
 // catch 404 and forward to error handler
