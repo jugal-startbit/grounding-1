@@ -2,7 +2,7 @@
 	"name": "grounding",
 	"description": "Treatment Innovations Grounding App",
 	"version": "1.0.0",
-  	"private": true,
+	"private": true,
 	"author": "https://github.com/jugal-startbit",
 	"dependencies": {
 		"atob": "^2.1.2",
@@ -21,13 +21,12 @@
 		"node-gcm": "^1.0.2",
 		"nodemon": "^1.18.10",
 		"pug": "^2.0.3",
-		"request": "^2.88.0",		
+		"request": "^2.88.0",
 		"autoprefixer": "^9.4.3",
 		"postcss-cli": "^6.1.0"
 	},
 	"scripts": {
-		"start": "nodemon ./bin/www"
-,
+		"start": "nodemon ./bin/www",
 		"css": "postcss -u autoprefixer -r css/*"
 	},
 	"engines": {

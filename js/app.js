@@ -339,6 +339,7 @@
 
   var cardElement = document.querySelector('.card');
   var rating = 0;
+  var GroundingRate = 0;
   var addReviewInputElement = document.querySelector('.add_review__btn');
 
   var str1 = document.querySelector('#str1');
@@ -353,12 +354,25 @@
   str2.addEventListener("click", function(){ rating = str2.value; });
   str1.addEventListener("click", function(){ rating = str1.value; });
 
+  var bstr1 = document.querySelector('#bstr1');
+  var bstr2 = document.querySelector('#bstr2');
+  var bstr3 = document.querySelector('#bstr3');
+  var bstr4 = document.querySelector('#bstr4');
+  var bstr5 = document.querySelector('#bstr5');
+
+  bstr5.addEventListener("click", function(){ GroundingRate = bstr5.value; });
+  bstr4.addEventListener("click", function(){ GroundingRate = bstr4.value; });
+  bstr3.addEventListener("click", function(){ GroundingRate = bstr3.value; });
+  bstr2.addEventListener("click", function(){ GroundingRate = bstr2.value; });
+  bstr1.addEventListener("click", function(){ GroundingRate = bstr1.value; });
+
+
     //Add github user data to the card
   function addReviewUserCard() {
     var comments = document.querySelector('#comments').value;
     var UserInitial = localStorage.getItem('UserInitial');
     var StudyCode =  localStorage.getItem('StudyCode');
-      var data = "UserInitial="+UserInitial+"&StudyCode="+StudyCode+"&RatingComment="+comments+"&Rating="+rating;
+      var data = "UserInitial="+UserInitial+"&StudyCode="+StudyCode+"&RatingComment="+comments+"&Rating="+rating+"&GroundingRate="+GroundingRate;
 
       var xhr = new XMLHttpRequest();
       xhr.withCredentials = true;

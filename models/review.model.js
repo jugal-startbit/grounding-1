@@ -7,6 +7,7 @@ let ReviewSchema = new Schema({
     StudyCode: {type: String},
     RatingComment: {type: String},
     Rating:{type:Number},
+    GroundingRate:{type:Number},
     DateTime: {type: Date},
     Active: {type: Number, required: true},
 });

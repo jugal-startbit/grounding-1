@@ -97,7 +97,7 @@
 		<div id="loginDIV">
 
 			<div class="app__content">
-				<h3 class="text-center">Login</h3>
+					<h1 align="center">Login</h1>
 
 				<div class="card">
 					<div class="card__spinner"></div>
@@ -125,7 +125,7 @@
 		<div id="authorMenuDIV">
 
 			<div class="app__content">
-				<h3>About this App</h3>
+					<h1 align="center">About this App</h1>
 				<br>
 				<p>This app was developed by Treatment Innovations for the project you are participating in, called the
 					Grounding Study.<br><br> If you have any questions about the study or your participation, contact us at <a
@@ -141,30 +141,70 @@
 		<div id="ratingMenuDIV">
 
 			<div class="app__content">
-				<h2> Rate this App </h2>
+				<h2>Comparison App Survey 3-19 (GN)</h2>
+				<h4> We welcome your feedback at any time and you can fill this out as many times as you choose to </h4>
+				<form>
 				<div class="card">
 					<div class="card__spinner"></div>
 					<div class="card__container">
+						<label>How much do you like this app?</label>	
 						
-						<div class="rating">
-							<span><input type="radio" name="rating" id="str5" value="5"><label
-									for="str5"></label></span>
-							<span><input type="radio" name="rating" id="str4" value="4"><label
-									for="str4"></label></span>
-							<span><input type="radio" name="rating" id="str3" value="3"><label
-									for="str3"></label></span>
-							<span><input type="radio" name="rating" id="str2" value="2"><label
-									for="str2"></label></span>
-							<span><input type="radio" name="rating" id="str1" value="1"><label
-									for="str1"></label></span>
-						</div>
+						<fieldset id="group1">
+						<table class="tg">
+								<tr>
+									<th></th>
+									<th>1</th>
+									<th>2</th>
+									<th>3</th>
+									<th>4</th>
+									<th>5</th>
+									<th></th>
+								</tr>
+								<tr>
+									<td>not at all</td>
+									<td><input type="radio" name="rating1" id="str1" value="1"></td>
+									<td><input type="radio" name="rating2" id="str2" value="2"></td>
+									<td><input type="radio" name="rating3" id="str3" value="3"></td>
+									<td><input type="radio" name="rating4" id="str4" value="4"></td>
+									<td><input type="radio" name="rating5" id="str5" value="5"></td>
+									<td>love it</td>
+								</tr>
+							
+							</table>
+							</fieldset>
+							<label>How much do you like the coping skill called Grounding?</label>	
+						
+								<fieldset id="group2"><table class="tg">
+								<tr>
+									<th></th>
+									<th>1</th>
+									<th>2</th>
+									<th>3</th>
+									<th>4</th>
+									<th>5</th>
+									<th></th>
+								</tr>
+								<tr>
+									<td>not at all</td>
+									<td><input type="radio" name="brating1" id="bstr1" value="1"></td>
+									<td><input type="radio" name="brating2" id="bstr2" value="2"></td>
+									<td><input type="radio" name="brating3" id="bstr3" value="3"></td>
+									<td><input type="radio" name="brating4" id="bstr4" value="4"></td>
+									<td><input type="radio" name="brating5" id="bstr5" value="5"></td>
+									<td>love it</td>
+								</tr>
+							
+							</table>		</fieldset>					
+						<label>Any feedback you want to share?</label>						
 						<p class="card__following"><b><textarea id="comments"
 									placeholder="Provide your valuable comments." rows="4" cols="36"></textarea>
-							</b> <span></span></p>
+							</b> </p>
+							<br><span>If you have questions or concerns, please contact us at <a href="mailto:info@treatment-innovations.org">info@treatment-innovations.org</a></span>
 						<p class="card__followers"><b><button type="button" class="add_review__btn">SUBMIT</button></b> <span></span>
 						</p>
 					</div>
 				</div>
+			</form>
 				<!-- Toast msg -->
 				<div class="toast__msg"></div>
 			</div>
@@ -174,7 +214,7 @@
 		<div id="sourceMenuDIV">
 
 			<div class="app__content">
-				<h3 align="center">Read about Grounding </h3>
+				<h1 align="center">Read about Grounding </h1>
 				<embed src="pdfs/Detaching from Emotional Pain - Grounding.pdf" width="320px" height="393px" alt="pdf"
 					pluginspage="https://www.adobe.com/products/acrobat/readstep2.html">
 				<!-- Toast msg -->
