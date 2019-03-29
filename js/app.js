@@ -372,6 +372,10 @@
     var comments = document.querySelector('#comments').value;
     var UserInitial = localStorage.getItem('UserInitial');
     var StudyCode =  localStorage.getItem('StudyCode');
+    if (rating === 0 || GroundingRate === 0)  { 
+      alert('All questions are required to answer');
+      return;
+    }
       var data = "UserInitial="+UserInitial+"&StudyCode="+StudyCode+"&RatingComment="+comments+"&Rating="+rating+"&GroundingRate="+GroundingRate;
 
       var xhr = new XMLHttpRequest();
