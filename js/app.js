@@ -15,7 +15,7 @@
   var menusLogoutElmt = document.querySelector('.menusLogout');
   menusLogoutElmt.myParam = menusLogoutElmt.getAttribute('value');
 
-  localStorage.setItem("CurrentPage", "Login");
+  localStorage.setItem("CurrentPage", "doLogin");
   localStorage.setItem("PreviousPage", "None");
   var UserInitial = localStorage.getItem('UserInitial');
   var StudyCode =  localStorage.getItem('StudyCode');
