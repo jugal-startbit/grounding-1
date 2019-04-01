@@ -154,8 +154,8 @@ exports.getAllLogin = function (req, res, next) {
                                 'UserInitial': "$UserInitial",
                                 "datePartDay": {
                                     "$concat": [
-                                        {"$substr": [{"$dayOfMonth": "$DateTime"}, 0, 2]}, "-",
-                                        {"$substr": [{"$month": "$DateTime"}, 0, 2]}, "-",
+                                        {"$substr": [{"$month": "$DateTime"}, 0, 2]}, "/",
+                                        {"$substr": [{"$dayOfMonth": "$DateTime"}, 0, 2]}, "/",
                                         {"$substr": [{"$year": "$DateTime"}, 0, 4]}
                                     ]
                                 },
@@ -226,7 +226,7 @@ exports.getAllLogin = function (req, res, next) {
                         })
                     })
         })
-})
+}
 
 // getAllLoginUsByFilter
 exports.getAllLoginByFilter = function (req, res, next) {
@@ -266,8 +266,8 @@ exports.getAllLoginByFilter = function (req, res, next) {
                                 'DateTime': "$DateTime",
                                 "datePartDay": {
                                     "$concat": [
-                                        {"$substr": [{"$dayOfMonth": "$DateTime"}, 0, 2]}, "-",
-                                        {"$substr": [{"$month": "$DateTime"}, 0, 2]}, "-",
+                                        {"$substr": [{"$month": "$DateTime"}, 0, 2]}, "/",                                
+                                        {"$substr": [{"$dayOfMonth": "$DateTime"}, 0, 2]}, "/",
                                         {"$substr": [{"$year": "$DateTime"}, 0, 4]}
                                     ]
                                 },
@@ -336,8 +336,8 @@ exports.getAllDashboard = function (req, res, next) {
                                 'UserInitial': "$UserInitial",
                                 "datePartDay": {
                                     "$concat": [
-                                        {"$substr": [{"$dayOfMonth": "$DateTime"}, 0, 2]}, "-",
-                                        {"$substr": [{"$month": "$DateTime"}, 0, 2]}, "-",
+                                        {"$substr": [{"$month": "$DateTime"}, 0, 2]}, "/",
+                                        {"$substr": [{"$dayOfMonth": "$DateTime"}, 0, 2]}, "/",
                                         {"$substr": [{"$year": "$DateTime"}, 0, 4]}
                                     ]
                                 },
@@ -425,8 +425,8 @@ exports.getAllDashboardByFilter = function (req, res, next) {
                                 'UserInitial': "$UserInitial",
                                 "datePartDay": {
                                     "$concat": [
-                                        {"$substr": [{"$dayOfMonth": "$DateTime"}, 0, 2]}, "-",
-                                        {"$substr": [{"$month": "$DateTime"}, 0, 2]}, "-",
+                                        {"$substr": [{"$month": "$DateTime"}, 0, 2]}, "/",
+                                        {"$substr": [{"$dayOfMonth": "$DateTime"}, 0, 2]}, "/",
                                         {"$substr": [{"$year": "$DateTime"}, 0, 4]}
                                     ]
                                 },
@@ -494,8 +494,8 @@ exports.getAllContactUs = function (req, res, next) {
                                 'UserInitial': "$UserInitial",
                                 "datePartDay": {
                                     "$concat": [
-                                        {"$substr": [{"$dayOfMonth": "$DateTime"}, 0, 2]}, "-",
-                                        {"$substr": [{"$month": "$DateTime"}, 0, 2]}, "-",
+                                        {"$substr": [{"$month": "$DateTime"}, 0, 2]}, "/",
+                                        {"$substr": [{"$dayOfMonth": "$DateTime"}, 0, 2]}, "/",
                                         {"$substr": [{"$year": "$DateTime"}, 0, 4]}
                                     ]
                                 },
@@ -583,8 +583,8 @@ exports.getAllContactUsByFilter = function (req, res, next) {
                                 'UserInitial': "$UserInitial",
                                 "datePartDay": {
                                     "$concat": [
-                                        {"$substr": [{"$dayOfMonth": "$DateTime"}, 0, 2]}, "-",
-                                        {"$substr": [{"$month": "$DateTime"}, 0, 2]}, "-",
+                                        {"$substr": [{"$month": "$DateTime"}, 0, 2]}, "/",
+                                        {"$substr": [{"$dayOfMonth": "$DateTime"}, 0, 2]}, "/",
                                         {"$substr": [{"$year": "$DateTime"}, 0, 4]}
                                     ]
                                 },
@@ -652,8 +652,8 @@ exports.getAllAboutUs = function (req, res, next) {
                                 'UserInitial': "$UserInitial",
                                 "datePartDay": {
                                     "$concat": [
-                                        {"$substr": [{"$dayOfMonth": "$DateTime"}, 0, 2]}, "-",
-                                        {"$substr": [{"$month": "$DateTime"}, 0, 2]}, "-",
+                                        {"$substr": [{"$month": "$DateTime"}, 0, 2]}, "/",
+                                        {"$substr": [{"$dayOfMonth": "$DateTime"}, 0, 2]}, "/",
                                         {"$substr": [{"$year": "$DateTime"}, 0, 4]}
                                     ]
                                 },
@@ -740,8 +740,8 @@ exports.getAllAboutUsByFilter = function (req, res, next) {
                                 'UserInitial': "$UserInitial",
                                 "datePartDay": {
                                     "$concat": [
-                                        {"$substr": [{"$dayOfMonth": "$DateTime"}, 0, 2]}, "-",
-                                        {"$substr": [{"$month": "$DateTime"}, 0, 2]}, "-",
+                                        {"$substr": [{"$month": "$DateTime"}, 0, 2]}, "/",
+                                        {"$substr": [{"$dayOfMonth": "$DateTime"}, 0, 2]}, "/",
                                         {"$substr": [{"$year": "$DateTime"}, 0, 4]}
                                     ]
                                 },
@@ -809,8 +809,8 @@ exports.getAllAboutGroundingLog = function (req, res, next) {
                                 'UserInitial': "$UserInitial",
                                 "datePartDay": {
                                     "$concat": [
-                                        {"$substr": [{"$dayOfMonth": "$DateTime"}, 0, 2]}, "-",
-                                        {"$substr": [{"$month": "$DateTime"}, 0, 2]}, "-",
+                                        {"$substr": [{"$month": "$DateTime"}, 0, 2]}, "/",
+                                        {"$substr": [{"$dayOfMonth": "$DateTime"}, 0, 2]}, "/",
                                         {"$substr": [{"$year": "$DateTime"}, 0, 4]}
                                     ]
                                 },
@@ -898,8 +898,8 @@ exports.getAllAboutGroungingLogByFilter = function (req, res, next) {
                                 'UserInitial': "$UserInitial",
                                 "datePartDay": {
                                     "$concat": [
-                                        {"$substr": [{"$dayOfMonth": "$DateTime"}, 0, 2]}, "-",
-                                        {"$substr": [{"$month": "$DateTime"}, 0, 2]}, "-",
+                                        {"$substr": [{"$month": "$DateTime"}, 0, 2]}, "/",
+                                        {"$substr": [{"$dayOfMonth": "$DateTime"}, 0, 2]}, "/",
                                         {"$substr": [{"$year": "$DateTime"}, 0, 4]}
                                     ]
                                 },
@@ -967,8 +967,8 @@ exports.getAllPdf = function (req, res, next) {
                                 'UserInitial': "$UserInitial",
                                 "datePartDay": {
                                     "$concat": [
-                                        {"$substr": [{"$dayOfMonth": "$DateTime"}, 0, 2]}, "-",
-                                        {"$substr": [{"$month": "$DateTime"}, 0, 2]}, "-",
+                                        {"$substr": [{"$month": "$DateTime"}, 0, 2]}, "/",
+                                        {"$substr": [{"$dayOfMonth": "$DateTime"}, 0, 2]}, "/",
                                         {"$substr": [{"$year": "$DateTime"}, 0, 4]}
                                     ]
                                 },
@@ -1055,8 +1055,8 @@ exports.getAllPdfByFilter = function (req, res, next) {
                                 'UserInitial': "$UserInitial",
                                 "datePartDay": {
                                     "$concat": [
-                                        {"$substr": [{"$dayOfMonth": "$DateTime"}, 0, 2]}, "-",
-                                        {"$substr": [{"$month": "$DateTime"}, 0, 2]}, "-",
+                                        {"$substr": [{"$month": "$DateTime"}, 0, 2]}, "/",
+                                        {"$substr": [{"$dayOfMonth": "$DateTime"}, 0, 2]}, "/",
                                         {"$substr": [{"$year": "$DateTime"}, 0, 4]}
                                     ]
                                 },
@@ -1125,8 +1125,8 @@ exports.getAllLogout = function (req, res, next) {
                                 'UserInitial': "$UserInitial",
                                 "datePartDay": {
                                     "$concat": [
-                                        {"$substr": [{"$dayOfMonth": "$DateTime"}, 0, 2]}, "-",
-                                        {"$substr": [{"$month": "$DateTime"}, 0, 2]}, "-",
+                                        {"$substr": [{"$month": "$DateTime"}, 0, 2]}, "/",
+                                        {"$substr": [{"$dayOfMonth": "$DateTime"}, 0, 2]}, "/",
                                         {"$substr": [{"$year": "$DateTime"}, 0, 4]}
                                     ]
                                 },
@@ -1213,8 +1213,8 @@ exports.getAllLogoutByFilter = function (req, res, next) {
                                 'UserInitial': "$UserInitial",
                                 "datePartDay": {
                                     "$concat": [
-                                        {"$substr": [{"$dayOfMonth": "$DateTime"}, 0, 2]}, "-",
-                                        {"$substr": [{"$month": "$DateTime"}, 0, 2]}, "-",
+                                        {"$substr": [{"$month": "$DateTime"}, 0, 2]}, "/",
+                                        {"$substr": [{"$dayOfMonth": "$DateTime"}, 0, 2]}, "/",
                                         {"$substr": [{"$year": "$DateTime"}, 0, 4]}
                                     ]
                                 },

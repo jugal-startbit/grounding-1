@@ -69,8 +69,8 @@ app.post('/API/eventLogCreate', function(req, res,next) {
           'status': true,
           'message': 'Successfully created record',
           'result': localVar
-      })
-  })
+      });
+  });
 });
 
 // catch 404 and forward to error handler

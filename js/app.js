@@ -58,7 +58,7 @@
       var currentTimeStamp = Date.now();
 
       var timeDifferenceseconds = (currentTimeStamp - entryTimeStamp)/1000;
-      var timeDifference = Math.floor(timeDifferenceseconds / 60);
+      var timeDifference = Math.floor(timeDifferenceseconds);
       if(previouspage !== 'aboutUs'){
           localStorage.setItem("CurrentPageTimeStamp", Date.now());
       }
@@ -100,7 +100,7 @@
       var currentTimeStamp = Date.now();
 
       var timeDifferenceseconds = (currentTimeStamp - entryTimeStamp)/1000;
-      var timeDifference = Math.floor(timeDifferenceseconds / 60);
+      var timeDifference = Math.floor(timeDifferenceseconds);
       if(previouspage !== 'review'){
         
           localStorage.setItem("CurrentPageTimeStamp", Date.now());
@@ -154,7 +154,7 @@
       var currentTimeStamp = Date.now();
 
       var timeDifferenceseconds = (currentTimeStamp - entryTimeStamp)/1000;
-      var timeDifference = Math.floor(timeDifferenceseconds / 60);
+      var timeDifference = Math.floor(timeDifferenceseconds);
       if(previouspage !== 'contactUs'){
         
           localStorage.setItem("CurrentPageTimeStamp", Date.now());
@@ -200,7 +200,7 @@
       var currentTimeStamp = Date.now();
 
       var timeDifferenceseconds = (currentTimeStamp - entryTimeStamp)/1000;
-      var timeDifference = Math.floor(timeDifferenceseconds / 60);
+      var timeDifference = Math.floor(timeDifferenceseconds);
       if(previouspage !== 'aboutGroundingLog'){
           localStorage.setItem("CurrentPageTimeStamp", Date.now());
       }
@@ -243,7 +243,8 @@
       var currentTimeStamp = Date.now();
 
       var timeDifferenceseconds = (currentTimeStamp - entryTimeStamp)/1000;
-      var timeDifference = Math.floor(timeDifferenceseconds / 60);
+      var timeDifference = Math.floor(timeDifferenceseconds);
+
       var data = "Event="+previouspage+"&UserInitial="+UserInitial+"&StudyCode="+StudyCode+"&Duration="+timeDifference;
 
       var xhr = new XMLHttpRequest();
@@ -252,6 +253,27 @@
       xhr.addEventListener("readystatechange", function () {
         if (this.readyState === 4) {
           console.log(this.responseText);
+          var data1 = "Event=logout&UserInitial="+UserInitial+"&StudyCode="+StudyCode+"&Duration="+timeDifference;
+          var xhr2 = new XMLHttpRequest();
+          xhr2.withCredentials = true;
+
+          xhr2.addEventListener("readystatechange", function () {
+            if (this.readyState === 4) {
+              console.log(this.responseText);
+              
+
+            }
+          });
+
+          xhr2.open("POST", "https://grounding.herokuapp.com/API/eventLogCreate");
+          xhr2.withCredentials = false;
+          xhr2.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+          xhr2.setRequestHeader("cache-control", "no-cache");
+          xhr2.setRequestHeader("Postman-Token", "a5a1754d-842e-46d6-88f1-478c94bdf132");
+
+          xhr2.send(data1);
+
+
           localStorage.clear();
           window.location.reload();
         }
@@ -444,7 +466,8 @@
         localStorage.clear();
         window.location.reload();
     }, 10000);
-    alert('InActive since last 4 mintues');
+    alert('This page has been inactive for several minutes. You will be logged out shortly.');
+
   }
    
   function goActive() {
