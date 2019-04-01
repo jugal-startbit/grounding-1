@@ -14,8 +14,7 @@
 	<meta name="mobile-web-app-capable" content="yes" />
 	
 	<meta name="apple-mobile-web-app-capable" content="yes" />
-	<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
-	<meta name="apple-mobile-web-app-title" content="Treatment Innovations Grounding App">
+	<meta name="apple-mobile-web-app-title" content="Grounding App">
 	<meta name="application-name" content="Treatment Innovations Grounding App">
 	<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
 <link rel="apple-touch-icon" sizes="152x152" href="apple-touch-icon152.png">
@@ -29,11 +28,23 @@
 	<link rel="stylesheet" href="./css/styles.css" />
 	<link rel="apple-touch-icon" href="touch-icon-iphone.png">
 	<meta name="apple-mobile-web-app-status-bar-style" content="default">
-	<meta name="apple-mobile-web-app-title" content="Appscope">
 </head>
 
 <body id="BodyElement">
 	<script language="JavaScript">
+		'use strict';
+		// Detects if device is on iOS 
+	const isIos = () => {
+	const userAgent = window.navigator.userAgent.toLowerCase();
+	return /iphone|ipad|ipod/.test( userAgent );
+	}
+	// Detects if device is in standalone mode
+	const isInStandaloneMode = () => ('standalone' in window.navigator) && (window.navigator.standalone);
+
+	// Checks if should display install popup notification:
+	if (isIos() && !isInStandaloneMode()) {
+	this.setState({ showInstallMessage: true });
+	}
   /**
     * Disable right-click of mouse, F12 key, and save key combinations on page
     * By Arthur Gareginyan (arthurgareginyan@gmail.com)
