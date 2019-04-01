@@ -17,6 +17,17 @@ exports.create = function (req, res, next) {
     data.dateTime = new Date();
     data.Active = 1;
     console.log(data);
+
+    // d = Number(data.Duration);
+    // var h = Math.floor(d / 3600);
+    // var m = Math.floor(d % 3600 / 60);
+    // var s = Math.floor(d % 3600 % 60);
+
+    // var hDisplay = h > 0 ? h + (h == 1 ? " hour, " : " hours, ") : "";
+    // var mDisplay = m > 0 ? m + (m == 1 ? " minute, " : " minutes, ") : "";
+    // var sDisplay = s > 0 ? s + (s == 1 ? " second" : " seconds") : "";
+    // data.Duration = hDisplay + mDisplay + sDisplay;
+
     let localVar;
     if (data.Event == 'doLogin') {
         localVar = login;
@@ -271,21 +282,20 @@ exports.getAllLoginByFilter = function (req, res, next) {
                         else
                             console.log("tiem");
                         var group = result.map((row) => {
-                            var hor = parseInt(parseInt(row.totalAmount) / (60));
-                        var h = hor.toString();
-                        if(h.length == 1){
-                            h = "0"+h;
-                        }
-                        var min = parseInt(parseInt(row.totalAmount) % 60);
-                        var m = min.toString();
-                        if(m.length == 1){
-                            m = "0"+m;
-                        }
-                        var time = h + ":" + m + ':' + '00';
+                            var secs = row.totalAmount;
+                            var hours = Math.floor(secs / (60 * 60));
+   
+                            var divisor_for_minutes = secs % (60 * 60);
+                            var minutes = Math.floor(divisor_for_minutes / 60);
+                         
+                            var divisor_for_seconds = divisor_for_minutes % 60;
+                            var seconds = Math.ceil(divisor_for_seconds);
+                            var result = (hours < 10 ? "0" + hours : hours) + ":" + (minutes < 10 ? "0" + minutes : minutes) + ":" + (seconds  < 10 ? "0" + seconds : seconds);
+
+                            var time = result;
                         row.Time = time;
                         return row;
-                    })
-                        ;
+                    });
                         res.status(200).json({
                             'status': true,
                             'message': 'Success',
@@ -340,17 +350,17 @@ exports.getAllDashboard = function (req, res, next) {
                         if (err) res.send(err);
                         else
                             var group = result.map((row) => {
-                                var hor = parseInt(parseInt(row.totalAmount) / (60));
-                        var h = hor.toString();
-                        if(h.length == 1){
-                            h = "0"+h;
-                        }
-                        var min = parseInt(parseInt(row.totalAmount) % 60);
-                        var m = min.toString();
-                        if(m.length == 1){
-                            m = "0"+m;
-                        }
-                        var time = h + ":" + m + ':' + '00';
+                                var secs = row.totalAmount;
+                            var hours = Math.floor(secs / (60 * 60));
+   
+                            var divisor_for_minutes = secs % (60 * 60);
+                            var minutes = Math.floor(divisor_for_minutes / 60);
+                         
+                            var divisor_for_seconds = divisor_for_minutes % 60;
+                            var seconds = Math.ceil(divisor_for_seconds);
+                            var result = (hours < 10 ? "0" + hours : hours) + ":" + (minutes < 10 ? "0" + minutes : minutes) + ":" + (seconds  < 10 ? "0" + seconds : seconds);
+
+                            var time = result;
                         row.Time = time;
                         return row;
                     })
@@ -430,17 +440,17 @@ exports.getAllDashboardByFilter = function (req, res, next) {
                         else
                             console.log("tiem");
                         var group = result.map((row) => {
-                            var hor = parseInt(parseInt(row.totalAmount) / (60));
-                        var h = hor.toString();
-                        if(h.length == 1){
-                            h = "0"+h;
-                        }
-                        var min = parseInt(parseInt(row.totalAmount) % 60);
-                        var m = min.toString();
-                        if(m.length == 1){
-                            m = "0"+m;
-                        }
-                        var time = h + ":" + m + ':' + '00';
+                            var secs = row.totalAmount;
+                            var hours = Math.floor(secs / (60 * 60));
+   
+                            var divisor_for_minutes = secs % (60 * 60);
+                            var minutes = Math.floor(divisor_for_minutes / 60);
+                         
+                            var divisor_for_seconds = divisor_for_minutes % 60;
+                            var seconds = Math.ceil(divisor_for_seconds);
+                            var result = (hours < 10 ? "0" + hours : hours) + ":" + (minutes < 10 ? "0" + minutes : minutes) + ":" + (seconds  < 10 ? "0" + seconds : seconds);
+
+                            var time = result;
                         row.Time = time;
                         return row;
                     })
@@ -498,17 +508,17 @@ exports.getAllContactUs = function (req, res, next) {
                         if (err) res.send(err);
                         else
                             var group = result.map((row) => {
-                                var hor = parseInt(parseInt(row.totalAmount) / (60));
-                        var h = hor.toString();
-                        if(h.length == 1){
-                            h = "0"+h;
-                        }
-                        var min = parseInt(parseInt(row.totalAmount) % 60);
-                        var m = min.toString();
-                        if(m.length == 1){
-                            m = "0"+m;
-                        }
-                        var time = h + ":" + m + ':' + '00';
+                                var secs = row.totalAmount;
+                            var hours = Math.floor(secs / (60 * 60));
+   
+                            var divisor_for_minutes = secs % (60 * 60);
+                            var minutes = Math.floor(divisor_for_minutes / 60);
+                         
+                            var divisor_for_seconds = divisor_for_minutes % 60;
+                            var seconds = Math.ceil(divisor_for_seconds);
+                            var result = (hours < 10 ? "0" + hours : hours) + ":" + (minutes < 10 ? "0" + minutes : minutes) + ":" + (seconds  < 10 ? "0" + seconds : seconds);
+
+                            var time = result;
                         row.Time = time;
                         return row;
                     })
@@ -588,17 +598,17 @@ exports.getAllContactUsByFilter = function (req, res, next) {
                         else
                             console.log("tiem");
                         var group = result.map((row) => {
-                            var hor = parseInt(parseInt(row.totalAmount) / (60));
-                        var h = hor.toString();
-                        if(h.length == 1){
-                            h = "0"+h;
-                        }
-                        var min = parseInt(parseInt(row.totalAmount) % 60);
-                        var m = min.toString();
-                        if(m.length == 1){
-                            m = "0"+m;
-                        }
-                        var time = h + ":" + m + ':' + '00';
+                            var secs = row.totalAmount;
+                            var hours = Math.floor(secs / (60 * 60));
+   
+                            var divisor_for_minutes = secs % (60 * 60);
+                            var minutes = Math.floor(divisor_for_minutes / 60);
+                         
+                            var divisor_for_seconds = divisor_for_minutes % 60;
+                            var seconds = Math.ceil(divisor_for_seconds);
+                            var result = (hours < 10 ? "0" + hours : hours) + ":" + (minutes < 10 ? "0" + minutes : minutes) + ":" + (seconds  < 10 ? "0" + seconds : seconds);
+
+                            var time = result;
                         row.Time = time;
                         return row;
                     })
@@ -656,21 +666,33 @@ exports.getAllAboutUs = function (req, res, next) {
                         if (err) res.send(err);
                         else
                             var group = result.map((row) => {
-                                var hor = parseInt(parseInt(row.totalAmount) / (60));
-                        var h = hor.toString();
-                        if(h.length == 1){
-                            h = "0"+h;
-                        }
-                        var min = parseInt(parseInt(row.totalAmount) % 60);
-                        var m = min.toString();
-                        if(m.length == 1){
-                            m = "0"+m;
-                        }
-                        var time = h + ":" + m + ':' + '00';
-                        row.Time = time;
-                        return row;
-                    })
-                        ;
+                            var secs = row.totalAmount;
+                            var hours = Math.floor(secs / (60 * 60));
+   
+                            var divisor_for_minutes = secs % (60 * 60);
+                            var minutes = Math.floor(divisor_for_minutes / 60);
+                         
+                            var divisor_for_seconds = divisor_for_minutes % 60;
+                            var seconds = Math.ceil(divisor_for_seconds);
+                            var result = (hours < 10 ? "0" + hours : hours) + ":" + (minutes < 10 ? "0" + minutes : minutes) + ":" + (seconds  < 10 ? "0" + seconds : seconds);
+
+                            var time = result;
+                            row.Time = time;
+                            return row;
+                        //         var hor = parseInt(parseInt(row.totalAmount) / (60));
+                        // var h = hor.toString();
+                        // if(h.length == 1){
+                        //     h = "0"+h;
+                        // }
+                        // var min = parseInt(parseInt(row.totalAmount) % 60);
+                        // var m = min.toString();
+                        // if(m.length == 1){
+                        //     m = "0"+m;
+                        // }
+                        // var time = h + ":" + m + ':' + '00';
+                        // row.Time = time;
+                        // return row;
+                    });
                         res.status(200).json({
                             'status': true,
                             'message': 'Success',
@@ -745,21 +767,21 @@ exports.getAllAboutUsByFilter = function (req, res, next) {
                         else
                             console.log("tiem");
                         var group = result.map((row) => {
-                            var hor = parseInt(parseInt(row.totalAmount) / (60));
-                        var h = hor.toString();
-                        if(h.length == 1){
-                            h = "0"+h;
-                        }
-                        var min = parseInt(parseInt(row.totalAmount) % 60);
-                        var m = min.toString();
-                        if(m.length == 1){
-                            m = "0"+m;
-                        }
-                        var time = h + ":" + m + ':' + '00';
-                        row.Time = time;
-                        return row;
-                    })
-                        ;
+
+                            var secs = row.totalAmount;
+                            var hours = Math.floor(secs / (60 * 60));
+   
+                            var divisor_for_minutes = secs % (60 * 60);
+                            var minutes = Math.floor(divisor_for_minutes / 60);
+                         
+                            var divisor_for_seconds = divisor_for_minutes % 60;
+                            var seconds = Math.ceil(divisor_for_seconds);
+                            var result = (hours < 10 ? "0" + hours : hours) + ":" + (minutes < 10 ? "0" + minutes : minutes) + ":" + (seconds  < 10 ? "0" + seconds : seconds);
+
+                            var time = result;
+                            row.Time = time;
+                            return row;
+                        });
                         res.status(200).json({
                             'status': true,
                             'message': 'Success',
@@ -813,19 +835,19 @@ exports.getAllAboutGroundingLog = function (req, res, next) {
                         if (err) res.send(err);
                         else
                             var group = result.map((row) => {
-                                var hor = parseInt(parseInt(row.totalAmount) / (60));
-                        var h = hor.toString();
-                        if(h.length == 1){
-                            h = "0"+h;
-                        }
-                        var min = parseInt(parseInt(row.totalAmount) % 60);
-                        var m = min.toString();
-                        if(m.length == 1){
-                            m = "0"+m;
-                        }
-                        var time = h + ":" + m + ':' + '00';
-                        row.Time = time;
-                        return row;
+                                 var secs = row.totalAmount;
+                            var hours = Math.floor(secs / (60 * 60));
+   
+                            var divisor_for_minutes = secs % (60 * 60);
+                            var minutes = Math.floor(divisor_for_minutes / 60);
+                         
+                            var divisor_for_seconds = divisor_for_minutes % 60;
+                            var seconds = Math.ceil(divisor_for_seconds);
+                            var result = (hours < 10 ? "0" + hours : hours) + ":" + (minutes < 10 ? "0" + minutes : minutes) + ":" + (seconds  < 10 ? "0" + seconds : seconds);
+
+                            var time = result;
+                            row.Time = time;
+                            return row;
                     })
                         ;
                         res.status(200).json({
@@ -903,17 +925,17 @@ exports.getAllAboutGroungingLogByFilter = function (req, res, next) {
                         else
                             console.log("tiem");
                         var group = result.map((row) => {
-                            var hor = parseInt(parseInt(row.totalAmount) / (60));
-                        var h = hor.toString();
-                        if(h.length == 1){
-                            h = "0"+h;
-                        }
-                        var min = parseInt(parseInt(row.totalAmount) % 60);
-                        var m = min.toString();
-                        if(m.length == 1){
-                            m = "0"+m;
-                        }
-                        var time = h + ":" + m + ':' + '00';
+                            var secs = row.totalAmount;
+                            var hours = Math.floor(secs / (60 * 60));
+   
+                            var divisor_for_minutes = secs % (60 * 60);
+                            var minutes = Math.floor(divisor_for_minutes / 60);
+                         
+                            var divisor_for_seconds = divisor_for_minutes % 60;
+                            var seconds = Math.ceil(divisor_for_seconds);
+                            var result = (hours < 10 ? "0" + hours : hours) + ":" + (minutes < 10 ? "0" + minutes : minutes) + ":" + (seconds  < 10 ? "0" + seconds : seconds);
+
+                            var time = result;
                         row.Time = time;
                         return row;
                     })
@@ -971,17 +993,17 @@ exports.getAllPdf = function (req, res, next) {
                         if (err) res.send(err);
                         else
                             var group = result.map((row) => {
-                                var hor = parseInt(parseInt(row.totalAmount) / (60));
-                        var h = hor.toString();
-                        if(h.length == 1){
-                            h = "0"+h;
-                        }
-                        var min = parseInt(parseInt(row.totalAmount) % 60);
-                        var m = min.toString();
-                        if(m.length == 1){
-                            m = "0"+m;
-                        }
-                        var time = h + ":" + m + ':' + '00';
+                                var secs = row.totalAmount;
+                            var hours = Math.floor(secs / (60 * 60));
+   
+                            var divisor_for_minutes = secs % (60 * 60);
+                            var minutes = Math.floor(divisor_for_minutes / 60);
+                         
+                            var divisor_for_seconds = divisor_for_minutes % 60;
+                            var seconds = Math.ceil(divisor_for_seconds);
+                            var result = (hours < 10 ? "0" + hours : hours) + ":" + (minutes < 10 ? "0" + minutes : minutes) + ":" + (seconds  < 10 ? "0" + seconds : seconds);
+
+                            var time = result;
                         row.Time = time;
                         return row;
                     })
@@ -1060,17 +1082,17 @@ exports.getAllPdfByFilter = function (req, res, next) {
                         else
                             console.log("tiem");
                         var group = result.map((row) => {
-                            var hor = parseInt(parseInt(row.totalAmount) / (60));
-                        var h = hor.toString();
-                        if(h.length == 1){
-                            h = "0"+h;
-                        }
-                        var min = parseInt(parseInt(row.totalAmount) % 60);
-                        var m = min.toString();
-                        if(m.length == 1){
-                            m = "0"+m;
-                        }
-                        var time = h + ":" + m + ':' + '00';
+                            var secs = row.totalAmount;
+                            var hours = Math.floor(secs / (60 * 60));
+   
+                            var divisor_for_minutes = secs % (60 * 60);
+                            var minutes = Math.floor(divisor_for_minutes / 60);
+                         
+                            var divisor_for_seconds = divisor_for_minutes % 60;
+                            var seconds = Math.ceil(divisor_for_seconds);
+                            var result = (hours < 10 ? "0" + hours : hours) + ":" + (minutes < 10 ? "0" + minutes : minutes) + ":" + (seconds  < 10 ? "0" + seconds : seconds);
+
+                            var time = result;
                         row.Time = time;
                         return row;
                     })
@@ -1129,17 +1151,17 @@ exports.getAllLogout = function (req, res, next) {
                         if (err) res.send(err);
                         else
                             var group = result.map((row) => {
-                                var hor = parseInt(parseInt(row.totalAmount) / (60));
-                        var h = hor.toString();
-                        if(h.length == 1){
-                            h = "0"+h;
-                        }
-                        var min = parseInt(parseInt(row.totalAmount) % 60);
-                        var m = min.toString();
-                        if(m.length == 1){
-                            m = "0"+m;
-                        }
-                        var time = h + ":" + m + ':' + '00';
+                                var secs = row.totalAmount;
+                            var hours = Math.floor(secs / (60 * 60));
+   
+                            var divisor_for_minutes = secs % (60 * 60);
+                            var minutes = Math.floor(divisor_for_minutes / 60);
+                         
+                            var divisor_for_seconds = divisor_for_minutes % 60;
+                            var seconds = Math.ceil(divisor_for_seconds);
+                            var result = (hours < 10 ? "0" + hours : hours) + ":" + (minutes < 10 ? "0" + minutes : minutes) + ":" + (seconds  < 10 ? "0" + seconds : seconds);
+
+                            var time = result;
                         row.Time = time;
                         return row;
                     })
@@ -1218,17 +1240,17 @@ exports.getAllLogoutByFilter = function (req, res, next) {
                         else
                             console.log("tiem");
                         var group = result.map((row) => {
-                            var hor = parseInt(parseInt(row.totalAmount) / (60));
-                        var h = hor.toString();
-                        if(h.length == 1){
-                            h = "0"+h;
-                        }
-                        var min = parseInt(parseInt(row.totalAmount) % 60);
-                        var m = min.toString();
-                        if(m.length == 1){
-                            m = "0"+m;
-                        }
-                        var time = h + ":" + m + ':' + '00';
+                            var secs = row.totalAmount;
+                            var hours = Math.floor(secs / (60 * 60));
+   
+                            var divisor_for_minutes = secs % (60 * 60);
+                            var minutes = Math.floor(divisor_for_minutes / 60);
+                         
+                            var divisor_for_seconds = divisor_for_minutes % 60;
+                            var seconds = Math.ceil(divisor_for_seconds);
+                            var result = (hours < 10 ? "0" + hours : hours) + ":" + (minutes < 10 ? "0" + minutes : minutes) + ":" + (seconds  < 10 ? "0" + seconds : seconds);
+
+                            var time = result;
                         row.Time = time;
                         return row;
                     })
