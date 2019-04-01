@@ -202,7 +202,7 @@ exports.getAllLogin = function (req, res, next) {
                             var minutes = Math.floor(divisor_for_minutes / 60);
                          
                             var divisor_for_seconds = divisor_for_minutes % 60;
-                            var seconds = Math.ceil(divisor_for_seconds);
+                            var seconds = Math.floor(divisor_for_seconds);
                             var result = (hours < 10 ? "0" + hours : hours) + ":" + (minutes < 10 ? "0" + minutes : minutes) + ":" + (seconds  < 10 ? "0" + seconds : seconds);
 
                             var time = result;
@@ -294,7 +294,7 @@ exports.getAllLoginByFilter = function (req, res, next) {
                             var minutes = Math.floor(divisor_for_minutes / 60);
                          
                             var divisor_for_seconds = divisor_for_minutes % 60;
-                            var seconds = Math.ceil(divisor_for_seconds);
+                            var seconds = Math.floor(divisor_for_seconds);
                             var result = (hours < 10 ? "0" + hours : hours) + ":" + (minutes < 10 ? "0" + minutes : minutes) + ":" + (seconds  < 10 ? "0" + seconds : seconds);
 
                             var time = result;
@@ -365,7 +365,7 @@ exports.getAllDashboard = function (req, res, next) {
                             var minutes = Math.floor(divisor_for_minutes / 60);
                          
                             var divisor_for_seconds = divisor_for_minutes % 60;
-                            var seconds = Math.ceil(divisor_for_seconds);
+                            var seconds = Math.floor(divisor_for_seconds);
                             var result = (hours < 10 ? "0" + hours : hours) + ":" + (minutes < 10 ? "0" + minutes : minutes) + ":" + (seconds  < 10 ? "0" + seconds : seconds);
 
                             var time = result;
@@ -458,7 +458,7 @@ exports.getAllDashboardByFilter = function (req, res, next) {
                             var minutes = Math.floor(divisor_for_minutes / 60);
                          
                             var divisor_for_seconds = divisor_for_minutes % 60;
-                            var seconds = Math.ceil(divisor_for_seconds);
+                            var seconds = Math.floor(divisor_for_seconds);
                             var result = (hours < 10 ? "0" + hours : hours) + ":" + (minutes < 10 ? "0" + minutes : minutes) + ":" + (seconds  < 10 ? "0" + seconds : seconds);
 
                             var time = result;
@@ -529,7 +529,7 @@ exports.getAllContactUs = function (req, res, next) {
                             var minutes = Math.floor(divisor_for_minutes / 60);
                          
                             var divisor_for_seconds = divisor_for_minutes % 60;
-                            var seconds = Math.ceil(divisor_for_seconds);
+                            var seconds = Math.floor(divisor_for_seconds);
                             var result = (hours < 10 ? "0" + hours : hours) + ":" + (minutes < 10 ? "0" + minutes : minutes) + ":" + (seconds  < 10 ? "0" + seconds : seconds);
 
                             var time = result;
@@ -622,7 +622,7 @@ exports.getAllContactUsByFilter = function (req, res, next) {
                             var minutes = Math.floor(divisor_for_minutes / 60);
                          
                             var divisor_for_seconds = divisor_for_minutes % 60;
-                            var seconds = Math.ceil(divisor_for_seconds);
+                            var seconds = Math.floor(divisor_for_seconds);
                             var result = (hours < 10 ? "0" + hours : hours) + ":" + (minutes < 10 ? "0" + minutes : minutes) + ":" + (seconds  < 10 ? "0" + seconds : seconds);
 
                             var time = result;
@@ -693,7 +693,7 @@ exports.getAllAboutUs = function (req, res, next) {
                             var minutes = Math.floor(divisor_for_minutes / 60);
                          
                             var divisor_for_seconds = divisor_for_minutes % 60;
-                            var seconds = Math.ceil(divisor_for_seconds);
+                            var seconds = Math.floor(divisor_for_seconds);
                             var result = (hours < 10 ? "0" + hours : hours) + ":" + (minutes < 10 ? "0" + minutes : minutes) + ":" + (seconds  < 10 ? "0" + seconds : seconds);
 
                             var time = result;
@@ -798,7 +798,7 @@ exports.getAllAboutUsByFilter = function (req, res, next) {
                             var minutes = Math.floor(divisor_for_minutes / 60);
                          
                             var divisor_for_seconds = divisor_for_minutes % 60;
-                            var seconds = Math.ceil(divisor_for_seconds);
+                            var seconds = Math.floor(divisor_for_seconds);
                             var result = (hours < 10 ? "0" + hours : hours) + ":" + (minutes < 10 ? "0" + minutes : minutes) + ":" + (seconds  < 10 ? "0" + seconds : seconds);
 
                             var time = result;
@@ -868,7 +868,7 @@ exports.getAllAboutGroundingLog = function (req, res, next) {
                             var minutes = Math.floor(divisor_for_minutes / 60);
                          
                             var divisor_for_seconds = divisor_for_minutes % 60;
-                            var seconds = Math.ceil(divisor_for_seconds);
+                            var seconds = Math.floor(divisor_for_seconds);
                             var result = (hours < 10 ? "0" + hours : hours) + ":" + (minutes < 10 ? "0" + minutes : minutes) + ":" + (seconds  < 10 ? "0" + seconds : seconds);
 
                             var time = result;
@@ -961,7 +961,7 @@ exports.getAllAboutGroungingLogByFilter = function (req, res, next) {
                             var minutes = Math.floor(divisor_for_minutes / 60);
                          
                             var divisor_for_seconds = divisor_for_minutes % 60;
-                            var seconds = Math.ceil(divisor_for_seconds);
+                            var seconds = Math.floor(divisor_for_seconds);
                             var result = (hours < 10 ? "0" + hours : hours) + ":" + (minutes < 10 ? "0" + minutes : minutes) + ":" + (seconds  < 10 ? "0" + seconds : seconds);
 
                             var time = result;
@@ -1032,7 +1032,7 @@ exports.getAllPdf = function (req, res, next) {
                             var minutes = Math.floor(divisor_for_minutes / 60);
                          
                             var divisor_for_seconds = divisor_for_minutes % 60;
-                            var seconds = Math.ceil(divisor_for_seconds);
+                            var seconds = Math.floor(divisor_for_seconds);
                             var result = (hours < 10 ? "0" + hours : hours) + ":" + (minutes < 10 ? "0" + minutes : minutes) + ":" + (seconds  < 10 ? "0" + seconds : seconds);
 
                             var time = result;
@@ -1124,7 +1124,7 @@ exports.getAllPdfByFilter = function (req, res, next) {
                             var minutes = Math.floor(divisor_for_minutes / 60);
                          
                             var divisor_for_seconds = divisor_for_minutes % 60;
-                            var seconds = Math.ceil(divisor_for_seconds);
+                            var seconds = Math.floor(divisor_for_seconds);
                             var result = (hours < 10 ? "0" + hours : hours) + ":" + (minutes < 10 ? "0" + minutes : minutes) + ":" + (seconds  < 10 ? "0" + seconds : seconds);
 
                             var time = result;
@@ -1190,13 +1190,13 @@ exports.getAllLogout = function (req, res, next) {
                         else
                             var group = result.map((row) => {
                                 var secs = row.totalAmount;
-                            var hours = Math.floor(secs / (60 * 60));
-   
+                            var hours = Math.floor(secs / (60 * 60));   
                             var divisor_for_minutes = secs % (60 * 60);
-                            var minutes = Math.floor(divisor_for_minutes / 60);
-                         
+
+                            var minutes = Math.floor(divisor_for_minutes / 60);                         
                             var divisor_for_seconds = divisor_for_minutes % 60;
-                            var seconds = Math.ceil(divisor_for_seconds);
+                            
+                            var seconds = Math.floor(divisor_for_seconds);
                             var result = (hours < 10 ? "0" + hours : hours) + ":" + (minutes < 10 ? "0" + minutes : minutes) + ":" + (seconds  < 10 ? "0" + seconds : seconds);
 
                             var time = result;
@@ -1288,7 +1288,7 @@ exports.getAllLogoutByFilter = function (req, res, next) {
                             var minutes = Math.floor(divisor_for_minutes / 60);
                          
                             var divisor_for_seconds = divisor_for_minutes % 60;
-                            var seconds = Math.ceil(divisor_for_seconds);
+                            var seconds = Math.floor(divisor_for_seconds);
                             var result = (hours < 10 ? "0" + hours : hours) + ":" + (minutes < 10 ? "0" + minutes : minutes) + ":" + (seconds  < 10 ? "0" + seconds : seconds);
 
                             var time = result;
