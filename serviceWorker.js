@@ -1,7 +1,7 @@
 //Cache polyfil to support cacheAPI in all browsers
 importScripts('./cache-polyfill.js');
 
-var cacheName = 'cache-v4';
+var cacheName = 'cache-v1.0.0';
 
 //Files to save in cache
 var files = [
@@ -24,6 +24,8 @@ var files = [
   './js/menu.js',
   './manifest.json'
 ];
+
+
 
 //Adding `install` event listener
 self.addEventListener('install', (event) => {

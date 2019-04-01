@@ -2,7 +2,7 @@
 	"name": "Treatment Innovations Grounding App",
 	"short_name": "Grounding App",
 	"description": "Treatment Innovations Grounding App",
-	"start_url": "./index.html?utm=homescreen",
+	"start_url": "./index.html",
 	"display": "standalone",
 	"orientation": "portrait",
 	"background_color": "#f5f5f5",
