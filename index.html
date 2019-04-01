@@ -4,6 +4,13 @@
 
 	<meta charset="utf-8" />
 	<title>Treatment Innovations Grounding App</title>
+	<script language="JavaScript">
+			'use strict';
+			if (window.location.protocol != "https:") {
+		window.location.protocol = "https:";
+		window.location.reload();
+	 }
+	 </script>
 	<meta http-equiv="X-UA-Compatible" content="IE=edge" />
 	<meta name="description"
 		content="Treatment Innovations Grounding App" />
@@ -246,68 +253,7 @@
 		<div class="ad2hs-prompt bounceInUp">
 				<h1>Add Grounding App To Your Homescreen!</h1>
 				<div class="btn btn-premium">Add</div>
-		</div>
-				<script language="JavaScript">
-						'use strict';
-						// Detects if device is on iOS 
-					
-						var deferredPrompt;
-				
-				window.addEventListener('beforeinstallprompt', function (e) {
-				  // Prevent Chrome 67 and earlier from automatically showing the prompt
-				  e.preventDefault();
-				  // Stash the event so it can be triggered later.
-				  deferredPrompt = e;
-				
-				  showAddToHomeScreen();
-				
-				});
-				
-				function showAddToHomeScreen() {
-				
-				var a2hsBtn = document.querySelector(".ad2hs-prompt");
-				
-				a2hsBtn.style.display = "flex";
-				
-				a2hsBtn.addEventListener("click", addToHomeScreen);
-				
-				}
-				
-				function addToHomeScreen() {
-				
-				  var a2hsBtn = document.querySelector(".ad2hs-prompt");
-				
-				  // hide our user interface that shows our A2HS button
-				  a2hsBtn.style.display = 'none';
-				
-				  if (deferredPrompt) {
-					// Show the prompt
-					deferredPrompt.prompt();
-				
-					// Wait for the user to respond to the prompt
-					deferredPrompt.userChoice
-					  .then(function (choiceResult) {
-				
-						if (choiceResult.outcome === 'accepted') {
-						  console.log('User accepted the A2HS prompt');
-						} else {
-						  console.log('User dismissed the A2HS prompt');
-						}
-				
-						deferredPrompt = null;
-				
-					  });
-				
-				  }
-				
-				}
-				
-				showAddToHomeScreen();
-				
-				window.addEventListener('appinstalled', function (evt) {
-				  console.log('a2hs', 'installed');
-				});
-		</script>
+		</div>				
 	</div>
 	<script src="./js/toast.js"></script>
 	<script src="./js/main.js"></script>
@@ -338,5 +284,86 @@
 		ga('send', 'pageview');
 	</script> -->
 </body>
+<script>
+		var scripts = [
+		'./',
+  './index.html?utm=homescreen', //SW treats query string as new request
+  'https://fonts.googleapis.com/css?family=Roboto:200,300,400,500,700', //caching 3rd party content
+  './css/styles.css',
+  './images/icons/android-chrome-192x192.png',
+  './images/push-on.png',
+  './images/push-off.png',
+  './images/icons/favicon-16x16.png',
+  './images/icons/favicon-32x32.png',
+  './js/main.js',
+  './js/app.js',
+  './js/offline.js',
+  './js/push.js',
+  './js/sync.js',
+  './js/toast.js',
+  './js/share.js',
+  './js/menu.js',
+  './manifest.json'
+		  ],
+		  src,
+		  script,
+		  pendingScripts = [],
+		  firstScript = document.scripts[0];
+		if (typeof Function.prototype.bind !== "function") {
+		  scripts.unshift("js/polyfills/bind_polyfill.js");
+		}
+		if ("classList" in document.documentElement === false) {
+		  scripts.unshift("js/polyfills/classlist_polyfill.js");
+		}
+		if (!window.requestAnimationFrame) {
+		  scripts.unshift("js/polyfills/animframe_polyfill.js");
+		}
+		// Watch scripts load in IE
+		function stateChange() {
+		  // Execute as many scripts in order as we can
+		  var pendingScript;
+		  while (pendingScripts[0] && pendingScripts[0].readyState == 'loaded') {
+			pendingScript = pendingScripts.shift();
+			// avoid future loading events from this script (eg, if src changes)
+			pendingScript.onreadystatechange = null;
+			// can't just appendChild, old IE bug if element isn't closed
+			firstScript.parentNode.insertBefore(pendingScript, firstScript);
+		  }
+		}
+		// loop through our script urls
+		while (src = scripts.shift()) {
+		  if ('async' in firstScript) { // modern browsers
+			script = document.createElement('script');
+			script.async = false;
+			script.src = src;
+			document.body.appendChild(script);
+		  } else if (firstScript.readyState) { // IE<10
+			// create a script and add it to our todo pile
+			script = document.createElement('script');
+			pendingScripts.push(script);
+			// listen for state changes
+			script.onreadystatechange = stateChange;
+			// must set src AFTER adding onreadystatechange listener
+			// else we’ll miss the loaded event for cached scripts
+			script.src = src;
+		  } else { // fall back to defer
+			document.write('<script src="' + src + '" defer></' + 'script>');
+		  }
+		}
+	  </script>
+	
+	  <script>
+		if ('serviceWorker' in navigator) {  
+		  navigator.serviceWorker.register('/sw.js')
+			.then(function (registration) {    // Registration was successful
+				 
+			  console.log('ServiceWorker registration successful with scope: ', registration.scope);  
+			}).catch(function (err) {    // registration failed :(
+				 
+			  console.log('ServiceWorker registration failed: ', err);  
+			});
+		}
+	  </script>
+	
 
 </html>
