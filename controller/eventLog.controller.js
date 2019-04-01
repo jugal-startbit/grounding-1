@@ -180,22 +180,21 @@ exports.getAllLogin = function (req, res, next) {
                         if (err) res.send(err);
                         else
                             console.log("tiem");
-                        var group = result.map((row) => {
-                            var hor = parseInt(parseInt(row.totalAmount) / (60));
-                            var h = hor.toString();
-                            if(h.length == 1){
-                                h = "0"+h;
-                            }
-                            var min = parseInt(parseInt(row.totalAmount) % 60);
-                            var m = min.toString();
-                            if(m.length == 1){
-                                m = "0"+m;
-                            }
-                            var time = h + ":" + m + ':' + '00';
-                        row.Time = time;
+                            var group = result.map((row) => {
+                                var secs = row.totalAmount;
+                                var hours = Math.floor(secs / (60 * 60));
+       
+                                var divisor_for_minutes = secs % (60 * 60);
+                                var minutes = Math.floor(divisor_for_minutes / 60);
+                             
+                                var divisor_for_seconds = divisor_for_minutes % 60;
+                                var seconds = Math.floor(divisor_for_seconds);
+                                var result = (hours < 10 ? "0" + hours : hours) + ":" + (minutes < 10 ? "0" + minutes : minutes) + ":" + (seconds  < 10 ? "0" + seconds : seconds);
+    
+                                var time = result;
+                            row.Time = time;
                         return row;
-                    })
-                        ;
+                        });
                         res.status(200).json({
                             'status': true,
                             'message': 'Success',
