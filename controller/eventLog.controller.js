@@ -226,7 +226,7 @@ exports.getAllLogin = function (req, res, next) {
                         })
                     })
         })
-}
+})
 
 // getAllLoginUsByFilter
 exports.getAllLoginByFilter = function (req, res, next) {
