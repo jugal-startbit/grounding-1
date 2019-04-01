@@ -12,11 +12,14 @@
 	<meta name="msapplication-TileColor" content="#29434d" />
 	<meta name="msapplication-TileImage" content="./images/icons/mstile-150x150.png" />
 	<meta name="mobile-web-app-capable" content="yes" />
+	
 	<meta name="apple-mobile-web-app-capable" content="yes" />
 	<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
 	<meta name="apple-mobile-web-app-title" content="Treatment Innovations Grounding App">
 	<meta name="application-name" content="Treatment Innovations Grounding App">
 	<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="apple-touch-icon" sizes="152x152" href="apple-touch-icon152.png">
+<link rel="apple-touch-icon" sizes="167x167" href="apple-touch-icon167.png">
 	<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
 	<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
 	<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
@@ -24,6 +27,9 @@
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:200,300,400,500,700" />
 	<link rel="stylesheet" href="./css/styles.css" />
+	<link rel="apple-touch-icon" href="touch-icon-iphone.png">
+	<meta name="apple-mobile-web-app-status-bar-style" content="default">
+	<meta name="apple-mobile-web-app-title" content="Appscope">
 </head>
 
 <body id="BodyElement">
@@ -105,7 +111,7 @@
 
 						<p class="card__temp"><b><input type="text" id="studyID" class="add__input" minlength="3" maxlength="3"  onkeypress='return event.charCode >= 48 && event.charCode <= 57'
 									placeholder="Your study ID (3 digits)" /> </b> <span></span></p>
-						<p class="card__following"><b><input type="text" id="studyInitials" class="add__input"  minlength="4" maxlength="4"  
+						<p class="card__following"><b><input type="text" id="studyInitials" class="add__input"  minlength="4" maxlength="4"  onkeypress='return (event.charCode >= 97 && event.charCode <= 122) ||(event.charCode >= 65 && event.charCode <= 90) || event.charCode  == 8'
 									placeholder="Your study initials (4 letters)" /></b> <span></span></p>
 						<p class="card__followers"><b><button class="add__btn">ENTER</button></b> <span></span></p>
 
