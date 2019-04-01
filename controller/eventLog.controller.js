@@ -167,7 +167,10 @@ exports.getAllLogin = function (req, res, next) {
                                     "$concat": [
                                         {"$substr": [{"$month": "$DateTime"}, 0, 2]}, "/",
                                         {"$substr": [{"$dayOfMonth": "$DateTime"}, 0, 2]}, "/",
-                                        {"$substr": [{"$year": "$DateTime"}, 0, 4]}
+                                        {"$substr": [{"$year": "$DateTime"}, 0, 4]}, " ",
+                                        {"$substr": [{"$hour": "$DateTime"}, 0, 2]}, ":",
+                                        {"$substr": [{"$minute": "$DateTime"}, 0, 2]}, ":",
+                                        {"$substr": [{"$second": "$DateTime"}, 0, 2]}
                                     ]
                                 },
                             }
@@ -254,10 +257,12 @@ exports.getAllLoginByFilter = function (req, res, next) {
                                 'UserInitial': "$UserInitial",
                                 'DateTime': "$DateTime",
                                 "datePartDay": {
-                                    "$concat": [
-                                        {"$substr": [{"$month": "$DateTime"}, 0, 2]}, "/",                                
-                                        {"$substr": [{"$dayOfMonth": "$DateTime"}, 0, 2]}, "/",
-                                        {"$substr": [{"$year": "$DateTime"}, 0, 4]}
+                                    "$concat": [{"$substr": [{"$month": "$DateTime"}, 0, 2]}, "/",
+                                    {"$substr": [{"$dayOfMonth": "$DateTime"}, 0, 2]}, "/",
+                                    {"$substr": [{"$year": "$DateTime"}, 0, 4]}, " ",
+                                    {"$substr": [{"$hour": "$DateTime"}, 0, 2]}, ":",
+                                    {"$substr": [{"$minute": "$DateTime"}, 0, 2]}, ":",
+                                    {"$substr": [{"$second": "$DateTime"}, 0, 2]}
                                     ]
                                 },
                             }
@@ -326,7 +331,10 @@ exports.getAllDashboard = function (req, res, next) {
                                     "$concat": [
                                         {"$substr": [{"$month": "$DateTime"}, 0, 2]}, "/",
                                         {"$substr": [{"$dayOfMonth": "$DateTime"}, 0, 2]}, "/",
-                                        {"$substr": [{"$year": "$DateTime"}, 0, 4]}
+                                        {"$substr": [{"$year": "$DateTime"}, 0, 4]}, " ",
+                                        {"$substr": [{"$hour": "$DateTime"}, 0, 2]}, ":",
+                                        {"$substr": [{"$minute": "$DateTime"}, 0, 2]}, ":",
+                                        {"$substr": [{"$second": "$DateTime"}, 0, 2]}
                                     ]
                                 },
                             }
@@ -415,7 +423,10 @@ exports.getAllDashboardByFilter = function (req, res, next) {
                                     "$concat": [
                                         {"$substr": [{"$month": "$DateTime"}, 0, 2]}, "/",
                                         {"$substr": [{"$dayOfMonth": "$DateTime"}, 0, 2]}, "/",
-                                        {"$substr": [{"$year": "$DateTime"}, 0, 4]}
+                                        {"$substr": [{"$year": "$DateTime"}, 0, 4]}, " ",
+                                        {"$substr": [{"$hour": "$DateTime"}, 0, 2]}, ":",
+                                        {"$substr": [{"$minute": "$DateTime"}, 0, 2]}, ":",
+                                        {"$substr": [{"$second": "$DateTime"}, 0, 2]}
                                     ]
                                 },
                             }
@@ -484,7 +495,10 @@ exports.getAllContactUs = function (req, res, next) {
                                     "$concat": [
                                         {"$substr": [{"$month": "$DateTime"}, 0, 2]}, "/",
                                         {"$substr": [{"$dayOfMonth": "$DateTime"}, 0, 2]}, "/",
-                                        {"$substr": [{"$year": "$DateTime"}, 0, 4]}
+                                        {"$substr": [{"$year": "$DateTime"}, 0, 4]}, " ",
+                                        {"$substr": [{"$hour": "$DateTime"}, 0, 2]}, ":",
+                                        {"$substr": [{"$minute": "$DateTime"}, 0, 2]}, ":",
+                                        {"$substr": [{"$second": "$DateTime"}, 0, 2]}
                                     ]
                                 },
                             }
@@ -573,7 +587,10 @@ exports.getAllContactUsByFilter = function (req, res, next) {
                                     "$concat": [
                                         {"$substr": [{"$month": "$DateTime"}, 0, 2]}, "/",
                                         {"$substr": [{"$dayOfMonth": "$DateTime"}, 0, 2]}, "/",
-                                        {"$substr": [{"$year": "$DateTime"}, 0, 4]}
+                                        {"$substr": [{"$year": "$DateTime"}, 0, 4]}, " ",
+                                        {"$substr": [{"$hour": "$DateTime"}, 0, 2]}, ":",
+                                        {"$substr": [{"$minute": "$DateTime"}, 0, 2]}, ":",
+                                        {"$substr": [{"$second": "$DateTime"}, 0, 2]}
                                     ]
                                 },
                             }
@@ -642,7 +659,10 @@ exports.getAllAboutUs = function (req, res, next) {
                                     "$concat": [
                                         {"$substr": [{"$month": "$DateTime"}, 0, 2]}, "/",
                                         {"$substr": [{"$dayOfMonth": "$DateTime"}, 0, 2]}, "/",
-                                        {"$substr": [{"$year": "$DateTime"}, 0, 4]}
+                                        {"$substr": [{"$year": "$DateTime"}, 0, 4]}, " ",
+                                        {"$substr": [{"$hour": "$DateTime"}, 0, 2]}, ":",
+                                        {"$substr": [{"$minute": "$DateTime"}, 0, 2]}, ":",
+                                        {"$substr": [{"$second": "$DateTime"}, 0, 2]}
                                     ]
                                 },
                             }
@@ -742,7 +762,10 @@ exports.getAllAboutUsByFilter = function (req, res, next) {
                                     "$concat": [
                                         {"$substr": [{"$month": "$DateTime"}, 0, 2]}, "/",
                                         {"$substr": [{"$dayOfMonth": "$DateTime"}, 0, 2]}, "/",
-                                        {"$substr": [{"$year": "$DateTime"}, 0, 4]}
+                                        {"$substr": [{"$year": "$DateTime"}, 0, 4]}, " ",
+                                        {"$substr": [{"$hour": "$DateTime"}, 0, 2]}, ":",
+                                        {"$substr": [{"$minute": "$DateTime"}, 0, 2]}, ":",
+                                        {"$substr": [{"$second": "$DateTime"}, 0, 2]}
                                     ]
                                 },
                             }
@@ -811,7 +834,10 @@ exports.getAllAboutGroundingLog = function (req, res, next) {
                                     "$concat": [
                                         {"$substr": [{"$month": "$DateTime"}, 0, 2]}, "/",
                                         {"$substr": [{"$dayOfMonth": "$DateTime"}, 0, 2]}, "/",
-                                        {"$substr": [{"$year": "$DateTime"}, 0, 4]}
+                                        {"$substr": [{"$year": "$DateTime"}, 0, 4]}, " ",
+                                        {"$substr": [{"$hour": "$DateTime"}, 0, 2]}, ":",
+                                        {"$substr": [{"$minute": "$DateTime"}, 0, 2]}, ":",
+                                        {"$substr": [{"$second": "$DateTime"}, 0, 2]}
                                     ]
                                 },
                             }
@@ -900,7 +926,10 @@ exports.getAllAboutGroungingLogByFilter = function (req, res, next) {
                                     "$concat": [
                                         {"$substr": [{"$month": "$DateTime"}, 0, 2]}, "/",
                                         {"$substr": [{"$dayOfMonth": "$DateTime"}, 0, 2]}, "/",
-                                        {"$substr": [{"$year": "$DateTime"}, 0, 4]}
+                                        {"$substr": [{"$year": "$DateTime"}, 0, 4]}, " ",
+                                        {"$substr": [{"$hour": "$DateTime"}, 0, 2]}, ":",
+                                        {"$substr": [{"$minute": "$DateTime"}, 0, 2]}, ":",
+                                        {"$substr": [{"$second": "$DateTime"}, 0, 2]}
                                     ]
                                 },
                             }
@@ -969,7 +998,10 @@ exports.getAllPdf = function (req, res, next) {
                                     "$concat": [
                                         {"$substr": [{"$month": "$DateTime"}, 0, 2]}, "/",
                                         {"$substr": [{"$dayOfMonth": "$DateTime"}, 0, 2]}, "/",
-                                        {"$substr": [{"$year": "$DateTime"}, 0, 4]}
+                                        {"$substr": [{"$year": "$DateTime"}, 0, 4]}, " ",
+                                        {"$substr": [{"$hour": "$DateTime"}, 0, 2]}, ":",
+                                        {"$substr": [{"$minute": "$DateTime"}, 0, 2]}, ":",
+                                        {"$substr": [{"$second": "$DateTime"}, 0, 2]}
                                     ]
                                 },
                             }
@@ -1057,7 +1089,10 @@ exports.getAllPdfByFilter = function (req, res, next) {
                                     "$concat": [
                                         {"$substr": [{"$month": "$DateTime"}, 0, 2]}, "/",
                                         {"$substr": [{"$dayOfMonth": "$DateTime"}, 0, 2]}, "/",
-                                        {"$substr": [{"$year": "$DateTime"}, 0, 4]}
+                                        {"$substr": [{"$year": "$DateTime"}, 0, 4]}, " ",
+                                        {"$substr": [{"$hour": "$DateTime"}, 0, 2]}, ":",
+                                        {"$substr": [{"$minute": "$DateTime"}, 0, 2]}, ":",
+                                        {"$substr": [{"$second": "$DateTime"}, 0, 2]}
                                     ]
                                 },
                             }
@@ -1127,7 +1162,10 @@ exports.getAllLogout = function (req, res, next) {
                                     "$concat": [
                                         {"$substr": [{"$month": "$DateTime"}, 0, 2]}, "/",
                                         {"$substr": [{"$dayOfMonth": "$DateTime"}, 0, 2]}, "/",
-                                        {"$substr": [{"$year": "$DateTime"}, 0, 4]}
+                                        {"$substr": [{"$year": "$DateTime"}, 0, 4]}, " ",
+                                        {"$substr": [{"$hour": "$DateTime"}, 0, 2]}, ":",
+                                        {"$substr": [{"$minute": "$DateTime"}, 0, 2]}, ":",
+                                        {"$substr": [{"$second": "$DateTime"}, 0, 2]}
                                     ]
                                 },
                             }
@@ -1215,7 +1253,10 @@ exports.getAllLogoutByFilter = function (req, res, next) {
                                     "$concat": [
                                         {"$substr": [{"$month": "$DateTime"}, 0, 2]}, "/",
                                         {"$substr": [{"$dayOfMonth": "$DateTime"}, 0, 2]}, "/",
-                                        {"$substr": [{"$year": "$DateTime"}, 0, 4]}
+                                        {"$substr": [{"$year": "$DateTime"}, 0, 4]}, " ",
+                                        {"$substr": [{"$hour": "$DateTime"}, 0, 2]}, ":",
+                                        {"$substr": [{"$minute": "$DateTime"}, 0, 2]}, ":",
+                                        {"$substr": [{"$second": "$DateTime"}, 0, 2]}
                                     ]
                                 },
                             }
