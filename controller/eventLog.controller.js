@@ -44,7 +44,9 @@ exports.create = function (req, res, next) {
     else if (data.Event == 'aboutGroundingLog') {
         localVar = aboutGroundingLog;
     }
-    else if (data.Event == 'logout') {
+    else if (data.Event == 'review') {
+        localVar = review;
+    }else if (data.Event == 'logout') {
         localVar = logout;
     }
     else {

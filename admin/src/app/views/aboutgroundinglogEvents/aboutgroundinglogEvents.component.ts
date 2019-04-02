@@ -149,7 +149,7 @@ export class AboutgroundinglogEventsComponent implements OnInit {
       title: 'AboutGroundingLog',
       useBom: true,
       noDownload: false,
-      headers: ['Study Initials', 'Study ID', 'Event', 'Date & Time of Logged', 'Time Spend']  /*, 'Total Cost', 'Paid Amount', 'Due Amount'*/
+      headers: ['Study Initials', 'Study ID', 'Event', 'Time Spend', 'Date & Time of Logged']  /*, 'Total Cost', 'Paid Amount', 'Due Amount'*/
     };
     new Angular5Csv(localArray, 'AboutGroundingLog', options);
   }
