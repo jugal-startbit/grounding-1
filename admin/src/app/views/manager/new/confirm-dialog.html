@@ -1,0 +1,12 @@
+<style>
+  .mat-dialog-content{
+    overflow: hidden;
+  }
+</style>
+<h2 mat-dialog-title>Select Client Type</h2>
+<mat-dialog-content id="manager_new" class="pt-2">
+  <mat-radio-group class="example-radio-group" (change)="onRadioButtonClick(managerType)" [(ngModel)]="managerType">
+    <mat-radio-button class="example-radio-button" value="individual">Individual </mat-radio-button> &nbsp;
+    <mat-radio-button class="example-radio-button" value="firm">Firm </mat-radio-button>
+  </mat-radio-group>
+</mat-dialog-content>

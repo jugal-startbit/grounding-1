@@ -1,0 +1,272 @@
+<div class="row">
+  <div class="col-md-12">
+    <div class="card">
+      <div class="card-header">
+        <span>Pending Payments</span>
+        <div class="card-header-actions">
+        </div>
+      </div>
+      <div class="card-body">
+        <div class="example-table-container">
+          <div class="btn-group float-left">
+            <button
+              class="btn btn-primary"
+              (click)="onChangeDayInWork('All')"
+              [class.active]="viewActiveWork == 'All'"
+            >
+              All
+            </button>
+            <button
+              class="btn btn-primary"
+              (click)="onChangeDayInWork('MTD')"
+              [class.active]="viewActiveWork == 'MTD'"
+            >
+              MTD
+            </button>
+            <button
+              class="btn btn-primary"
+              (click)="onChangeDayInWork('YTD')"
+              [class.active]="viewActiveWork == 'YTD'"
+            >
+              YTD
+            </button>
+          </div>
+          <mat-form-field class="col-md-2">
+            <mat-select placeholder="Client" [formControl]="selectedClientInWork">
+              <mat-option value="0">All</mat-option>
+              <mat-option *ngFor="let item of allClients" [value]="item._id">
+                {{item.Name}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+          <mat-form-field class="col-md-2">
+            <input matInput [matDatepicker]="picker3" [(ngModel)]="FromDateInWork">
+            <mat-datepicker-toggle matSuffix [for]="picker3"></mat-datepicker-toggle>
+            <mat-datepicker #picker3></mat-datepicker>
+          </mat-form-field>
+          <b class="paytmentToLabel">to</b>
+          <mat-form-field class="col-md-2">
+            <input matInput [matDatepicker]="picker4" [(ngModel)]="ToDateInWork">
+            <mat-datepicker-toggle matSuffix [for]="picker4"></mat-datepicker-toggle>
+            <mat-datepicker #picker4></mat-datepicker>
+          </mat-form-field>
+          <button type="reset" mat-raised-button color="accent" (click)="onClickResetInWork()" class="float-right ml-2 mb-2"><i class="fa fa-ban">&nbsp;</i>Reset</button>&nbsp;
+          <button type="button" mat-raised-button color="primary" (click)="getAllWorkByDueAmountWithFilter()" class="float-right mb-2">Filter</button>&nbsp;
+          <table mat-table [dataSource]="dataSource" matSort class="table table-responsive-sm table-hover table-outline mb-0 activity-table table-margin-top">
+
+            <!-- Work Column -->
+            <ng-container matColumnDef="Work">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header> Employee </th>
+              <td mat-cell *matCellDef="let row">
+                <a class="work-anchor" (click)="onClickWork(row)"> {{row.TaskID.Name}} </a>
+              </td>
+              <td mat-footer-cell *matFooterCellDef> </td>
+            </ng-container>
+
+            <!-- Client Column -->
+            <ng-container matColumnDef="Client">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header> Client </th>
+              <td mat-cell *matCellDef="let row">
+                {{row.ClientID.Name}}
+              </td>
+              <td mat-footer-cell *matFooterCellDef> </td>
+            </ng-container>
+
+            <!-- Department Column -->
+            <ng-container matColumnDef="Department">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header> Department </th>
+              <td mat-cell *matCellDef="let row">
+                {{row.DepartmentID.Name}}
+              </td>
+              <td mat-footer-cell *matFooterCellDef> </td>
+            </ng-container>
+
+            <!-- Employee Column -->
+            <ng-container matColumnDef="Employee">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header> Employee </th>
+              <td mat-cell *matCellDef="let row">
+                {{row.EmployeeID.Name}}
+              </td>
+              <td mat-footer-cell *matFooterCellDef> Total </td>
+            </ng-container>
+
+            <!-- Cost Column -->
+            <ng-container matColumnDef="Cost">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header> Total </th>
+              <td mat-cell *matCellDef="let row">
+                {{row.Cost | currency: 'INR'}}
+              </td>
+              <td mat-footer-cell *matFooterCellDef> {{getTotalCostInPending() | currency: 'INR'}} </td>
+            </ng-container>
+
+            <!-- PaidAmount Column -->
+            <ng-container matColumnDef="PaidAmount">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header> Paid Amount </th>
+              <td mat-cell *matCellDef="let row">
+                {{row.PaidAmount | currency: 'INR'}}
+              </td>
+              <td mat-footer-cell *matFooterCellDef> {{getTotalPaidInPending() | currency: 'INR'}} </td>
+            </ng-container>
+
+            <!-- DueAmount Column -->
+            <ng-container matColumnDef="DueAmount">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header> Due Amount </th>
+              <td mat-cell *matCellDef="let row">
+                {{row.DueAmount | currency: 'INR'}}
+              </td>
+              <td mat-footer-cell *matFooterCellDef> {{getTotalDueInPending() | currency: 'INR'}} </td>
+            </ng-container>
+
+            <!-- Action Column -->
+            <ng-container matColumnDef="Action">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header> Action </th>
+              <td mat-cell *matCellDef="let row">
+                <button mat-button mat-raised-button color="primary" (click)="sendReminderToClient(row)">Send</button>
+              </td>
+              <td mat-footer-cell *matFooterCellDef> </td>
+            </ng-container>
+
+            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+            <tr mat-footer-row *matFooterRowDef="displayedColumns"></tr>
+          </table>
+        </div>
+        <div *ngIf="dataSource && dataSource.data.length == 0" class="text-center pt-4 pb-4" >No record found.</div>
+        <mat-paginator #paginator [pageSizeOptions]="[10,20,50]" showFirstLastButtons></mat-paginator>
+        <div class="col-md-12 text-center">
+          <h5 class="text-success">{{notificationMessage}}</h5>
+        </div>
+      </div>
+    </div>
+  </div><!--/.col-->
+  <div class="col-md-12">
+    <div class="card">
+      <div class="card-header">
+        <span>Received Payments</span>
+        <div class="card-header-actions">
+        </div>
+      </div>
+      <div class="card-body">
+        <div class="example-table-container">
+          <div class="btn-group float-left">
+            <button
+              class="btn btn-primary"
+              (click)="onChangeDayInReceived('All')"
+              [class.active]="viewActiveInReceived == 'All'"
+            >
+              All
+            </button>
+            <button
+              class="btn btn-primary"
+              (click)="onChangeDayInReceived('MTD')"
+              [class.active]="viewActiveInReceived == 'MTD'"
+            >
+              MTD
+            </button>
+            <button
+              class="btn btn-primary"
+              (click)="onChangeDayInReceived('YTD')"
+              [class.active]="viewActiveInReceived == 'YTD'"
+            >
+              YTD
+            </button>
+          </div>
+          <mat-form-field class="col-md-2">
+            <mat-select placeholder="Client" [formControl]="selectedClientInReceived">
+              <mat-option value="0">All</mat-option>
+              <mat-option *ngFor="let item of allClients" [value]="item._id">
+                {{item.Name}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+          <mat-form-field class="col-md-2">
+            <input matInput [matDatepicker]="picker" [(ngModel)]="FromDateInReceived">
+            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+            <mat-datepicker #picker></mat-datepicker>
+          </mat-form-field>
+          <b class="paytmentToLabel">to</b>
+          <mat-form-field class="col-md-2">
+            <input matInput [matDatepicker]="picker2" [(ngModel)]="ToDateInReceived">
+            <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+            <mat-datepicker #picker2></mat-datepicker>
+          </mat-form-field>
+          <button type="reset" mat-raised-button color="accent" (click)="onClickResetInReceived()" class="float-right ml-2 mb-2"><i class="fa fa-ban">&nbsp;</i>Reset</button>&nbsp;
+          <button type="button" mat-raised-button color="primary" (click)="getAllPaymentsByFilter()" class="float-right mb-2">Filter</button>&nbsp;
+          <table mat-table [dataSource]="dataSourcePayment" matSort class="table table-responsive-sm table-hover table-outline mb-0 activity-table table-margin-top">
+            <!-- Client Column -->
+            <ng-container matColumnDef="Client">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header> Client </th>
+              <td mat-cell *matCellDef="let row">
+                {{row.ClientID.Name}}
+              </td>
+              <td mat-footer-cell *matFooterCellDef> </td>
+            </ng-container>
+
+            <!-- TotalAmount Column -->
+            <ng-container matColumnDef="TotalAmount">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header> Total </th>
+              <td mat-cell *matCellDef="let row">
+                {{(getSum(row)) | currency: 'INR'}}
+              </td>
+              <td mat-footer-cell *matFooterCellDef> {{getTotalAmount() | currency: 'INR'}} </td>
+            </ng-container>
+
+            <!-- Discount Column -->
+            <ng-container matColumnDef="Discount">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header> Discount </th>
+              <td mat-cell *matCellDef="let row">
+                {{row.Discount | currency: 'INR'}}
+              </td>
+              <td mat-footer-cell *matFooterCellDef> {{getTotalDiscount() | currency: 'INR'}} </td>
+            </ng-container>
+
+            <!-- Total Column -->
+            <ng-container matColumnDef="Total">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header> Paid Amount </th>
+              <td mat-cell *matCellDef="let row">
+                {{row.Total | currency: 'INR'}}
+              </td>
+              <td mat-footer-cell *matFooterCellDef> {{getTotalPaidAmount() | currency: 'INR'}} </td>
+            </ng-container>
+
+            <!-- Message Column -->
+            <ng-container matColumnDef="Message">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header> Message </th>
+              <td mat-cell *matCellDef="let row">
+                {{row.Message}}
+              </td>
+              <td mat-footer-cell *matFooterCellDef> </td>
+            </ng-container>
+
+            <!-- PaymentMethod -->
+            <ng-container matColumnDef="PaymentMethod">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header> Payment Method </th>
+              <td mat-cell *matCellDef="let row">
+                {{row.PaymentMethod}}
+              </td>
+              <td mat-footer-cell *matFooterCellDef> Total </td>
+            </ng-container>
+
+            <!-- Activity -->
+            <ng-container matColumnDef="Activity">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header> </th>
+              <td mat-cell *matCellDef="let row">
+                <div class="float-right">
+                  <small class="text-muted">{{row.Modified | timeAgo}}</small>
+                </div>
+              </td>
+              <td mat-footer-cell *matFooterCellDef> </td>
+            </ng-container>
+
+            <tr mat-header-row *matHeaderRowDef="displayedColumnspayment"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumnspayment;"></tr>
+            <tr mat-footer-row *matFooterRowDef="displayedColumnspayment"></tr>
+          </table>
+        </div>
+        <div *ngIf="dataSourcePayment && dataSourcePayment.data.length == 0" class="text-center pt-4 pb-4" >No record found.</div>
+        <mat-paginator #paginator2 [pageSizeOptions]="[10,20,50]" showFirstLastButtons></mat-paginator>
+      </div>
+    </div>
+  </div>
+</div><!--/.row-->
+<ng4-loading-spinner [threshold]="100" [timeout]="60000" [loadingText]="'Please wait...'" [zIndex]="9999"></ng4-loading-spinner>

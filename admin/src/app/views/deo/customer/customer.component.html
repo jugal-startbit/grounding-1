@@ -1,0 +1,79 @@
+<section [@routerTransition]>
+<div class="row" id="deo_customer">
+  <div class="col-sm-12 col-md-8" *ngIf="showCust">
+    <div class="card card-accent-primary">
+      <div class="card-header">
+        <strong>Customer Form</strong>
+      </div>
+      <div class="card-body">
+        <form [formGroup]="CustomerForm" class="form-horizontal" (keydown.enter)="onSubmitForm()">
+          <mat-form-field>
+            <input id="customerName" matInput type="text" formControlName="Name" placeholder="Name" required>
+          </mat-form-field>
+          <mat-form-field>
+            <input id="customerContactNo" matInput type="number" formControlName="Phone" placeholder="Contact No" required>
+          </mat-form-field>
+          <mat-form-field>
+            <input id="customerEmail" matInput type="email" formControlName="Email" placeholder="Email" required>
+          </mat-form-field>
+        </form>
+          <form [formGroup]="VisitorForm" class="form-horizontal">
+            <div style="margin-top: 15px;">
+              <label>VisitingType: </label>
+              <mat-radio-group id="customerVisitingType" formControlName="VisitingType" (change)="getVisitorType(VisitorForm.controls.VisitingType.value)" required>&nbsp;&nbsp;
+                <mat-radio-button value="New">New Work</mat-radio-button>&nbsp;&nbsp;
+                <mat-radio-button value="Old">Current/Old Work</mat-radio-button>
+              </mat-radio-group>
+            </div>
+            <mat-form-field style="margin-top: 15px;">
+              <mat-select id="customerPurpose" placeholder="Purpose" (selectionChange)="setPurpose(VisitorForm.controls.Purpose.value)"  formControlName="Purpose" required>
+                <mat-option>--</mat-option>
+                <mat-option *ngFor="let item of mainTaskList" [value]="VisitorForm.controls.VisitingType.value === 'New' ? item._id : item.TaskID._id">
+                  {{item.Name ? item.Name : item.TaskID.Name}}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+            <mat-form-field style="margin-top: 15px;">
+              <input id="customerPurposeDescription" matInput type="text" formControlName="PurposeDescription"  placeholder="Purpose Description" required>
+            </mat-form-field>
+            <h3 mat-subheader>Whom To Meet?</h3>
+            <mat-form-field *ngIf="localStorage.role === 'Super Admin'">
+              <mat-select placeholder="Branch" (selectionChange)="onChangeBranch(VisitorForm.controls.BranchID.value)" formControlName="BranchID" required>
+                <mat-option *ngFor="let item of allBranches" [value]="item._id">
+                  {{item.Name}}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+            <mat-form-field>
+              <mat-select id="customerDepartment" placeholder="Department" (selectionChange)="setDepart(VisitorForm.controls.DepartmentID.value)" formControlName="DepartmentID" required>
+                <mat-option *ngFor="let item of allDepartments" [value]="item._id">
+                  {{item.Name}}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+            <mat-form-field>
+              <mat-select id="customerUser" placeholder="Team Member" (selectionChange)="setUser(VisitorForm.controls.UserID.value)" formControlName="UserID" required>
+                <mat-option *ngFor="let item of allUsers" [value]="item._id">
+                  {{item.Name}}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+          </form>
+
+      </div>
+      <div class="card-footer text-right">
+        <button id="customerCancel" type="button" *ngIf="!showSpinner" mat-raised-button color="warn" (click)="cancel()">Cancel</button>&nbsp;
+        <button id="customerSubmit" type="submit" *ngIf="!showSpinner" mat-raised-button color="primary" (click)="onSubmitForm()" [disabled]="CustomerForm.invalid"><i class="fa fa-dot-circle-o">&nbsp;</i>Submit</button>
+        <mat-progress-spinner *ngIf="showSpinner"
+                              [diameter]="30"
+                              class="example-margin"
+                              color="primary"
+                              mode='indeterminate'
+                              value="5">
+        </mat-progress-spinner>
+      </div>
+    </div>
+  </div>
+</div>
+</section>
+<ng4-loading-spinner [threshold]="100" [timeout]="60000" [loadingText]="'Please wait...'" [zIndex]="9999"></ng4-loading-spinner>

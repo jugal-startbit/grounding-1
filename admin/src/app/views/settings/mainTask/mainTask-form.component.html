@@ -1,0 +1,165 @@
+<div class="row">
+  <div class="col-sm-12 col-md-8">
+    <div class="col-12 pb-3 text-center">
+      <mat-radio-group>
+        <span class="font-weight-bold">TaskType: </span>
+        <mat-radio-group id="selectTaskType" [disabled]="mainTaskID !== '-1'" [(ngModel)]="TaskType" (change)="setTasksType()">
+          &nbsp;&nbsp;<mat-radio-button value="R">Root</mat-radio-button> &nbsp;&nbsp;
+          <mat-radio-button value="P">Parent</mat-radio-button>&nbsp;&nbsp;
+          <mat-radio-button value="C">Child</mat-radio-button>
+        </mat-radio-group>
+      </mat-radio-group>
+    </div>
+    <div id="parentTask" class="card card-accent-primary" *ngIf="TaskType == 'P'">
+      <div class="card-header">
+        <strong>Parent Task Form</strong>
+      </div>
+      <div class="card-body">
+        <form [formGroup]="ParentTaskForm" id="parentTaskForm" class="form-horizontal" (keydown.enter)="onSubmitForm()">
+          <mat-form-field>
+            <input id="parentTaskFormName" matInput type="text" formControlName="Name" placeholder="Name" required>
+          </mat-form-field>
+          <mat-form-field *ngIf="localStorage.role === 'Super Admin' && this.mainTaskID === '-1'">
+            <mat-select placeholder="Branch" formControlName="BranchID" required (selectionChange)="onChangeBranch(ParentTaskForm.controls.BranchID.value)">
+              <mat-option>--</mat-option>
+              <mat-option *ngFor="let item of allBranches" [value]="item._id">
+                {{item.Name}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+          <mat-form-field>
+            <mat-select id="parentTaskFormDepartment" placeholder="Department Name" formControlName="DepartmentID" required>
+              <mat-option>--</mat-option>
+              <mat-option *ngFor="let item of allDepartments" [value]="item._id">
+                {{item.Name}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+          <mat-form-field>
+            <textarea id="parentTaskFormDescription" matInput rows="4" placeholder="Description" formControlName="Description" required></textarea>
+          </mat-form-field>
+        </form>
+      </div>
+      <div class="card-footer text-right">
+        <button id="parentTaskFormReset" type="reset" *ngIf="!showSpinner" mat-raised-button color="accent" (click)="reset()" [disabled]="mainTaskID != -1"><i class="fa fa-ban">&nbsp;</i>Reset</button>&nbsp;
+        <button id="parentTaskFormCancel" type="button" *ngIf="!showSpinner" mat-raised-button color="warn" (click)="cancel()">Cancel</button>&nbsp;
+        <button id="parentTaskFormSubmit" type="submit" *ngIf="!showSpinner" mat-raised-button color="primary" (click)="onSubmitForm()" [disabled]="ParentTaskForm.invalid"><i class="fa fa-dot-circle-o">&nbsp;</i>Submit</button>
+        <mat-progress-spinner *ngIf="showSpinner"
+                              [diameter]="30"
+                              class="example-margin"
+                              color="primary"
+                              mode='indeterminate'
+                              value="5">
+        </mat-progress-spinner>
+      </div>
+    </div>
+
+    <div id="rootTask" class="card card-accent-primary" *ngIf="TaskType == 'R'">
+      <div class="card-header">
+        <strong>Root Task Form</strong>
+      </div>
+      <div class="card-body">
+        <form id="rootTaskForm" [formGroup]="RootTaskForm" class="form-horizontal" (keydown.enter)="onSubmitForm()">
+          <mat-form-field>
+            <input id="rootTaskFormName" matInput type="text" formControlName="Name" placeholder="Name" required>
+          </mat-form-field>
+          <mat-form-field>
+            <span matSuffix>Days &nbsp;</span>
+            <input id="rootTaskFormDays" matInput type="number" formControlName="Days" placeholder="Duration" min="0" required>
+          </mat-form-field>
+          <mat-form-field>
+            <span matPrefix>&#8377; &nbsp;</span>
+            <input id="rootTaskFormCost" matInput type="number" formControlName="Cost" placeholder="Rate" min="0" required>
+          </mat-form-field>
+          <mat-form-field *ngIf="localStorage.role === 'Super Admin' && this.mainTaskID === '-1'">
+            <mat-select placeholder="Branch" formControlName="BranchID" required (selectionChange)="onChangeBranch(RootTaskForm.controls.BranchID.value)">
+              <mat-option>--</mat-option>
+              <mat-option *ngFor="let item of allBranches" [value]="item._id">
+                {{item.Name}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+          <mat-form-field>
+            <mat-select id="rootTaskFormDepartment" placeholder="Department Name" formControlName="DepartmentID" required>
+              <mat-option>--</mat-option>
+              <mat-option *ngFor="let item of allDepartments" [value]="item._id">
+                {{item.Name}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+          <mat-form-field>
+            <textarea id="rootTaskFormDescription" matInput rows="4" placeholder="Description" formControlName="Description" required></textarea>
+          </mat-form-field>
+          <label class="font-weight-bold">CheckList</label>
+          <angular-editor id="rootTaskFormCheckList" formControlName="CheckList" [config]="editorConfig"></angular-editor>
+        </form>
+      </div>
+      <div class="card-footer text-right">
+        <button id="rootTaskFormReset" type="reset" *ngIf="!showSpinner" mat-raised-button color="accent" (click)="reset()" [disabled]="mainTaskID != -1"><i class="fa fa-ban">&nbsp;</i>Reset</button>&nbsp;
+        <button id="rootTaskFormCancel" type="button" *ngIf="!showSpinner" mat-raised-button color="warn" (click)="cancel()">Cancel</button>&nbsp;
+        <button id="rootTaskFormSubmit" type="submit" *ngIf="!showSpinner" mat-raised-button color="primary" (click)="onSubmitForm()" [disabled]="RootTaskForm.invalid"><i class="fa fa-dot-circle-o">&nbsp;</i>Submit</button>
+        <mat-progress-spinner *ngIf="showSpinner"
+                              [diameter]="30"
+                              class="example-margin"
+                              color="primary"
+                              mode='indeterminate'
+                              value="5">
+        </mat-progress-spinner>
+      </div>
+    </div>
+
+    <div id="childTask" class="card card-accent-primary" *ngIf="TaskType == 'C'">
+      <div class="card-header">
+        <strong>Child Tasks Form</strong>
+      </div>
+      <div class="card-body">
+        <form id="childTaskForm" [formGroup]="ChildTaskForm" class="form-horizontal" (keydown.enter)="onSubmitForm()">
+          <mat-form-field>
+            <input id="childTaskFormName" matInput type="text" formControlName="Name" placeholder="Name" required>
+          </mat-form-field>
+          <mat-form-field>
+            <mat-select id="childTaskFormParentTask" placeholder="ParentTask Name" (selectionChange)="getAllByParentID()" formControlName="ParentTaskID" required>
+              <mat-option>--</mat-option>
+              <mat-option *ngFor="let item of ParentTask" [value]="item._id">
+                {{item.Name}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+          <mat-form-field>
+            <span matSuffix>Days &nbsp;</span>
+            <input id="childTaskFormDays" matInput type="number" formControlName="Days" placeholder="Duration" min="0" required>
+          </mat-form-field>
+          <mat-form-field>
+            <span matPrefix>&#8377; &nbsp;</span>
+            <input id="childTaskFormCost" matInput type="number" formControlName="Cost" placeholder="Rate" min="0" required>
+          </mat-form-field>
+          <mat-form-field>
+            <mat-select id="childTaskFormDepartment" placeholder="Department Name" formControlName="DepartmentID" required>
+              <mat-option>--</mat-option>
+              <mat-option *ngFor="let item of allDepartments" [value]="item._id">
+                {{item.Name}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+          <mat-form-field>
+            <textarea id="childTaskFormDescription" matInput rows="4" placeholder="Description" formControlName="Description" required></textarea>
+          </mat-form-field>
+          <angular-editor id="childTaskFormCheckList" formControlName="CheckList" [config]="editorConfig"></angular-editor>
+        </form>
+      </div>
+      <div class="card-footer text-right">
+        <button id="childTaskFormReset" type="reset" *ngIf="!showSpinner" mat-raised-button color="accent" (click)="reset()" [disabled]="mainTaskID != -1"><i class="fa fa-ban">&nbsp;</i>Reset</button>&nbsp;
+        <button id="childTaskFormCancel" type="button" *ngIf="!showSpinner" mat-raised-button color="warn" (click)="cancel()">Cancel</button>&nbsp;
+        <button id="childTaskFormSubmit" type="submit" *ngIf="!showSpinner" mat-raised-button color="primary" (click)="onSubmitForm()" [disabled]="ChildTaskForm.invalid"><i class="fa fa-dot-circle-o">&nbsp;</i>Submit</button>
+        <mat-progress-spinner *ngIf="showSpinner"
+                              [diameter]="30"
+                              class="example-margin"
+                              color="primary"
+                              mode='indeterminate'
+                              value="5">
+        </mat-progress-spinner>
+      </div>
+    </div>
+  </div>
+</div>
+<ng4-loading-spinner> </ng4-loading-spinner>

@@ -1,0 +1,14 @@
+<h2 mat-dialog-title>All Departments</h2>
+<mat-dialog-content >
+  <div class="row">
+    <mat-nav-list>
+      <mat-list-item *ngFor="let element of allDepartments; let i = index">
+        {{i+1}}. {{element}}
+      </mat-list-item>
+    </mat-nav-list>
+  </div>
+</mat-dialog-content>
+<mat-dialog-content *ngIf="(allDepartments?.length == 0)"> There are no record to show</mat-dialog-content>
+<mat-dialog-actions align="end">
+<button mat-button mat-dialog-close>Cancel</button>
+</mat-dialog-actions>

@@ -1,0 +1,377 @@
+// If you want to override variables do it here
+@import "variables";
+
+// Import styles
+@import "~@coreui/coreui/scss/coreui";
+
+// If you want to add something do it here
+@import "custom";
+@import "~@angular/material/prebuilt-themes/indigo-pink.css";
+@import '../../node_modules/angular-calendar/css/angular-calendar.css';
+.app-header{
+  z-index:1000!important;
+}
+.mat-simple-snackbar-action .mat-button-wrapper{
+  color:black;
+  font-weight: bold;
+}
+.sidebar .nav-dropdown-toggle::before{
+  background-image: url('../assets/right-arrow.png');
+}
+.sidebar .nav-link:hover.nav-dropdown-toggle::before{
+  background-image: url('../assets/right-arrow.png');
+}
+.sidebar .nav-dropdown.open > .nav-dropdown-toggle::before {
+  -webkit-transform: rotate(90deg);
+  transform: rotate(90deg);
+}
+mwl-calendar-month-cell,
+mwl-calendar-day-view-hour-segment,
+mwl-calendar-week-view-hour-segment {
+  touch-action: auto !important;
+}
+.app-header .nav-item .nav-link > .img-avatar, .app-header .nav-item .avatar.nav-link > img {
+  height: 25px;
+  margin: 0 10px;
+}
+.success-snackbar{
+  color: #fff;
+  background-color: #4dbd74;
+  border-color: #4dbd74;
+}
+.danger-snackbar{
+  color: #fff;
+  background-color: #f86c6b;
+  border-color: #f86c6b;
+}
+.warning-snackbar{
+  color: #23282c;
+  background-color: #d39e00;
+  border-color: #c69500;
+}
+.dropdown-item{
+  color:#73818f;
+}
+.dropdown-item:hover{
+  background-color: #20a8d8;
+  color:#fff!important;
+}
+.mat-header-cell{
+  color:black;
+  font-weight: 700;
+}
+.mat-header-row{
+  background: #e4e7ea!important;
+}
+.mat-raised-button{
+  line-height: 33px!important;
+}
+.example-table-container{
+  min-height: 80px;
+}
+.cal-month-view .cal-day-cell.cal-today {
+  background-color: lightgreen!important;
+}
+.cal-day-selected {
+  background-color: blue !important;
+}
+.cal-header{
+  background-color: lightblue!important;
+}
+.cal-month-view .cal-day-cell{
+  min-height: 55px;
+}
+.bg-task{
+  background-color: #9ec8fd!important;
+}
+//mwl-calendar-month-cell > .bg-holiday{
+.bg-holiday{
+  color: white;
+}
+.bg-holiday > .cal-day-number {
+  color: white!important;
+  font-weight: bold!important;
+  opacity: 1;
+}
+.bg-holiday-parent{
+  background-color: red!important;
+}
+
+.bg-high-priority {
+  background-color: #4a91e8!important;
+}
+.mat-header-cell {
+  font-size: 0.875rem!important;
+  color: #5c6873!important;
+}
+.activity-table .mat-header-cell {
+  padding-bottom: 15px!important;
+  font-size: 0.875rem!important;
+  color: #5c6873!important;
+}
+tr.mat-header-row{ height: 50px!important;}
+.timeline-2 {
+  border-left: 2px solid;
+  position: relative;
+}
+
+.timeline-2 .time-item:after {
+  background-color: #ffffff;
+  border-radius: 10px;
+  border-style: solid;
+  border-width: 2px;
+  bottom: 0;
+  content: '';
+  height: 10px;
+  left: 0;
+  margin-left: -6px;
+  position: absolute;
+  top: 5px;
+  width: 10px;
+}
+
+.time-item {
+  border-color: #dee5e7;
+  padding-bottom: 10px;
+  position: relative;
+}
+
+.time-item:before {
+  content: " ";
+  display: table;
+}
+
+.time-item:after {
+  background-color: #ffffff;
+  border-radius: 10px;
+  border-style: solid;
+  border-width: 2px;
+  bottom: 0;
+  content: '';
+  height: 14px;
+  left: 0;
+  margin-left: -8px;
+  position: absolute;
+  top: 5px;
+  width: 14px;
+}
+
+.time-item-item:after {
+  content: " ";
+  display: table;
+}
+
+.item-info {
+  margin-bottom: 15px;
+  margin-left: 15px;
+}
+
+.item-info p {
+  font-size: 13px;
+}
+
+.timeline-2, .timeline-2 .time-item:after, .time-item, .time-item:after {
+  border-color: #564aa3;
+}
+.mat-list-base .mat-list-item{
+  height: auto !important;
+  min-height:35px;
+}
+
+
+.width50{
+  width: 50px;
+}
+.width100{
+  width: 100px;
+}
+.width75{
+  width: 75px;
+}
+.width125{
+  width: 125px;
+}
+.width150{
+  width: 150px;
+}
+.width180{
+  width: 180px;
+}
+.width200{
+  width: 200px;
+}
+.width225{
+  width: 225px;
+}
+.card-header{
+    font-size: 20px;
+    font-weight: 700;
+}
+
+.card-header-actions{
+    font-size: 15px;
+}
+.table th, .table td {
+  padding-bottom: .4rem !important;
+}
+tr.mat-footer-row, tr.mat-row {
+   height: 40px !important;
+}
+
+
+#style-3::-webkit-scrollbar-track
+{
+  -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+  background-color: #F5F5F5;
+}
+
+#style-3::-webkit-scrollbar
+{
+  width: 6px;
+  background-color: #F5F5F5;
+}
+
+#style-3::-webkit-scrollbar-thumb
+{
+  background-color: #000000;
+}
+.mat-list-base .mat-list-item .mat-list-item-content{
+    align-items: baseline !important;
+}
+.logoutButton{
+  background-color: #e1e1e1;
+}
+.navbar-toggler:nth-of-type(3){
+  display: none;
+}
+
+@media only screen and (max-width: 768px){
+  .cal-month-view .cal-day-cell.cal-today .cal-day-number {
+    font-size: 1.0em;
+  }
+   .cal-month-view .cal-day-number {
+    font-size: 1em;
+    margin-top: 5px;
+    margin-right: 7px;
+    float: right;
+    margin-bottom: 5px;
+  }
+  .cal-month-view .cal-day-badge {
+    margin-top: 15px;
+    margin-left: 3px;
+    padding: 3px 5px;
+    font-size: 10px;
+  }
+  .card-header{
+    font-size: 18px;
+  }
+  .card-header-actions{
+    font-size: 13px;
+}
+.cdk-overlay-pane{
+	max-width:90vw !important;
+	margin: 0 auto;
+	width:85% !important;
+}
+.main .container-fluid
+{
+	padding:0px 10px!important;
+}
+.mat-horizontal-content-container
+{
+	padding:0px !important;
+}
+.custom-modalbox{
+	max-width:95vw !important;
+	margin: 0 auto;
+	width:100% !important;
+}
+.empStatusChartActions , .empPerformanceChartActions , .empActivityHeaderActions , .empWorkActions , .entryAction{
+	width:100%;
+}
+.AllEmp{
+	width:95%!important;
+}
+
+.table:hover{
+	cursor:pointer;
+}
+.mat-paginator-range-label {
+    margin: 0 10px 0 10px !important;
+}
+.mat-header-cell{
+	min-width: 115px;
+}
+
+.mat-column-UID , .mat-column-User {
+	min-width: 75px;
+}
+.mat-column-Symbol {
+	min-width: 45px;
+}
+.mat-column-select {
+	min-width: 45px;
+}
+
+.mat-cell{
+	padding : 2px!important;
+}
+
+th.mat-header-cell:first-of-type {
+    padding-left: .4rem !important;
+}
+.mat-column-Current-Work-Status{
+	min-width: 180px;
+}
+th.statusEmp {
+    min-width: 110px;
+}
+
+.cal-in-month{
+	min-width:14.14%!important;
+	word-wrap: break-word;
+}
+.app-header {
+  z-index: 1021!important;
+}
+.paytmentToLabel{
+	display: block;
+    	margin: 0 auto;
+    	text-align: center;
+}
+.app-body .main {
+    flex: 1;
+    min-width: 0;
+    padding-bottom: 15px;
+}
+.app-footer {
+     flex: 0 0 70px;
+}
+tbody tr td:first-of-type {
+    padding-left: .4rem !important;
+}
+.dateDeoSearch{
+	width:100%!important;
+
+}
+.referenceForm mat-form-field{
+	width:100% !important;
+}
+.workNewBody{
+	padding: 1.25rem 0.5rem!important;
+}
+.childTaskWorkNew{
+	overflow-x:scroll;
+ }
+ .mat-snack-bar-handset .mat-snack-bar-container{
+  margin-top: 60px!important;
+}
+.custDialog , .custDialogCardBody{
+	padding:0px !important;
+}
+.print-button{
+  display: none!important;
+}
+}
+
+

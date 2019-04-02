@@ -1,0 +1,146 @@
+<h2 mat-dialog-title>{{clientData.Type}} Information</h2>
+<mat-dialog-content >
+  <div class="row">
+    <section class="col-md-12 p-0" *ngIf="clientData.Type == 'Individual'" >
+      <mat-list role="list">
+        <h3 mat-subheader>Basic Information</h3>
+        <mat-list-item role="listitem"><strong>Name</strong>: {{clientData.Name}}</mat-list-item>
+        <mat-list-item role="listitem"><strong>Father Name</strong>: {{clientData.FatherName}}</mat-list-item>
+        <mat-list-item role="listitem"><strong>Email</strong>: {{clientData.Email}}</mat-list-item>
+        <mat-list-item role="listitem"><strong>Mobile No</strong>: {{clientData.Phone}}</mat-list-item>
+        <mat-list-item role="listitem"><strong>DOB</strong>: {{clientData.DOB | date: 'dd-MMM-yyyy'}}</mat-list-item>
+        <mat-list-item role="listitem"><strong>Gender</strong>: {{clientData.Gender}}</mat-list-item>
+        <mat-list-item role="listitem"><strong>Residential Address</strong>: {{clientData.PermanentAddress}}</mat-list-item>
+        <mat-list-item role="listitem"><strong>Corporate Address</strong>: {{clientData.CorrespondingAddress}}</mat-list-item>
+        <h3 mat-subheader>Document Detail</h3>
+        <table class="table">
+          <thead>
+          <tr>
+            <th>S.No.</th>
+            <th>Name</th>
+            <th>Number</th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr *ngFor="let item of clientData.Document; let i = index">
+            <td>{{i+1}}</td>
+            <td>{{item.Name}}</td>
+            <td>{{item.Number}}</td>
+          </tr>
+          </tbody>
+        </table>
+        <h3 mat-subheader>Bank Detail</h3>
+        <div class="col-md-12" style="overflow-x: auto">
+          <table class="table">
+            <thead>
+            <tr>
+              <th>S.No.</th>
+              <th>Bank Name</th>
+              <th>Holder Name</th>
+              <th>Account No</th>
+              <th>IFSC</th>
+              <th>Branch</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr *ngFor="let item of clientData.Bank; let i = index">
+              <td>{{i+1}}</td>
+              <td>{{item.BankName}}</td>
+              <td>{{item.Holder}}</td>
+              <td>{{item.AccNo}}</td>
+              <td>{{item.IFSC}}</td>
+              <td>{{item.Branch}}</td>
+            </tr>
+            </tbody>
+          </table>
+        </div>
+      </mat-list>
+    </section>
+    <section class="col-md-12" *ngIf="clientData.Type == 'Firm'">
+      <mat-list role="list">
+        <h3 mat-subheader>Bacic Information</h3>
+        <mat-list-item role="listitem"><strong>Name</strong>: {{clientData.Name}}</mat-list-item>
+        <mat-list-item role="listitem"><strong>Email</strong>: {{clientData.Email}}</mat-list-item>
+        <mat-list-item role="listitem"><strong>PAN</strong>: {{clientData.PAN}}</mat-list-item>
+        <mat-list-item role="listitem"><strong>TIN</strong>: {{clientData.TIN}}</mat-list-item>
+        <mat-list-item role="listitem"><strong>Mobile No</strong>: {{clientData.Phone}}</mat-list-item>
+        <mat-list-item role="listitem"><strong>Reg. Date</strong>: {{clientData.RegistrationDate | date: 'dd-MMM-yyyy'}}</mat-list-item>
+        <mat-list-item role="listitem"><strong>Address</strong>: {{clientData.Address}}</mat-list-item>
+        <h3 mat-subheader>Company Document Detail</h3>
+        <table class="table">
+          <thead>
+          <tr>
+            <th>S.No.</th>
+            <th>Name</th>
+            <th>Number</th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr *ngFor="let item of clientData.CompanyDocument; let i = index">
+            <td>{{i+1}}</td>
+            <td>{{item.Name}}</td>
+            <td>{{item.Number}}</td>
+          </tr>
+          </tbody>
+        </table>
+        <div class="row">
+          <div class="col-md-6" *ngFor="let kp of clientData.KeyPerson">
+            <h2 mat-subheader>Key Person "{{kp.Name}}" Information</h2>
+            <h6>Member-Type: {{kp.MemberType}}</h6>
+            <h6>Contact No: {{kp.Phone}}</h6>
+            <h6>Address: {{kp.PermanentAddress}}</h6>
+            <table class="table">
+              <thead>
+              <tr>
+                <th>S.No.</th>
+                <th>Name</th>
+                <th>Number</th>
+              </tr>
+              </thead>
+              <tbody>
+              <tr *ngFor="let item of kp.allDocument; let i = index">
+                <td>{{i+1}}</td>
+                <td>{{item.Name}}</td>
+                <td>{{item.Number}}</td>
+              </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </mat-list>
+    </section>
+    <section class="col-md-12">
+      <h3 mat-subheader>Work Detail</h3>
+      <h5 class="ml-5" *ngIf="allWorks.length == 0">No Record found.</h5>
+      <div class="col-md-12" style="overflow-x: auto">
+        <table class="table" *ngIf="!(allWorks.length == 0)">
+          <thead>
+          <tr>
+            <th>S.No.</th>
+            <th>Name</th>
+            <th>Employee Name</th>
+            <th>Cost</th>
+            <th>Time(days)</th>
+            <th>Status</th>
+            <th>Special Note</th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr *ngFor="let item of allWorks; let i = index">
+            <td>{{i+1}}</td>
+            <td>{{item.TaskID.Name}}</td>
+            <td>{{item.EmployeeID.Name}}</td>
+            <td>{{item.Cost | currency: 'INR'}}</td>
+            <td>{{item.Time}}</td>
+            <td>{{item.StatusID == 1 ? 'Pending' : (item.StatusID === 8 ? 'Completed' : (item.StatusID === 6? 'Overdue' : (item.StatusID === 5 ? 'Running' : (item.StatusID == 6 ? 'Working' : 'Reassigned'))))}}</td>
+            <td>{{item.SpecialNote}}</td>
+          </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+  </div>
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+<button mat-button mat-dialog-close>Cancel</button>
+</mat-dialog-actions>

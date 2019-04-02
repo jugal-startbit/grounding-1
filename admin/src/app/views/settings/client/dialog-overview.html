@@ -1,0 +1,37 @@
+<h2 mat-dialog-title>Client Firms</h2>
+<mat-dialog-content class="mat-typography" >
+  <div class="col-sm-12">
+    <div class="card card-accent-primary">
+      <div class="card-header">
+        <strong>Client Firm</strong>
+      </div>
+      <div class="card-body">
+        <form [formGroup]="ClientFirmForm" class="form-horizontal" (keydown.enter)="onSubmitForm()">
+          <mat-form-field>
+            <input matInput type="text" formControlName="Name" placeholder="Firm name" required>
+          </mat-form-field>
+          <mat-form-field>
+            <input matInput type="text" formControlName="PAN" placeholder="PAN" required>
+          </mat-form-field>
+          <mat-form-field>
+            <input matInput type="text" formControlName="TIN" placeholder="TIN" required>
+          </mat-form-field>
+          <mat-form-field>
+            <textarea matInput rows="5" placeholder="Firm Address" formControlName="Address" required></textarea>
+          </mat-form-field>
+        </form>
+      </div>
+      <div class="card-footer text-right">
+        <button type="button" mat-raised-button color="warn" (click)="onNoClick()">Cancel</button>&nbsp;
+        <button type="submit" [mat-dialog-close]="true" mat-raised-button color="primary" (click)="onSubmitForm()" [disabled]="ClientFirmForm.invalid"><i class="fa fa-dot-circle-o">&nbsp;</i>Submit</button>
+        <mat-progress-spinner
+                              [diameter]="30"
+                              class="example-margin"
+                              color="primary"
+                              mode='indeterminate'
+                              value="5">
+        </mat-progress-spinner>
+      </div>
+    </div>
+  </div>
+</mat-dialog-content>

@@ -1,0 +1,357 @@
+<section [@routerTransition]>
+<div class="row" id="manager_work_assignment">
+  <div class="col-sm-12 col-md-10">
+      <mat-horizontal-stepper linear="isLinear" #stepper>
+        <mat-step>
+          <div class="card card-accent-primary">
+            <div class="card-header">
+              <strong>WorkAssignment Detail</strong>
+            </div>
+            <div class="card-body workNewBody">
+              <ng-template matStepLabel>WorkAssignment Detail</ng-template>
+              <div class="text-center">
+                <mat-radio-group [(ngModel)]="WorkType" disabled>
+                  <mat-radio-button value="New">New</mat-radio-button>&nbsp;&nbsp;
+                  <mat-radio-button value="Existing">Existing</mat-radio-button>&nbsp;&nbsp;
+                </mat-radio-group>
+              </div>
+              <mat-form-field (click)="openClientSerachDialog()" style="cursor: pointer !important;">
+                <input matInput disabled type="text" [(ngModel)]="clientName"  placeholder="Client" required>
+                <mat-icon matSuffix style="cursor: pointer;margin-right: 10px;">search</mat-icon>&nbsp;
+              </mat-form-field>
+              <form [formGroup]="WorkNewForm" class="form-horizontal" autocomplete="off">
+                <mat-form-field *ngIf="currentUser.role == 'Super Admin'">
+                  <mat-select placeholder="Branch" formControlName="BranchID" (selectionChange)="onBranchChange(WorkNewForm.controls.BranchID.value)">
+                    <mat-option>--</mat-option>
+                    <mat-option *ngFor="let item of allBranches" [value]="item._id">
+                      {{item.Name}}
+                    </mat-option>
+                  </mat-select>
+                </mat-form-field>
+                <mat-form-field  *ngIf="currentUser.role == 'Super Admin'">
+                  <mat-select placeholder="Department" formControlName="DepartmentID" (selectionChange)="onDepartmentChange(WorkNewForm.controls.DepartmentID.value)">
+                    <mat-option>--</mat-option>
+                    <mat-option *ngFor="let item of allDepartments" [value]="item._id">
+                      {{item.Name}}
+                    </mat-option>
+                  </mat-select>
+                </mat-form-field>
+                <mat-form-field>
+                  <mat-select placeholder="Task" formControlName="TaskID" required (selectionChange)="onTaskChange(WorkNewForm.controls.TaskID.value)">
+                    <mat-option *ngIf="!(WorkNewForm.controls.TaskID.value)">--</mat-option>
+                    <mat-option *ngFor="let item of allTasks" [value]="item._id">
+                      {{item.Name}}
+                    </mat-option>
+                  </mat-select>
+                </mat-form-field>
+                <mat-form-field *ngIf="allChildTasks.length == 0 && currentUser.role == 'Super Admin'" class="col-6" >
+                  <span matPrefix>&#8377; &nbsp;</span>
+                  <input matInput type="number" formControlName="Cost" min="0" placeholder="Cost">
+                </mat-form-field>
+                <mat-form-field *ngIf="allChildTasks.length == 0" class="col-6">
+                  <span matPrefix>days &nbsp;</span>
+                  <input matInput type="number" formControlName="Time" min="0" placeholder="Time">
+                </mat-form-field>
+                <div class="row">
+                  <div class="col-6"  *ngIf="currentUser.role == 'Super Admin'">
+                    <mat-form-field *ngIf="(WorkNewForm.controls.Cost.value) && costOnFirst != WorkNewForm.controls.Cost.value">
+                      <input matInput type="text" formControlName="CostNote" placeholder="Note Cost">
+                    </mat-form-field>
+                  </div>
+                  <div class="col-6">
+                    <mat-form-field  *ngIf="(WorkNewForm.controls.Time.value) && timeOnFirst != WorkNewForm.controls.Time.value">
+                      <input matInput type="text" formControlName="TimeNote" placeholder="Note Time">
+                    </mat-form-field>
+                  </div>
+                </div>
+                <div *ngIf="(WorkNewForm.controls.TaskID.value && allChildTasks.length == 0)">
+                  <mat-checkbox class="ml-2" formControlName="Is_Repetitive" placeholder="Is_Repetitive">Is_Repetitive</mat-checkbox><!--[(ngModel)]="disabled"-->
+                </div>
+                <div *ngIf="(WorkNewForm.controls.Is_Repetitive.value)">
+                  <div class="row">
+                    <div class="col-4">
+                      <mat-form-field>
+                        <!--<input matInput type="text" formControlName="LastDate" placeholder="Last Date">-->
+                        <input matInput [min]="maxDate" [matDatepicker]="filterpicker" formControlName="LastDate" placeholder="Choose Last date" autocomplete="off">
+                        <mat-datepicker-toggle matSuffix [for]="filterpicker"></mat-datepicker-toggle>
+                        <mat-datepicker #filterpicker></mat-datepicker>
+                      </mat-form-field>
+                    </div>
+                    <div class="col-4">
+                      <mat-form-field>
+                        <!--<input matInput type="text" formControlName="Accurance" placeholder="Accurance">-->
+                        <mat-select placeholder="Occurrence" formControlName="Occurrence">
+                          <mat-option>--</mat-option>
+                          <!--<mat-option value="15">Half Month</mat-option>-->
+                          <mat-option value="30">Monthly</mat-option>
+                          <mat-option value="91">Quarterly</mat-option>
+                          <mat-option value="182">Half Yearly</mat-option>
+                          <mat-option value="365">Yearly</mat-option>
+                          <!--<mat-option *ngFor="let item of allDepartments" [value]="item._id">-->
+                            <!--{{item.Name}}-->
+                          <!--</mat-option>-->
+                        </mat-select>
+                      </mat-form-field>
+                    </div>
+                    <div class="col-4">
+                      <mat-form-field>
+                        <input matInput type="text" formControlName="GracePeriod" placeholder="Reminding Peroid">
+                      </mat-form-field>
+                    </div>
+                  </div>
+                </div>
+                <mat-form-field>
+                  <mat-select placeholder="Priority" formControlName="Priority">
+                    <mat-option>--</mat-option>
+                    <mat-option value="urgent">Urgent</mat-option>
+                    <mat-option value="high">High</mat-option>
+                    <mat-option value="normal">Normal</mat-option>
+                    <mat-option value="low">Low</mat-option>
+                  </mat-select>
+                </mat-form-field>
+                <mat-form-field>
+                  <textarea matInput rows="5" placeholder="Special Notes" formControlName="SpecialNote"></textarea>
+                </mat-form-field>
+              </form>
+              <div *ngIf="allChildTasks && allChildTasks.length != 0" style="max-height:300px; overflow-x: auto;">
+                <table class="table">
+                  <thead class="thead-light">
+                  <tr>
+                    <th></th>
+                    <th  *ngIf="currentUser.role == 'Super Admin'">Name</th>
+                    <th *ngIf="">Cost</th>
+                    <th>Time(days)</th>
+                    <th>CheckList</th>
+                    <th>Repetitive</th>
+                    <th></th>
+                  </tr>
+                  </thead>
+                  <tbody>
+                  <tr *ngFor="let item of allChildTasks; let i = index">
+                    <td><mat-checkbox [(ngModel)]="item.value"></mat-checkbox></td>
+                    <td>{{item.Name}}</td>
+                    <td  *ngIf="currentUser.role == 'Super Admin'" id="cost-{{i}}" [attr.contenteditable]="item.value">{{item.value ? item.Cost : null}}</td>
+                    <td id="time-{{i}}" [attr.contenteditable]="item.value">{{item.value ? item.Days : null}}</td>
+                    <td><a id="View{{i}}" *ngIf="item.value" class="text-black taskView" (click)="viewCheckList(item)" style="cursor:pointer;"><i class="material-icons">visibility</i></a>&nbsp;</td>
+                    <td><mat-checkbox [disabled]="!item.value" [(ngModel)]="item.Is_Repetitive" ></mat-checkbox>
+                      <div >
+                        <div class="row">
+                          <div class="col-4">
+                            <mat-form-field>
+                              <!--<input matInput type="text" formControlName="LastDate" placeholder="Last Date">-->
+                              <input [disabled]="!item.Is_Repetitive" matInput [min]="maxDate" [matDatepicker]="filterpicker" [(ngModel)]="item.LastDate"  placeholder="Choose last Date" autocomplete="off">
+                              <mat-datepicker-toggle matSuffix [for]="filterpicker"></mat-datepicker-toggle>
+                              <mat-datepicker #filterpicker></mat-datepicker>
+                            </mat-form-field>
+                          </div>
+                          <div class="col-4">
+                            <mat-form-field>
+                              <!--<input matInput type="text" formControlName="Accurance" placeholder="Accurance">-->
+                              <mat-select [disabled]="!item.Is_Repetitive" placeholder="Occurrence" [(ngModel)]="item.Occurrence" >
+                                <mat-option>--</mat-option>
+                                <mat-option value="30">Monthly</mat-option>
+                                <mat-option value="91">Quarterly</mat-option>
+                                <mat-option value="182">Half Yearly</mat-option>
+                                <mat-option value="365">Yearly</mat-option>
+                                <!--<mat-option *ngFor="let item of allDepartments" [value]="item._id">-->
+                                <!--{{item.Name}}-->
+                                <!--</mat-option>-->
+                              </mat-select>
+                            </mat-form-field>
+                          </div>
+                          <div class="col-4">
+                            <mat-form-field>
+                              <input [disabled]="!item.Is_Repetitive" matInput type="text" placeholder="Reminder Period" [(ngModel)]="item.GracePeriod" >
+                            </mat-form-field>
+                          </div>
+                        </div>
+                      </div>
+                    </td>
+                    <td>
+                      <button [disabled]="!item.value" mat-button mat-raised-button color="primary" (click)="updateChildTaskDetail(i)"><i class="fa fa-plus">&nbsp;</i>update</button>
+                    </td>
+                  </tr>
+                  </tbody>
+                </table>
+              </div>
+              <div class="text-right">
+                <button class="mb-2" [disabled]="WorkNewForm.invalid || !clientName" mat-button mat-raised-button color="primary" (click)="addClientWork()"><i class="fa fa-plus">&nbsp;</i>add</button>
+              </div>
+              <div class="table-client-entry example-container mat-elevation-z8">
+                <div class="example-loading-shade"
+                     *ngIf="isLoadingResults || isRateLimitReached">
+                  <mat-spinner *ngIf="isLoadingResults"></mat-spinner>
+                  <div class="example-rate-limit-reached" *ngIf="isRateLimitReached">
+                    API rate limit has been reached. It will be reset in one minute.
+                  </div>
+                </div>
+                <div class="example-table-container">
+                  <table mat-table [dataSource]="dataSource" matSort multiTemplateDataRows>
+
+                    <ng-container matColumnDef="Symbol">
+                      <th mat-header-cell *matHeaderCellDef mat-sort-header style="width: 55px;">  </th>
+                      <td mat-cell *matCellDef="let row"><b> <i (click)="expandedElement = expandedElement === row ? null : row" class="material-icons" style="margin-top: 5px; cursor: pointer;">
+                        {{row.ChildTask.length > 0 ? row == expandedElement ? 'indeterminate_check_box' : 'add_box' : ''}}</i></b>&nbsp; </td>
+                    </ng-container>
+
+                    <!-- Task Name Column -->
+                    <ng-container matColumnDef="TaskName">
+                      <th mat-header-cell *matHeaderCellDef mat-sort-header> Task Name </th>
+                      <td mat-cell *matCellDef="let row"> {{row.TaskName}} </td>
+                    </ng-container>
+
+                    <!-- SpecialNotes Column -->
+                    <ng-container matColumnDef="SpecialNote">
+                      <th mat-header-cell *matHeaderCellDef mat-sort-header> Special Notes </th>
+                      <td mat-cell *matCellDef="let row"> {{row.SpecialNote}}
+                    </ng-container>
+
+                    <!-- Cost Column -->
+                    <ng-container matColumnDef="Cost">
+                      <th mat-header-cell *matHeaderCellDef mat-sort-header> Cost </th>
+                      <td mat-cell *matCellDef="let row"> {{row.Cost | currency:'&#8377;'}} </td>
+                    </ng-container>
+
+                    <!-- Time Column -->
+                    <ng-container matColumnDef="Time">
+                      <th mat-header-cell *matHeaderCellDef mat-sort-header> Taking Time(days) </th>
+                      <td mat-cell *matCellDef="let row"> {{row.Time}} </td>
+                    </ng-container>
+
+                    <!-- CheckList Column -->
+                    <ng-container matColumnDef="CheckList">
+                      <th mat-header-cell *matHeaderCellDef mat-sort-header> CheckList </th>
+                      <td mat-cell *matCellDef="let row;let j= dataIndex;"> <a class="text-black-50" (click)="openPDF(j, row.TaskName)" style="cursor:pointer;"><i class="material-icons">visibility</i></a> </td>
+                    </ng-container>
+
+                    <!-- Action Column -->
+                    <ng-container matColumnDef="Action">
+                      <th mat-header-cell *matHeaderCellDef>Action</th>
+                      <td mat-cell *matCellDef="let row; let j= dataIndex;">
+                        <a class="text-danger" (click)="deleteClientWork(j)" style="cursor:pointer;"><i class="material-icons">delete_forever</i></a>
+                      </td>
+                    </ng-container>
+
+                    <!-- Expanded Content Column - The detail row is made up of this one column that spans across all columns-->
+                    <ng-container matColumnDef="expandedDetail">
+                      <td mat-cell *matCellDef="let row" [attr.colspan]="displayedColumns.length" >
+                        <div class="example-element-detail"
+                             [@detailExpand]="row == expandedElement ? 'expanded' : 'collapsed'"  *ngIf="row.ChildTask.length > 0">
+                          <table class="table table-bordered table-hover">
+                            <thead style="">
+                              <th>Task Name</th>
+                              <th *ngIf="currentUser.role == 'Super Admin'">Cost</th>
+                              <th>Duration (In Days)</th>
+                            </thead>
+                            <tbody>
+                            <tr *ngFor="let st of row.ChildTask;">
+                              <td>{{st.Name}}</td>
+                              <td *ngIf="currentUser.role == 'Super Admin'">{{(st.Cost | currency:"&#8377;")}}</td>
+                              <td>{{st.Time}}</td>
+                            </tr>
+                            </tbody>
+                          </table>
+                        </div>
+                      </td>
+                    </ng-container>
+
+                    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                    <tr mat-row *matRowDef="let row;let i = index; columns: displayedColumns;" class="example-element-row "
+                        [class.example-expanded-row]="expandedElement === row"></tr>
+                    <tr mat-row *matRowDef="let row;let i = index; columns: ['expandedDetail']" class="example-detail-row" ></tr>
+                  </table>
+                </div>
+                <div *ngIf="dataSource && dataSource.data.length == 0" class="text-center pt-4 pb-4" >No record found.</div>
+                <mat-paginator [pageSizeOptions]="[10,20,50]" showFirstLastButtons></mat-paginator>
+              </div>
+              <mat-form-field>
+                <mat-select placeholder="Assign To Employee" [(ngModel)] ="employeeID" (selectionChange)="onChangeEmployee(employeeID)">
+                  <mat-option>--</mat-option>
+                  <mat-option *ngFor="let item of allEmployees" [value]="item._id">
+                    {{item.Name}}
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-6 text-left">
+
+            </div>
+            <div class="col-6 text-right">
+              <button mat-button matStepperNext mat-raised-button color="primary" [disabled]="clientWorkArray.length == 0 || !employeeID">Next</button><!---->
+            </div>
+          </div>
+        </mat-step>
+        <mat-step>
+          <ng-template matStepLabel>Success</ng-template>
+          <div class="card card-accent-primary">
+            <div class="card-header">
+              <strong>Information</strong>
+            </div>
+            <div class="card-body">
+              <div class="row">
+                <mat-list role="list" class="col-md-6">
+                  <h3 mat-subheader>Assign Task Information</h3>
+                  <mat-list-item role="listitem"><strong>Employee ID</strong>: {{selectedEmployee.UID}}</mat-list-item>
+                  <mat-list-item role="listitem"><strong>Employee Name</strong>: {{selectedEmployee.Name}}</mat-list-item>
+                  <mat-list-item role="listitem"><strong>Employee Mobile No</strong>: {{selectedEmployee.Mobile}}</mat-list-item>
+                  <mat-list-item role="listitem" *ngIf="currentUser.role == 'Super Admin'"><strong>Total Cost Of Tasks</strong>: {{getTotalCost() | currency:'&#8377;'}}</mat-list-item>
+                  <mat-list-item role="listitem"><strong>Taking Time</strong>: {{getTotalTime()}}&nbsp; days</mat-list-item>
+                </mat-list>
+                <mat-list role="list" class="col-md-6" *ngIf="selectedClient">
+                  <h3 mat-subheader>Client Information</h3>
+                  <mat-list-item role="listitem"><strong>Client ID</strong>: {{selectedClient.UID}}</mat-list-item>
+                  <mat-list-item role="listitem"><strong>Client Name</strong>: {{selectedClient.Name}}</mat-list-item>
+                  <mat-list-item role="listitem"><strong>Client Mobile No</strong>: {{selectedClient.Mobile}}</mat-list-item>
+                </mat-list>
+              </div>
+              <h3 mat-subheader>Child Task Detail</h3>
+			  <div class="row childTaskWorkNew">
+              <table class="table">
+                <thead>
+                <tr>
+                  <th>S.No.</th>
+                  <th>Task</th>
+                  <th *ngIf="currentUser.role == 'Super Admin'">Cost</th>
+                  <th>Time</th>
+                  <th>Notes</th>
+                  <th>CheckList</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr *ngFor="let item of clientWorkArray; let i = index">
+                  <td>{{i+1}}</td>
+                  <td>{{item.TaskName}}</td>
+                  <td *ngIf="currentUser.role == 'Super Admin'">{{item.Cost | currency:'&#8377;'}}</td>
+                  <td>{{item.Time}}(days)</td>
+                  <td>{{item.SpecialNote}}</td>
+                  <td>
+                    <a (click)="openPDF(i, item.TaskName)" style="cursor: pointer; color: blue;">
+                      <i class="material-icons">picture_as_pdf</i>
+                    </a>&nbsp;&nbsp;&nbsp;
+                    <a (click)="openPDFDownload(i, item.TaskName)" style="cursor: pointer; color: #012589;">
+                      <i class="material-icons">cloud_download</i>
+                    </a>
+                  </td>
+                </tr>
+                </tbody>
+              </table>
+			  </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-6 text-left">
+              <button mat-button matStepperPrevious mat-raised-button style="background-color: black;color: white;">Back</button>
+            </div>
+            <div class="col-6 text-right">
+              <!--<button mat-button matStepperNext mat-raised-button (click)="stepper.reset()" color="warn">Reset</button>&nbsp;&nbsp;-->
+              <button mat-button mat-raised-button color="primary" [disabled]="clientWorkArray.length == 0 || !employeeID" (click)="onSubmitForm()">Finish</button>
+            </div>
+          </div>
+        </mat-step>
+      </mat-horizontal-stepper>
+  </div>
+</div>
+<ng4-loading-spinner [threshold]="100" [timeout]="60000" [loadingText]="'Please wait...'" [zIndex]="9999"></ng4-loading-spinner>
+</section>

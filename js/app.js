@@ -22,21 +22,39 @@
   if(UserInitial !== null && StudyCode !== null){
     document.querySelector('#menu_header').style.display = 'inherit';
     document.querySelector('#authorMenuDIV').style.display = 'inherit';
-    document.querySelector('#sourceMenuDIV').style.display = 'none';
+    document.querySelector('#sourceMenuDIV').style.display = 'inherit';
+    document.querySelector('#sourceMenuDIV').style.position = 'absolute';
+    document.querySelector('#sourceMenuDIV').style.left = '-10000px';
+    document.querySelector('#sourceMenuDIV').style.top = '-10000px';
     document.querySelector('#contactMenuDIV').style.display = 'none';
     document.querySelector('#loginDIV').style.display = 'none';
     document.querySelector('#ratingMenuDIV').style.display = 'none';
     document.querySelector('.menu').classList.remove("menu--show");
     document.querySelector('.menu__overlay').classList.remove("menu__overlay--show");
     document.querySelector('.menu').style.transform = 'translateX(-110%)';
+    setTimeout(function(){    
+      document.querySelector('#sourceMenuDIV').style.display = 'none';
+      document.querySelector('#sourceMenuDIV').style.position = 'initial';
+      document.querySelector('#sourceMenuDIV').style.left = '0';
+      document.querySelector('#sourceMenuDIV').style.top = '0';
+    },3000);
   }else{
   //Menus listing on first load loginDIV
     document.querySelector('#authorMenuDIV').style.display = 'none';
     document.querySelector('#contactMenuDIV').style.display = 'none';
-    document.querySelector('#sourceMenuDIV').style.display = 'none';
+    document.querySelector('#sourceMenuDIV').style.display = 'inherit';
+    document.querySelector('#sourceMenuDIV').style.position = 'absolute';
+    document.querySelector('#sourceMenuDIV').style.left = '-10000px';
+    document.querySelector('#sourceMenuDIV').style.top = '-10000px';
     document.querySelector('#ratingMenuDIV').style.display = 'none';
     document.querySelector('#menu_header').style.display = 'none';
     document.querySelector('#loginDIV').style.display = 'inherit';
+    setTimeout(function(){    
+      document.querySelector('#sourceMenuDIV').style.display = 'none';
+      document.querySelector('#sourceMenuDIV').style.position = 'initial';
+      document.querySelector('#sourceMenuDIV').style.left = '0';
+      document.querySelector('#sourceMenuDIV').style.top = '0';
+    },3000);
   }
   //Event listener on click of Menus
   menusAuthorElmt.addEventListener('click', displayMenusPage, false);

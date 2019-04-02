@@ -1,0 +1,98 @@
+<div class="animated fadeIn" id="dashboard" *ngIf="true">
+  <div class="row">
+    <div class="col-sm-12 col-lg-12">
+      <div class="row" style="border: 1px solid #e7e7e7;padding-top: 10px;margin: 0px 0 8px;">
+        <div class="col-sm-2 col-lg-2">
+          <mat-form-field style="width:100%">
+            <input matInput [matDatepicker]="picker3" [(ngModel)]="FromDate" placeholder="From">
+            <mat-datepicker-toggle matSuffix [for]="picker3"></mat-datepicker-toggle>
+            <mat-datepicker #picker3></mat-datepicker>
+          </mat-form-field>
+        </div>
+        <div class="col-sm-2 col-lg-2">
+          <mat-form-field style="width:100%">
+            <input matInput [matDatepicker]="picker4" [(ngModel)]="ToDate" placeholder="To">
+            <mat-datepicker-toggle matSuffix [for]="picker4"></mat-datepicker-toggle>
+            <mat-datepicker #picker4></mat-datepicker>
+          </mat-form-field>
+        </div>
+        <div class="col-sm-2 col-lg-2">
+          <mat-form-field>
+            <input matInput [(ngModel)]="StudyCode" placeholder="Study ID">
+          </mat-form-field>
+        </div>
+        <div class="col-sm-2 col-lg-2">
+          <mat-form-field class="ml-2">
+            <input matInput [(ngModel)]="UserInitial" placeholder="Study Initials">
+          </mat-form-field>
+        </div>
+        <div class="col-sm-4 col-lg-4 pt-2 text-center">
+          <button class="btn btn-success" (click)="filter()">filter</button>&nbsp;&nbsp;&nbsp;
+          <button class="btn btn-success" (click)="getAllDashboardEvents()">Reset</button>&nbsp;&nbsp;
+          <button mat-raised-button color="accent" (click)="exportToExcel()">Export to Excel</button>
+        </div>
+      </div>
+      <div class="card text-white bg-primary">
+        <div class="card-body">
+          <div class="table-entry example-container mat-elevation-z8" id="deo_entrylist" style="min-width: 100%">
+            <div class="example-loading-shade"
+                 *ngIf="isLoadingResults || isRateLimitReached"  style="min-width: 100%">
+              <mat-spinner *ngIf="isLoadingResults"></mat-spinner>
+              <div class="example-rate-limit-reached" *ngIf="isRateLimitReached">
+                API rate limit has been reached. It will be reset in one minute.
+              </div>
+            </div>
+            <div class="example-table-container" style="min-height: 80px;">
+              <table mat-table [dataSource]="dataSource" matSort style="min-width: 100%">
+
+                <!-- ID Column -->
+                <ng-container matColumnDef="_id">
+                  <th mat-header-cell *matHeaderCellDef mat-sort-header id="entryRowID"> ID </th>
+                  <td mat-cell *matCellDef="let row"> {{row._id}} </td>
+                </ng-container>
+
+                <!-- Name Column -->
+                <ng-container matColumnDef="UserInitial">
+                  <th mat-header-cell *matHeaderCellDef mat-sort-header id="entryRowName"> Study Initials </th>
+                  <td mat-cell *matCellDef="let row"> {{row._id.UserInitial}} </td>
+                </ng-container>
+
+                <!-- Email Column -->
+                <ng-container matColumnDef="StudyCode">
+                  <th mat-header-cell *matHeaderCellDef mat-sort-header id="entryRowEmail"> Study ID </th>
+                  <td mat-cell *matCellDef="let row"> {{row._id.StudyCode}} </td>
+                </ng-container>
+
+                <!-- Email Column -->
+                <ng-container matColumnDef="Time">
+                  <th mat-header-cell *matHeaderCellDef mat-sort-header id="entryRowEmail"> Date & Time of Logged</th>
+                  <td mat-cell *matCellDef="let row"> {{row.Time}} </td>
+                </ng-container>
+
+                <!-- Phone Column -->
+                <ng-container matColumnDef="Event">
+                  <th mat-header-cell fxFlex="100" style="width:130px;" *matHeaderCellDef mat-sort-header id="entryRowPhone"> Event </th>
+                  <td fxFlex="100" mat-cell *matCellDef="let row"> About Grounding Log </td>
+                </ng-container>
+
+                <!-- ClientType Column -->
+                <ng-container matColumnDef="DateTime">
+                  <th mat-header-cell fxFlex="100" *matHeaderCellDef mat-sort-header> Time Spend </th>
+                  <td fxFlex="100" mat-cell *matCellDef="let row"> {{row._id.day}} </td>
+                </ng-container>
+
+
+                <tr mat-header-row *matHeaderRowDef="displayedColumns" color="black"></tr>
+                <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+              </table>
+            </div>
+            <div *ngIf="dataSource && dataSource.data.length == 0" class="text-center pt-4 pb-4" >No record found.</div>
+            <mat-paginator [pageSizeOptions]="[10,20,50]" showFirstLastButtons></mat-paginator>
+          </div>
+        </div>
+      </div>
+    </div><!--/.col-->
+
+  </div>
+</div>
+<ng4-loading-spinner [threshold]="100" [timeout]="60000" [loadingText]="'Please wait...'" [zIndex]="9999"></ng4-loading-spinner>

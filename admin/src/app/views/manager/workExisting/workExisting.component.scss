@@ -1,0 +1,113 @@
+.example-container {
+  position: relative;
+  min-height: 200px;
+}
+
+.example-table-container {
+  position: relative;
+  max-height: 400px;
+  overflow: auto;
+}
+
+table {
+  width: 100%;
+}
+
+.example-loading-shade {
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 56px;
+  right: 0;
+  background: rgba(0, 0, 0, 0.15);
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.mat-form-field {
+  font-size: 14px;
+  width: 100%;
+}
+.example-margin{
+  float:right;
+  margin-right:25px;
+}
+.list-spinner{
+  margin:auto;
+}
+.table-client-entry{
+  overflow: auto;
+}
+.mat-elevation-z8{
+  margin-bottom: 15px;
+}
+.example-container > * {
+  width: 100%;
+}
+.example-margin{
+  float:right;
+  margin-right:25px;
+}
+.list-spinner{
+  margin:auto;
+}
+::ng-deep .mat-horizontal-stepper-header{
+  pointer-events: none !important;
+}
+
+
+tr.example-detail-row {
+  height: 0;
+}
+
+tr.example-element-row:not(.example-expanded-row):hover {
+  background: #f5f5f5;
+}
+
+tr.example-element-row:not(.example-expanded-row):active {
+  background: #efefef;
+}
+
+.example-element-row td {
+  border-bottom-width: 0;
+}
+
+.example-element-detail {
+  overflow: hidden;
+  display: flex;
+}
+
+.example-element-diagram {
+  min-width: 80px;
+  border: 2px solid black;
+  padding: 8px;
+  font-weight: lighter;
+  margin: 8px 0;
+  height: 104px;
+}
+
+.example-element-symbol {
+  font-weight: bold;
+  font-size: 40px;
+  line-height: normal;
+}
+
+.example-element-description {
+  padding: 16px;
+}
+
+.example-element-description-attribution {
+  opacity: 0.5;
+}
+
+.ChildTaskList {
+  margin-top: 15px;
+}
+.ChildTaskList th , .ChildTaskList td{
+  padding: 0.3rem;
+}
+td.mat-cell:first-of-type, td.mat-footer-cell:first-of-type, th.mat-header-cell:first-of-type{
+  padding-left: 10px;
+}
+

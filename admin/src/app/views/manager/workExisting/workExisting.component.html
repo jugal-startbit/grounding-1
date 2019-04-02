@@ -1,0 +1,186 @@
+<section [@routerTransition]>
+<div class="row" id="manager_work_assignment">
+  <div class="col-sm-12 col-md-10">
+      <mat-horizontal-stepper linear="isLinear" #stepper>
+        <mat-step>
+          <div class="card card-accent-primary">
+            <div class="card-header">
+              <strong>WorkExisting Detail</strong>
+            </div>
+            <div class="card-body">
+              <ng-template matStepLabel>WorkExisting Detail</ng-template>
+              <div class="text-center">
+                <mat-radio-group [(ngModel)]="WorkType" disabled>
+                  <mat-radio-button value="New">New</mat-radio-button>&nbsp;&nbsp;
+                  <mat-radio-button value="Existing">Existing</mat-radio-button>&nbsp;&nbsp;
+                </mat-radio-group>
+              </div>
+              <form [formGroup]="WorkExistingForm" class="form-horizontal">
+                <mat-form-field *ngIf="currentUser.role == 'Super Admin'">
+                  <mat-select placeholder="Branch" formControlName="BranchID" (selectionChange)="onBranchChange(WorkExistingForm.controls.BranchID.value)">
+                    <mat-option *ngIf="!(WorkExistingForm.controls.BranchID.value)">--</mat-option>
+                    <mat-option *ngFor="let item of allBranches" [value]="item._id">
+                      {{item.Name}}
+                    </mat-option>
+                  </mat-select>
+                </mat-form-field>
+                <mat-form-field  *ngIf="currentUser.role == 'Super Admin'">
+                  <mat-select placeholder="Department" formControlName="DepartmentID" (selectionChange)="onDepartmentChange(WorkExistingForm.controls.DepartmentID.value)">
+                    <mat-option *ngIf="!(WorkExistingForm.controls.DepartmentID.value)">--</mat-option>
+                    <mat-option *ngFor="let item of allDepartments" [value]="item._id">
+                      {{item.Name}}
+                    </mat-option>
+                  </mat-select>
+                </mat-form-field>
+                <mat-form-field>
+                  <mat-select [disabled]="allEmployees.length == 0" placeholder="Employee" formControlName ="OldEmployeeID" (selectionChange)="onChangeOldEmployee(WorkExistingForm.controls.OldEmployeeID.value)" required>
+                    <mat-option>--</mat-option>
+                    <mat-option *ngFor="let item of allEmployees" [value]="item._id">
+                      {{item.Name}}
+                    </mat-option>
+                  </mat-select>
+                </mat-form-field>
+                <mat-form-field>
+                  <input type="text" placeholder="Work" aria-label="Number" matInput formControlName="WorkName" [matAutocomplete]="auto">
+                  <mat-autocomplete #auto="matAutocomplete" (optionSelected)="onWorkChange(WorkExistingForm.controls.WorkName.value)">
+                    <mat-option *ngFor="let item of filteredOptions | async" [value]="item.TaskID.Name">
+                      {{item.TaskID.Name}}({{item.ClientID.Name}})
+                      <small class="pull-right">{{item.EmployeeID.Name}}</small>
+                    </mat-option>
+                  </mat-autocomplete>
+                </mat-form-field>
+                <mat-form-field class="col-md-6" *ngIf="currentUser.role == 'Super Admin'">
+                  <input id="existing_cost" matInput type="text" formControlName="Cost" placeholder="Cost">
+                </mat-form-field>
+                <mat-form-field class="col-md-6">
+                  <input id="existing_time" matInput type="text" formControlName="Time" placeholder="Time(days)">
+                </mat-form-field>
+                <div>
+                  <mat-checkbox disabled class="ml-2" formControlName="Is_Repetitive" placeholder="Is_Repetitive">Is_Repetitive</mat-checkbox><!--[(ngModel)]="disabled"-->
+                </div>
+                <div *ngIf="(WorkExistingForm.controls.Is_Repetitive.value)">
+                  <div class="row">
+                    <div class="col-4">
+                      <mat-form-field>
+                        <input matInput [min]="maxDate" [matDatepicker]="filterpicker" formControlName="LastDate" placeholder="Choose a date" autocomplete="off">
+                        <mat-datepicker-toggle matSuffix [for]="filterpicker"></mat-datepicker-toggle>
+                        <mat-datepicker #filterpicker></mat-datepicker>
+                      </mat-form-field>
+                    </div>
+                    <div class="col-4">
+                      <mat-form-field>
+                        <mat-select placeholder="Occurrence" formControlName="Occurrence">
+                          <mat-option>--</mat-option>
+                          <mat-option value="7">Weekly</mat-option>
+                          <mat-option value="30">Monthly</mat-option>
+                          <mat-option value="182">half Yearly</mat-option>
+                          <mat-option value="365">Yearly</mat-option>
+                        </mat-select>
+                      </mat-form-field>
+                    </div>
+                    <div class="col-4">
+                      <mat-form-field>
+                        <input matInput type="text" formControlName="GracePeriod" placeholder="Reminding Peroid">
+                        <mat-hint>Please put reminding peroid less then occurrence</mat-hint>
+                      </mat-form-field>
+                    </div>
+                  </div>
+                </div>
+                <mat-form-field>
+                  <textarea matInput rows="5" placeholder="Special Notes" formControlName="SpecialNote"></textarea>
+                </mat-form-field>
+                <mat-form-field>
+                  <mat-select placeholder="Priority" formControlName="Priority">
+                    <mat-option>--</mat-option>
+                    <mat-option value="urgent">Urgent</mat-option>
+                    <mat-option value="high">High</mat-option>
+                    <mat-option value="normal">Normal</mat-option>
+                    <mat-option value="low">Low</mat-option>
+                  </mat-select>
+                </mat-form-field>
+                <mat-form-field>
+                  <mat-select [disabled]="!(WorkExistingForm.controls.OldEmployeeID.value)" placeholder="Reassign To Employee" formControlName ="NewEmployeeID" (selectionChange)="onChangeEmployee()" required>
+                    <mat-option *ngIf="!(newEmployeeID)">--</mat-option>
+                    <mat-option *ngFor="let item of allEmployeesWithoutOld" [value]="item._id">
+                      {{item.Name}}
+                    </mat-option>
+                  </mat-select>
+                </mat-form-field>
+                <mat-form-field>
+                  <textarea matInput rows="5" placeholder="Reason for Reassignment " formControlName="ReassignmentReason" required></textarea>
+                </mat-form-field>
+              </form>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-6 text-left">
+
+            </div>
+            <div class="col-6 text-right">
+              <button mat-button matStepperNext mat-raised-button color="primary" [disabled]="WorkExistingForm.invalid">Next</button><!---->
+            </div>
+          </div>
+        </mat-step>
+        <mat-step>
+          <ng-template matStepLabel>Success</ng-template>
+          <div class="card card-accent-primary">
+            <div class="card-header">
+              <strong>Information</strong>
+            </div>
+            <div class="card-body">
+              <div class="row">
+                <mat-list role="list" class="col-md-6">
+                  <h3 mat-subheader>Asssign to Employee</h3>
+                  <mat-list-item role="listitem"><strong>Employee ID</strong>: {{oldEmployee.UID}}</mat-list-item>
+                  <mat-list-item role="listitem"><strong>Employee Name</strong>: {{oldEmployee.Name}}</mat-list-item>
+                  <mat-list-item role="listitem"><strong>Employee Mobile No</strong>: {{oldEmployee.Mobile}}</mat-list-item>
+                </mat-list>
+                <mat-list role="list" class="col-md-6" *ngIf="selectedEmployee">
+                  <h3 mat-subheader>Resssign to Employee</h3>
+                  <mat-list-item role="listitem"><strong>Employee ID</strong>: {{selectedEmployee.UID}}</mat-list-item>
+                  <mat-list-item role="listitem"><strong>Employee Name</strong>: {{selectedEmployee.Name}}</mat-list-item>
+                  <mat-list-item role="listitem"><strong>Employee Mobile No</strong>: {{selectedEmployee.Mobile}}</mat-list-item>
+                </mat-list>
+                <mat-list *ngIf="!WorkExistingForm.invalid" role="list" class="col-md-12">
+                  <h3 mat-subheader>Existing Work Detail</h3>
+                  <mat-list-item role="listitem"><strong>Task Name</strong>: {{selectedWork.TaskID.Name}}</mat-list-item>
+                  <mat-list-item role="listitem" *ngIf="currentUser.role == 'Super Admin'"><strong>Total Cost</strong>: {{selectedWork.Cost | currency: 'INR'}}</mat-list-item>
+                  <mat-list-item role="listitem"><strong>Total Time</strong>: {{selectedWork.Time}}</mat-list-item>
+                  <mat-list-item role="listitem"><strong>Client Name</strong>: {{selectedWork.ClientID.Name}}</mat-list-item>
+                </mat-list>
+                <div *ngIf="selectedWork.ChildTask && selectedWork.ChildTask.length > 0" class="col-md-12">
+                  <table class="table">
+                    <thead>
+                    <tr>
+                      <th>Name</th>
+                      <th *ngIf="currentUser.role == 'Super Admin'">Cost</th>
+                      <th>Time(days)</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                      <tr *ngFor="let item of selectedWork.ChildTask">
+                        <td>{{item.Name}}</td>
+                        <td *ngIf="currentUser.role == 'Super Admin'">{{item.Cost | currency: 'INR'}}</td>
+                        <td>{{item.Time}}</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-6 text-left">
+              <button mat-button matStepperPrevious mat-raised-button style="background-color: black;color: white;">Back</button>
+            </div>
+            <div class="col-6 text-right">
+              <!--<button mat-button matStepperNext mat-raised-button (click)="stepper.reset()" color="warn">Reset</button>&nbsp;&nbsp;-->
+              <button mat-button mat-raised-button color="primary" [disabled]="WorkExistingForm.invalid" (click)="onSubmitForm()">Finish</button>
+            </div>
+          </div>
+        </mat-step>
+      </mat-horizontal-stepper>
+  </div>
+</div>
+<ng4-loading-spinner [threshold]="100" [timeout]="60000" [loadingText]="'Please wait...'" [zIndex]="9999"></ng4-loading-spinner>
+</section>

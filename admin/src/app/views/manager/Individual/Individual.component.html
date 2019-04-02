@@ -1,0 +1,303 @@
+<section [@routerTransition]>
+<div class="row" id="manager_individual">
+  <div class="col-sm-12 col-md-10">
+      <mat-horizontal-stepper linear="isLinear" #stepper>
+        <mat-step [stepControl]="ClientForm"> <!---->
+          <ng-template matStepLabel>Basic Detail</ng-template>
+          <div class="card card-accent-primary">
+            <div class="card-header">
+              <strong>Basic Detail</strong>
+            </div>
+            <div class="card-body">
+              <form [formGroup]="ClientForm" class="form-horizontal" id="manager_individualForm">
+                <mat-form-field>
+                  <input id="manager_individualFormName" matInput type="text" formControlName="Name" placeholder="Name" (change)="setSameOnHolderName()">
+                </mat-form-field>
+                <mat-form-field>
+                  <input id="manager_individualFormFatherName" matInput type="text" formControlName="FatherName" placeholder="Father Name">
+                </mat-form-field>
+                <mat-form-field hintLabel="10 digits mobile no">
+                  <input id="manager_individualFormPhone" matInput #input formControlName="Phone" placeholder="Contact No">
+                </mat-form-field>
+                <mat-form-field>
+                  <input id="manager_individualFormEmail" matInput type="email" formControlName="Email" placeholder="Email">
+                </mat-form-field>
+                <mat-form-field hintLabel="Date format (dd/mm/yyyy)">
+                  <input id="manager_individualFormDOB" matInput [max]="maxDate" [matDatepicker]="DOB" formControlName="DOB" placeholder="DOB">
+                  <mat-datepicker-toggle matSuffix [for]="DOB"></mat-datepicker-toggle>
+                  <mat-datepicker #DOB></mat-datepicker>
+                </mat-form-field>
+                <mat-form-field>
+                  <mat-select id="manager_individualFormGender" placeholder="Gender" formControlName="Gender" required>
+                    <mat-option>--</mat-option>
+                    <mat-option value="M">Male</mat-option>
+                    <mat-option value="F">Female</mat-option>
+                    <mat-option value="O">Other</mat-option>
+                  </mat-select>
+                </mat-form-field>
+                <mat-form-field>
+                  <mat-select id="manager_individualFormMaritalStatus" placeholder="Marital Status" formControlName="maritalStatus" required>
+                    <mat-option>--</mat-option>
+                    <mat-option value="S">Single</mat-option>
+                    <mat-option value="M">Married</mat-option>
+                    <mat-option value="D">Divorced</mat-option>
+                  </mat-select>
+                </mat-form-field>
+                <mat-form-field hintLabel="Date format (dd/mm/yyyy)" *ngIf="(ClientForm.controls.maritalStatus.value == 'M')">
+                  <input id="manager_individualFormDateOfMarried" matInput [max]="maxDate" [matDatepicker]="DOM" formControlName="DateOfMarried" placeholder="Date Of Marriage">
+                  <mat-datepicker-toggle matSuffix [for]="DOM"></mat-datepicker-toggle>
+                  <mat-datepicker #DOM></mat-datepicker>
+                </mat-form-field>
+                <mat-form-field *ngIf="(ClientForm.controls.maritalStatus.value == 'M')">
+                  <input matInput type="text" formControlName="Spouse" placeholder="Spouse Name">
+                </mat-form-field>
+                <mat-form-field id="manager_individualFormChildern" *ngIf="(ClientForm.controls.maritalStatus.value == 'M')">
+                  <input matInput type="number" formControlName="Childern" min="0" placeholder="No of Childern">
+                </mat-form-field>
+                <mat-form-field>
+                  <textarea id="manager_individualFormPermanentAddress" matInput rows="5" placeholder="Residential Address" formControlName="PermanentAddress" required></textarea>
+                </mat-form-field>
+                <mat-checkbox [disabled]="!(ClientForm.controls.PermanentAddress.value)" (change)="sameAsAddress(ClientForm.controls.addressSameAs.value)" color="primary" formControlName="addressSameAs">Same as Residential Address</mat-checkbox>
+                <mat-form-field>
+                  <textarea id="manager_individualFormCorrespondingAddress" matInput rows="5" placeholder="Corporate Address" formControlName="CorrespondingAddress" required></textarea>
+                </mat-form-field>
+              </form>
+            </div>
+          </div>
+          <div class="card card-accent-primary" id="manager_individualFormReference">
+            <div class="card-header">
+              <strong>Refrence</strong>
+            </div>
+            <div class="card-body">
+              <form [formGroup]="RefrenceForm" class="form-horizontal">
+                <mat-form-field>
+                  <input id="manager_individualFormReferenceUID" matInput type="text" formControlName="UID" placeholder="UID">
+                  <mat-icon id="manager_individualFormReferenceSearch" matSuffix (click)="openClientSerachDialog()" style="cursor: pointer;margin-right: 10px;">search</mat-icon>&nbsp;
+                </mat-form-field>
+                <mat-form-field>
+                  <input id="manager_individualFormReferenceName" matInput type="text" formControlName="Name" placeholder="Name">
+                </mat-form-field>
+                <mat-form-field>
+                  <input id="manager_individualFormReferencePhone" matInput type="number" formControlName="Phone" placeholder="Mobile No">
+                </mat-form-field>
+                <mat-form-field>
+                  <input id="manager_individualFormReferenceEmail" matInput type="email" formControlName="Email" placeholder="Email">
+                </mat-form-field>
+              </form>
+            </div>
+          </div>
+          <div class="text-right">
+            <button id="manager_nextToDocumentUpload" mat-button matStepperNext mat-raised-button color="primary">Next</button>
+          </div>
+        </mat-step>
+        <mat-step><!---->
+          <ng-template matStepLabel>Document Upload</ng-template>
+          <div class="card card-accent-primary">
+            <div class="card-header">
+              <strong>Document Detail</strong>
+            </div>
+            <div class="card-body" id="manager_individualFormDocument">
+              <div class="row" *ngFor="let item of allDocuments">
+                <div class="col-md-2">
+                  <label class="pt-3">{{item.Name}}<strong *ngIf="item.isRequired == 'Required'" style="color: red;"><sup>*</sup></strong></label>
+                </div>
+                <mat-form-field class="col-md-4" [hintLabel]="item.Name == 'PAN' ? '10 character PAN Number': (item.Name == 'Aadhar' ? '12 digit Aadhar number': null)">
+                  <input matInput [(ngModel)]="item.value" placeholder="{{item.Name}} Number" [required]="(item.isRequired == 'Required')? 'required': null" [minlength]="item.Length" [maxlength]="item.Length" [attr.pattern]="item.Pattern">
+                </mat-form-field>
+                <div class="col-md-4">
+                  <input type="file" class="form-control" (change)="onFileChange($event, item.Name)">
+                </div>
+                <div class="col-md-2 text-right">
+                  <img *ngIf="documentUploadedArray[item.Name]" src="../../../../assets/img/success-icon.png" width="12%">&nbsp;
+                  <button mat-button mat-raised-button color="primary" [disabled]="!item.value || (item.Length && item.value.length != item.Length ) || !allImages[item.Name] || !(item.value.match(item.Pattern))" (click)="addDocumentDetail(item.value, item.Name)"><i class="fa fa-plus">&nbsp;</i>upload</button>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="card card-accent-primary">
+            <div class="card-header">
+              <strong>Bank Detail</strong>
+            </div>
+            <div class="card-body" id="manager_individualFormBankDetails">
+              <form [formGroup]="BankForm" class="form-horizontal">
+                <mat-form-field>
+                  <input matInput id="manager_individualBankFormHolder" type="text" formControlName="Holder" placeholder="Holder Name" required>
+                </mat-form-field>
+                <mat-form-field>
+                  <input matInput id="manager_individualBankFormBankName" type="text" formControlName="BankName" placeholder="Bank Name" required>
+                </mat-form-field>
+                <mat-form-field>
+                  <input matInput id="manager_individualBankFormBranch" type="text" formControlName="Branch" placeholder="Branch Name" required>
+                </mat-form-field>
+                <mat-form-field>
+                  <input matInput id="manager_individualBankFormAccNo" type="number" formControlName="AccNo" placeholder="Account No" required>
+                </mat-form-field>
+                <mat-form-field hintLabel="11 character IFSC Code">
+                  <input matInput id="manager_individualBankFormIFSC" type="text" formControlName="IFSC" placeholder="IFSC Code" minlength="11" maxlength="11" required>
+                </mat-form-field>
+                <mat-form-field>
+                  <input matInput id="manager_individualBankFormMICR" type="text" formControlName="MICR" placeholder="MICR Code">
+                </mat-form-field>
+              </form>
+              <div class="row" *ngIf="bankArray.length == 0">
+                <div class="col-md-2">
+                  <label class="pt-1">Cancel Cheque</label>
+                </div>
+                <mat-form-field class="col-md-4">
+                  <input matInput id="manager_individualBankFormChequeNumber" type="text" [(ngModel)]="ChequeNumber" placeholder="Cheque Number">
+                </mat-form-field>
+                <div class="col-md-4">
+                  <input id="manager_individualBankFormChequeNumberFile" type="file" class="form-control" (change)="onFileChangeCancelCheque($event)">
+                </div>
+                <div class="col-md-2 text-right">
+                  <img *ngIf="chequeArray.ChequeImage" src="../../../../assets/img/success-icon.png" width="12%">&nbsp;
+                  <button id="manager_individualBankFormChequeNumberUpload" mat-button mat-raised-button color="primary" [disabled]="!ChequeImage" (click)="addChequeDetail()"><i class="fa fa-plus">&nbsp;</i>upload</button>
+                </div>
+              </div>
+              <div class="text-right">&nbsp;
+                <button id="manager_individualBankFormAdd"  class="mb-2" mat-button mat-raised-button color="primary" [disabled]="BankForm.invalid || !(chequeArray.ChequeImage)" (click)="addBankDetail()"><i class="fa fa-plus">&nbsp;</i>add</button>
+              </div>
+              <div class="table-client-entry example-container mat-elevation-z8">
+                <div class="example-loading-shade"
+                     *ngIf="isLoadingResults || isRateLimitReached">
+                  <mat-spinner *ngIf="isLoadingResults"></mat-spinner>
+                  <div class="example-rate-limit-reached" *ngIf="isRateLimitReached">
+                    API rate limit has been reached. It will be reset in one minute.
+                  </div>
+                </div>
+                <div class="example-table-container" id="manager_individualBankTable" >
+                  <table mat-table [dataSource]="dataSourceBank" matSort>
+
+                    <!-- BankName Column -->
+                    <ng-container matColumnDef="BankName">
+                      <th mat-header-cell *matHeaderCellDef mat-sort-header> Bank Name </th>
+                      <td mat-cell *matCellDef="let row"> {{row.BankName}} </td>
+                    </ng-container>
+
+                    <!-- Branch Column -->
+                    <ng-container matColumnDef="Branch">
+                      <th mat-header-cell *matHeaderCellDef mat-sort-header> Branch Name </th>
+                      <td mat-cell *matCellDef="let row"> {{row.Branch}} </td>
+                    </ng-container>
+
+                    <!-- AccNo Column -->
+                    <ng-container matColumnDef="AccNo">
+                      <th mat-header-cell *matHeaderCellDef mat-sort-header> Account No </th>
+                      <td mat-cell *matCellDef="let row"> {{row.AccNo}} </td>
+                    </ng-container>
+
+                    <!-- IFSC Column -->
+                    <ng-container matColumnDef="IFSC">
+                      <th mat-header-cell *matHeaderCellDef mat-sort-header> IFSC Code </th>
+                      <td mat-cell *matCellDef="let row"> {{row.IFSC}} </td>
+                    </ng-container>
+
+                    <!-- Action Column -->
+                    <ng-container matColumnDef="Action">
+                      <th mat-header-cell *matHeaderCellDef>Action</th>
+                      <td mat-cell *matCellDef="let row; let i = index;">
+                        <a class="text-danger" (click)="deleteBank(i)" style="cursor:pointer;"><i class="material-icons">delete_forever</i></a>
+                      </td>
+                    </ng-container>
+
+
+                    <tr mat-header-row *matHeaderRowDef="displayedColumnsBank"></tr>
+                    <tr mat-row *matRowDef="let row; columns: displayedColumnsBank;"></tr>
+                  </table>
+                </div>
+                <div *ngIf="dataSourceBank && dataSourceBank.data.length == 0" class="text-center pt-4 pb-4" >No record found.</div>
+                <mat-paginator [pageSizeOptions]="[10,20,50]" showFirstLastButtons></mat-paginator>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-6 text-left">
+              <button id="manager_individualbackToInformation"  mat-button matStepperPrevious mat-raised-button style="background-color: black;color: white;">Back</button>
+            </div>
+            <div class="col-6 text-right">
+              <button id="manager_individualNextToFinish"  mat-button matStepperNext mat-raised-button color="primary" [disabled]="(bankArray.length == 0) || (documentArray.length == 0) || !(docMandatory == 2)">Next</button>
+            </div>
+          </div>
+        </mat-step>
+        <mat-step>
+          <ng-template matStepLabel>Success</ng-template>
+          <div class="card card-accent-primary">
+            <div class="card-header">
+              <strong>Information</strong>
+            </div>
+            <div class="card-body" id="print-section">
+              <mat-list role="list">
+                <h3 mat-subheader>Basic Information</h3>
+                <mat-list-item role="listitem"><strong>Name</strong>: {{ClientForm.value.Name}}</mat-list-item>
+                <mat-list-item role="listitem"><strong>Father Name</strong>: {{ClientForm.value.FatherName}}</mat-list-item>
+                <mat-list-item role="listitem"><strong>Email</strong>: {{ClientForm.value.Email}}</mat-list-item>
+                <mat-list-item role="listitem"><strong>Mobile No</strong>: {{ClientForm.value.Phone}}</mat-list-item>
+                <mat-list-item role="listitem"><strong>DOB</strong>: {{ClientForm.value.DOB | date: 'dd-MMM-yyyy'}}</mat-list-item>
+                <mat-list-item role="listitem"><strong>Gender</strong>: {{ClientForm.value.Gender}}</mat-list-item>
+                <mat-list-item role="listitem"><strong>Residential Address</strong>: {{ClientForm.value.PermanentAddress}}</mat-list-item>
+                <mat-list-item role="listitem"><strong>Corporate Address</strong>: {{ClientForm.value.CorrespondingAddress}}</mat-list-item>
+                <h3 mat-subheader>Document Detail</h3>
+                <table class="table">
+                  <thead>
+                  <tr>
+                    <th>S.No.</th>
+                    <th>Name</th>
+                    <th>Number</th>
+                  </tr>
+                  </thead>
+                  <tbody>
+                  <tr *ngFor="let item of documentArray; let i = index">
+                    <td>{{i+1}}</td>
+                    <td>{{item.Name}}</td>
+                    <td>{{item.Number}}</td>
+                  </tr>
+                  </tbody>
+                </table>
+                <h3 mat-subheader>Bank Detail</h3>
+                <table class="table">
+                  <thead>
+                  <tr>
+                    <th>S.No.</th>
+                    <th>Bank Name</th>
+                    <th>Holder Name</th>
+                    <th>Account No</th>
+                    <th>IFSC</th>
+                    <th>Branch</th>
+                  </tr>
+                  </thead>
+                  <tbody>
+                  <tr *ngFor="let item of bankArray; let i = index">
+                    <td>{{i+1}}</td>
+                    <td>{{item.BankName}}</td>
+                    <td>{{item.Holder}}</td>
+                    <td>{{item.AccNo}}</td>
+                    <td>{{item.IFSC}}</td>
+                    <td>{{item.Branch}}</td>
+                  </tr>
+                  </tbody>
+                </table>
+              </mat-list>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-6 text-left">
+              <button *ngIf="!showSpinner" id="manager_individualBackToDocument"  mat-button matStepperPrevious mat-raised-button style="background-color: black;color: white;">Back</button>
+            </div>
+            <div class="col-6 text-right">
+              <button *ngIf="!showSpinner" id="manager_individualPrint" mat-button matStepperNext mat-raised-button (click)="print()" color="primary" class="print-button"><i class="material-icons">print</i></button>&nbsp;&nbsp;
+              <button *ngIf="!showSpinner" id="manager_individualFinish" mat-button mat-raised-button color="primary" (click)="onSubmitForm()" [disabled]="(bankArray.length == 0) || (documentArray.length == 0) || (ClientForm.invalid) || !(docMandatory == 2)">Finish</button>
+              <mat-progress-spinner *ngIf="showSpinner"
+                                    [diameter]="30"
+                                    class="example-margin"
+                                    color="primary"
+                                    mode='indeterminate'
+                                    value="5">
+              </mat-progress-spinner>
+            </div>
+          </div>
+        </mat-step>
+      </mat-horizontal-stepper>
+    </div>
+  </div>
+<ng4-loading-spinner [threshold]="100" [timeout]="60000" [loadingText]="'Please wait...'" [zIndex]="9999"></ng4-loading-spinner>
+</section>

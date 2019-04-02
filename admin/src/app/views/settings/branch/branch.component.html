@@ -1,0 +1,83 @@
+<section [@routerTransition]>
+<div id="branch_createNewButton" class="col-md-12 mb-3 mb-xl-0 text-right float-right">
+  <button mat-raised-button color="primary" (click)="addNew(-1)"><i class="fa fa-plus">&nbsp;</i>Create New</button>
+</div>
+<mat-progress-spinner *ngIf="showSpinner"
+                      [diameter]="30"
+                      class="list-spinner"
+                      color="primary"
+                      mode='indeterminate'
+                      value="5">
+</mat-progress-spinner>
+<mat-form-field>
+  <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Filter Data">
+</mat-form-field>
+
+<div class="table-branch example-container mat-elevation-z8" id="branchTable">
+  <div class="example-loading-shade"
+       *ngIf="isLoadingResults || isRateLimitReached">
+    <mat-spinner *ngIf="isLoadingResults"></mat-spinner>
+    <div class="example-rate-limit-reached" *ngIf="isRateLimitReached">
+      API rate limit has been reached. It will be reset in one minute.
+    </div>
+  </div>
+
+  <div class="example-table-container">
+    <table mat-table [dataSource]="dataSource" matSort>
+
+      <!-- ID Column -->
+      <ng-container matColumnDef="_id">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> ID </th>
+        <td mat-cell *matCellDef="let row"> {{row._id}} </td>
+      </ng-container>
+
+      <!-- Name Column -->
+      <ng-container matColumnDef="Name">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Name </th>
+        <td mat-cell *matCellDef="let row"> {{row.Name}} </td>
+      </ng-container>
+
+      <!-- Email Column -->
+      <ng-container matColumnDef="Email">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Email </th>
+        <td mat-cell *matCellDef="let row"> {{row.Email}} </td>
+      </ng-container>
+
+      <!-- Phone Column -->
+      <ng-container matColumnDef="Phone">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Phone </th>
+        <td mat-cell *matCellDef="let row"> {{row.Phone}} </td>
+      </ng-container>
+
+      <!-- Website Column -->
+      <ng-container matColumnDef="WebSite">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> WebSite </th>
+        <td mat-cell *matCellDef="let row"> {{row.WebSite}} </td>
+      </ng-container>
+
+      <!-- CompanyName Column -->
+      <ng-container matColumnDef="CompanyName">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> CompanyName </th>
+        <td mat-cell *matCellDef="let row"> {{ row.CompanyID ? row.CompanyID.Name : '' }} </td>
+      </ng-container>
+
+      <!-- Action Column -->
+      <ng-container matColumnDef="Action">
+        <th id="branch_actionButton" mat-header-cell *matHeaderCellDef style="min-width:120px;">Action</th>
+        <td mat-cell *matCellDef="let row">
+          <a class="text-success" (click)="showFirm(row._id)" style="cursor:pointer;"><i class="material-icons">adjust</i></a>&nbsp;
+          <a class="text-danger" (click)="deleteExisting(row._id)" style="cursor:pointer;"><i class="material-icons">delete_forever</i></a>&nbsp;
+          <a class="text-primary" (click)="editExisting(row._id)" style="cursor:pointer;"><i class="material-icons">edit</i></a>&nbsp;
+        </td>
+      </ng-container>
+
+
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+    </table>
+  </div>
+  <div *ngIf="dataSource && dataSource.data.length == 0" class="text-center pt-4 pb-4" >No record found.</div>
+  <mat-paginator [pageSizeOptions]="[10,20,50]" showFirstLastButtons></mat-paginator>
+</div>
+<ng4-loading-spinner [threshold]="100" [timeout]="60000" [loadingText]="'Please wait...'" [zIndex]="9999"></ng4-loading-spinner>
+</section>

@@ -1,0 +1,83 @@
+<style>
+  .mat-form-field {
+    font-size: 14px;
+    width: 33%;
+  }
+</style>
+<h2 mat-dialog-title>Refrence Person</h2>
+<mat-dialog-content class="mat-typography p-0" id="manager_individual_clientsearch">
+  <div class="col-sm-12">
+    <div class="card card-accent-primary">
+      <div class="card-header">
+        <strong>Detail</strong>
+      </div>
+      <div class="card-body">
+        <form [formGroup]="RefrencePerson" class="form-horizontal referenceForm"  (keydown.enter)="onSubmitForm()">
+          <mat-form-field>
+            <input matInput type="text" formControlName="Name" placeholder="Name">
+          </mat-form-field>
+          <mat-form-field>
+            <input matInput type="number" formControlName="Phone" placeholder="Mobile No">
+          </mat-form-field>
+          <mat-form-field>
+            <input matInput type="email" formControlName="Email" placeholder="Email">
+          </mat-form-field>
+        </form>
+      </div>
+      <div class="text-right">
+        <button type="button" *ngIf="!showSpinner" mat-raised-button color="warn" (click)="onNoClick()">Cancel</button>&nbsp;
+        <button class="mr-2 mb-2" *ngIf="!showSpinner" mat-raised-button color="primary" (click)="onSubmitForm()"><i class="fa fa-dot-circle-o">&nbsp;</i>Search</button>
+        <mat-progress-spinner *ngIf="showSpinner"
+                              [diameter]="30"
+                              class="example-margin"
+                              color="primary"
+                              mode='indeterminate'
+                              value="5">
+        </mat-progress-spinner>
+      </div>
+    </div>
+    <div class="table-user example-container mat-elevation-z8">
+      <div class="example-loading-shade"
+           *ngIf="isLoadingResults || isRateLimitReached">
+        <mat-spinner *ngIf="isLoadingResults"></mat-spinner>
+        <div class="example-rate-limit-reached" *ngIf="isRateLimitReached">
+          API rate limit has been reached. It will be reset in one minute.
+        </div>
+      </div>
+
+      <div class="example-table-container">
+        <table mat-table [dataSource]="dataSource" matSort>
+
+          <!-- ID Column -->
+          <ng-container matColumnDef="_id">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> ID </th>
+            <td mat-cell *matCellDef="let row"> {{row._id}} </td>
+          </ng-container>
+
+          <!-- Name Column -->
+          <ng-container matColumnDef="Name">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Name </th>
+            <td mat-cell *matCellDef="let row"> {{row.Name}} </td>
+          </ng-container>
+
+          <!-- Phone Column -->
+          <ng-container matColumnDef="Phone">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Mobile No </th>
+            <td mat-cell *matCellDef="let row"> {{row.Phone}} </td>
+          </ng-container>
+
+          <!-- Email Column -->
+          <ng-container matColumnDef="Email">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Email </th>
+            <td mat-cell *matCellDef="let row"> {{row.Email}} </td>
+          </ng-container>
+
+          <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+          <tr (click)="getRowDetail(row)" mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+        </table>
+      </div>
+      <div *ngIf="dataSource && dataSource.data.length == 0" class="text-center pt-4 pb-4" >No record found.</div>
+      <mat-paginator [pageSizeOptions]="[10,20,50]" showFirstLastButtons></mat-paginator>
+    </div>
+  </div>
+</mat-dialog-content>

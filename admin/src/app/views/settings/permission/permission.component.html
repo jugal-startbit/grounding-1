@@ -1,0 +1,34 @@
+<section [@routerTransition]>
+  <mat-form-field class="col-md-5" id="roleSelect">
+    <mat-select placeholder="Role" [(ngModel)]="RoleID" required (selectionChange)="getAllMenus()">
+      <mat-option>--</mat-option>
+      <mat-option *ngFor="let item of allRoles" [value]="item._id">
+        {{item.Name}}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+  <div class="row" *ngIf="RoleID" id="showAllMenuForPermission" >
+    <div class="col-sm-12 col-md-5">
+      <div class="card card-accent-primary">
+        <div class="card-header">
+          <strong>Menu Permissions</strong>
+        </div>
+        <div class="card-body">
+          <ngx-treeview id="menuPermissionTreeView" class="checkbox-tree" [items]="items" [itemTemplate]="itemTemplate" (selectedChange)="onSelectedChange($event)">
+          </ngx-treeview>
+        </div>
+        <div class="card-footer text-right">
+          <button id="updateMenuPermission" type="submit" *ngIf="!showSpinner" mat-raised-button color="primary" (click)="onSubmit()"><i class="fa fa-dot-circle-o">&nbsp;</i>Save</button>
+          <mat-progress-spinner id="roleSelectSpinner" *ngIf="showSpinner"
+                                [diameter]="30"
+                                class="example-margin"
+                                color="primary"
+                                mode='indeterminate'
+                                value="5">
+          </mat-progress-spinner>
+        </div>
+      </div>
+    </div>
+  </div>
+<ng4-loading-spinner [threshold]="100" [timeout]="60000" [loadingText]="'Please wait...'" [zIndex]="9999"></ng4-loading-spinner>
+</section>

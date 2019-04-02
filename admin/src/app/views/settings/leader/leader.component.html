@@ -1,0 +1,55 @@
+<section [@routerTransition]>
+  <div class="row">
+    <div class="col-sm-12 col-md-8">
+      <div class="card card-accent-primary">
+        <div class="card-header">
+          <strong>Leader Assign Form</strong>
+        </div>
+        <div class="card-body">
+          <form [formGroup]="LeaderForm" class="form-horizontal" (keydown.enter)="onSubmitForm()">
+            <mat-form-field *ngIf="localStorage.role == 'Super Admin'">
+              <mat-select [disabled]="allBranches.length == 0" placeholder="Branch" formControlName="BranchID" (selectionChange)="onChangeBranch(LeaderForm.controls.BranchID.value)">
+                <mat-option>--</mat-option>
+                <mat-option *ngFor="let item of allBranches" [value]="item._id">
+                  {{item.Name}}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+            <mat-form-field  *ngIf="localStorage.role == 'Super Admin'">
+              <mat-select [disabled]="allDepartments.length == 0" placeholder="Department" formControlName="DepartmentID" (selectionChange)="onChangeDepartment(LeaderForm.controls.DepartmentID.value)">
+                <mat-option>--</mat-option>
+                <mat-option *ngFor="let item of allDepartments" [value]="item._id">
+                  {{item.Name}}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+            <mat-form-field>
+              <mat-select [disabled]="allLeaders.length == 0" placeholder="Leader" formControlName="LeaderID" required (selectionChange)="onChangeLeader(LeaderForm.controls.LeaderID.value)">
+                <mat-option *ngFor="let item of allLeaders" [value]="item._id">
+                  {{item.Name}}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+            <div *ngFor="let item of allEmployees">
+              <mat-checkbox [checked]="item.checked"
+                            (change)="valueChangeCheckbox(item._id,$event)">
+                {{ item.Name }}<span class="text-muted">&nbsp;&nbsp; ({{item.Leader ? item.Leader.Name : 'no leader'}})</span>
+              </mat-checkbox>
+            </div>
+          </form>
+        </div>
+        <div class="card-footer text-right">
+          <button type="submit" *ngIf="!showSpinner"  mat-raised-button color="primary" (click)="onSubmitForm()" [disabled]="LeaderForm.invalid || selectedCheckboxNo == 0"><i class="fa fa-dot-circle-o">&nbsp;</i>Submit</button>
+          <mat-progress-spinner *ngIf="showSpinner"
+                                [diameter]="30"
+                                class="example-margin"
+                                color="primary"
+                                mode='indeterminate'
+                                value="5">
+          </mat-progress-spinner>
+        </div>
+      </div>
+    </div>
+  </div>
+  <ng4-loading-spinner> </ng4-loading-spinner>
+</section>

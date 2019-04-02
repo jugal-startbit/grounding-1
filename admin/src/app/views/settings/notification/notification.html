@@ -1,0 +1,138 @@
+<section [@routerTransition]>
+<div class="row" id="holidayForm">
+  <div class="col-sm-12 col-md-8">
+    <div class="card card-accent-primary">
+      <div class="card-header">
+        <strong>Notification</strong>
+      </div>
+      <div class="card-body">
+        <div class="row">
+          <div class="row">
+            <div class="col-md-2"><b> To Whom :-</b></div>
+            <div class="col-md-7">
+              <mat-radio-group class="example-radio-group" [(ngModel)]="whomType" (change)="onChangeWhomType()"><!---->
+                <mat-radio-button class="example-radio-button" value="All" >All</mat-radio-button> &nbsp;&nbsp;
+                <mat-radio-button class="example-radio-button" value="Branch" *ngIf="(localStorage.role == 'Super Admin')">Branch</mat-radio-button>&nbsp;&nbsp;
+                <mat-radio-button class="example-radio-button" value="Department" *ngIf="(localStorage.role == 'Super Admin' || localStorage.role == 'Admin')">Department</mat-radio-button>&nbsp;&nbsp;
+                <mat-radio-button class="example-radio-button" value="Employee" >Employee</mat-radio-button>
+              </mat-radio-group>
+              <br>
+
+              <div *ngIf="whomType == 'Branch'">
+                <mat-form-field>
+                  <mat-select placeholder="Branch" *ngIf="localStorage.role  == 'Super Admin'" [formControl]="selectedWhomArray" multiple>
+                    <mat-select-trigger>
+                      {{selectedWhomArray.value ? selectedWhomArray.value[0] : ''}}
+                      <span *ngIf="selectedWhomArray.value?.length > 1" class="example-additional-selection">
+        (+{{selectedWhomArray.value.length - 1}} {{selectedWhomArray.value?.length === 2 ? 'other' : 'others'}})
+      </span>
+                    </mat-select-trigger>
+                    <mat-option *ngFor="let branch of allBranches" [value]="branch._id">{{branch.Name}}</mat-option>
+                  </mat-select>
+                </mat-form-field>
+              </div>
+              <div *ngIf="whomType == 'Department'">
+                <label>Branch</label>
+                <mat-select placeholder="Branch" *ngIf="localStorage.role  == 'Super Admin'" [(ngModel)]="BranchID" class="form-control" (selectionChange)="getAllDepartmentsByID(BranchID)">
+                  <mat-option value="">----</mat-option>
+                  <mat-option *ngFor="let item of allBranches" [value]="item._id">
+                    {{item.Name}}
+                  </mat-option>
+                </mat-select>
+                <br>
+                <mat-form-field>
+                  <mat-select placeholder="Department" [formControl]="selectedWhomArray" multiple>
+                    <mat-select-trigger>
+                      {{selectedWhomArray.value ? selectedWhomArray.value[0] : ''}}
+                      <span *ngIf="selectedWhomArray.value?.length > 1" class="example-additional-selection">
+        (+{{selectedWhomArray.value.length - 1}} {{selectedWhomArray.value?.length === 2 ? 'other' : 'others'}})
+      </span>
+                    </mat-select-trigger>
+                    <mat-option *ngFor="let depart of allDepartments" [value]="depart._id">{{depart.Name}}</mat-option>
+                  </mat-select>
+                </mat-form-field>
+              </div>
+              <div *ngIf="whomType == 'Employee'">
+                <label>Branch</label>
+                <mat-select placeholder="Branch" [(ngModel)]="BranchID" class="form-control" *ngIf="localStorage.role  == 'Super Admin'" (selectionChange)="getAllDepartmentsByID(BranchID)">
+                  <mat-option value="">----</mat-option>
+                  <mat-option *ngFor="let item of allBranches" [value]="item._id">
+                    {{item.Name}}
+                  </mat-option>
+                </mat-select>
+                <br>
+                <label>Department</label>
+                <mat-select placeholder="Department" [(ngModel)]="DepartmentID" *ngIf="localStorage.role  == 'Super Admin' || localStorage.role  == 'Admin'" class="form-control" (selectionChange)="getAllUserByDepartmentID(DepartmentID)">
+                  <mat-option value="">----</mat-option>
+                  <mat-option *ngFor="let item of allDepartments" [value]="item._id">
+                    {{item.Name}}
+                  </mat-option>
+                </mat-select>
+                <br>
+                <mat-form-field>
+                  <mat-select placeholder="Employee" [formControl]="selectedWhomArray" multiple>
+                    <mat-select-trigger>
+                      {{selectedWhomArray.value ? selectedWhomArray.value[0] : ''}}
+                      <span *ngIf="selectedWhomArray.value?.length > 1" class="example-additional-selection">
+        (+{{selectedWhomArray.value.length - 1}} {{selectedWhomArray.value?.length === 2 ? 'other' : 'others'}})
+      </span>
+                    </mat-select-trigger>
+                    <mat-option *ngFor="let user of allUsers" [value]="user._id">{{user.Name}}</mat-option>
+                  </mat-select>
+                </mat-form-field>
+              </div>
+
+            </div>
+            <br>
+            <div class="col-md-3"></div>
+            <div class="clearfix" height="10px;"></div>
+            <div class="col-md-2"> <b>Priority :-</b> </div>
+            <div class="col-md-7" style="margin-bottom: 15px;">
+              <mat-select placeholder="Priority" [(ngModel)]="Priority" class="form-control">
+                <mat-option value="">---</mat-option>
+                <mat-option  value="urgent">Urgent</mat-option>
+                <mat-option  value="high">High</mat-option>
+                <mat-option  value="normal">Normal</mat-option>
+                <mat-option  value="low">Low</mat-option>
+              </mat-select>
+              <br>
+            </div>
+            <div class="col-md-3"></div>
+            <div class="clearfix"></div>
+            <!--<div class="col-md-2">Template</div>-->
+            <!--<div class="col-md-4">-->
+              <!--<mat-select placeholder="Template">-->
+                <!--<mat-option value="">-&#45;&#45;</mat-option>-->
+                <!--<mat-option  value="urgent">Urgent</mat-option>-->
+                <!--<mat-option  value="high">High</mat-option>-->
+                <!--<mat-option  value="normal">Normal</mat-option>-->
+                <!--<mat-option  value="low">Low</mat-option>-->
+              <!--</mat-select>-->
+            <!--</div>-->
+            <!--<div class="col-md-4"></div>-->
+            <div class="clearfix"></div>
+            <div class="col-md-2">
+             <b>Message :-</b>
+            </div>
+            <div class="col-md-7">
+              <textarea class="form-control" rows="5" [(ngModel)]="Message"></textarea>
+              <br>
+            </div>
+            <br>
+            <div class="col-md-3"></div>
+            <div class="clearfix"></div>
+            <div class="col-md-5"></div>
+            <div class="col-md-2">
+            <button type="button" class="btn btn-primary" (click)="saveNotification()">Send</button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="card-footer text-right">
+
+      </div>
+    </div>
+  </div>
+</div>
+<ng4-loading-spinner> </ng4-loading-spinner>
+</section>

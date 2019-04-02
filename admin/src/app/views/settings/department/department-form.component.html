@@ -1,0 +1,42 @@
+<section [@routerTransition]>
+<div class="row" id="departmentForm">
+  <div class="col-sm-12 col-md-8">
+    <div class="card card-accent-primary">
+      <div class="card-header">
+        <strong>Department Form</strong>
+      </div>
+      <div class="card-body">
+        <form [formGroup]="DepartmentForm" class="form-horizontal" (keydown.enter)="onSubmitForm()">
+          <mat-form-field>
+            <input matInput type="text" formControlName="Name" placeholder="Department Name" required>
+          </mat-form-field>
+          <mat-form-field>
+            <textarea matInput rows="5" placeholder="Department Description" formControlName="Description" required></textarea>
+          </mat-form-field>
+          <mat-form-field>
+            <mat-select placeholder="Branch" formControlName="BranchID" required>
+              <mat-option>--</mat-option>
+              <mat-option *ngFor="let item of allBranches" [value]="item._id">
+                {{item.Name}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </form>
+      </div>
+      <div class="card-footer text-right"  id="departmentFormActionButton">
+        <button type="reset" *ngIf="!showSpinner" mat-raised-button color="accent" (click)="reset()" [disabled]="departmentID != -1"><i class="fa fa-ban">&nbsp;</i>Reset</button>&nbsp;
+        <button type="button" *ngIf="!showSpinner" mat-raised-button color="warn" (click)="cancel()">Cancel</button>&nbsp;
+        <button type="submit" *ngIf="!showSpinner" mat-raised-button color="primary" (click)="onSubmitForm()" [disabled]="DepartmentForm.invalid"><i class="fa fa-dot-circle-o">&nbsp;</i>Submit</button>
+        <mat-progress-spinner *ngIf="showSpinner"
+                              [diameter]="30"
+                              class="example-margin"
+                              color="primary"
+                              mode='indeterminate'
+                              value="5">
+        </mat-progress-spinner>
+      </div>
+    </div>
+  </div>
+</div>
+<ng4-loading-spinner> </ng4-loading-spinner>
+</section>
