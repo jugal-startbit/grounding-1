@@ -53,7 +53,7 @@ exports.create = function (req, res, next) {
         res.status(200).json({
             'status': false,
             'message': 'Invalid event name',
-            'result': localVar
+            'result': data
         })
     }
     localVar = new localVar(data);
