@@ -8,7 +8,8 @@ var express = require('express');
 var bodyParser = require('body-parser');
 var gcm = require('node-gcm');
 const config = require('./config');
-var app = express();
+var app = express();//,
+//h5bp = require('./lib/h5bp.js');
 
 //Here we are configuring express to use body-parser as middle-ware.
 app.use(bodyParser.urlencoded({ extended: false }));
@@ -16,7 +17,7 @@ app.use(bodyParser.json());
 
 //To server static assests in root dir
 app.use(express.static(__dirname));
-
+//app.use(h5bp(express.static(__dirname)));
 //To allow cross origin request
 app.use(function(req, res, next) {
   res.header('Access-Control-Allow-Origin', '*');
