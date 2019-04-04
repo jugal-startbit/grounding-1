@@ -69,50 +69,56 @@
     var UserInitial = localStorage.getItem('UserInitial');
     var StudyCode =  localStorage.getItem('StudyCode');
 
-    if(evt.target.myParam == 'author'){
-      var previouspage  = localStorage.getItem("CurrentPage");
-      var previouspage1  = localStorage.getItem("PreviousPage");
-      var entryTimeStamp = localStorage.getItem("CurrentPageTimeStamp");
-      var currentTimeStamp = Date.now();
-
-      var timeDifferenceseconds = (currentTimeStamp - entryTimeStamp)/1000;
-      var timeDifference = Math.floor(timeDifferenceseconds);
-      if(previouspage !== 'aboutUs'){
-          localStorage.setItem("CurrentPageTimeStamp", Date.now());
-      }
-      var data = "Event="+previouspage+"&UserInitial="+UserInitial+"&StudyCode="+StudyCode+"&Duration="+timeDifference;
-
-      var xhr = new XMLHttpRequest();
-      xhr.withCredentials = true;
-
-      xhr.addEventListener("readystatechange", function () {
-        if (this.readyState === 4) {
-          console.log(this.responseText);
+    var previouspage  = localStorage.getItem("CurrentPage");
+    if(evt.target.myParam == 'aboutUs'){
+      if(previouspage!==evt.target.myParam)
+      {
+        var previouspage1  = localStorage.getItem("PreviousPage");
+        var entryTimeStamp = localStorage.getItem("CurrentPageTimeStamp");
+        var currentTimeStamp = Date.now();
+  
+        var timeDifferenceseconds = (currentTimeStamp - entryTimeStamp)/1000;
+        var timeDifference = Math.floor(timeDifferenceseconds);
+        if(previouspage !== 'aboutUs'){
+            localStorage.setItem("CurrentPageTimeStamp", Date.now());
         }
-      });
-
-      xhr.open("POST", "https://grounding.herokuapp.com/API/eventLogCreate");
-      xhr.withCredentials = false;
-      xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-      xhr.setRequestHeader("cache-control", "no-cache");
-      xhr.setRequestHeader("Postman-Token", "a5a1754d-842e-46d6-88f1-478c94bdf132");
-
-      xhr.send(data);
-
-      localStorage.setItem("PreviousPage", previouspage);
-      localStorage.setItem("CurrentPage", "aboutUs");
-
-      document.querySelector('#authorMenuDIV').style.display = 'inherit';
-      document.querySelector('#sourceMenuDIV').style.display = 'none';
-      document.querySelector('#contactMenuDIV').style.display = 'none';
-      document.querySelector('#loginDIV').style.display = 'none';
-      document.querySelector('#ratingMenuDIV').style.display = 'none';
-      document.querySelector('.menu').classList.remove("menu--show");
-      document.querySelector('.menu__overlay').classList.remove("menu__overlay--show");
-      document.querySelector('.menu').style.transform = 'translateX(-110%)';
-
-    }else if(evt.target.myParam == 'rating'){
+        var data = "Event="+previouspage+"&UserInitial="+UserInitial+"&StudyCode="+StudyCode+"&Duration="+timeDifference;
+  
+        var xhr = new XMLHttpRequest();
+        xhr.withCredentials = true;
+  
+        xhr.addEventListener("readystatechange", function () {
+          if (this.readyState === 4) {
+            console.log(this.responseText);
+          }
+        });
+  
+        xhr.open("POST", "https://grounding.herokuapp.com/API/eventLogCreate");
+        xhr.withCredentials = false;
+        xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+        xhr.setRequestHeader("cache-control", "no-cache");
+        xhr.setRequestHeader("Postman-Token", "a5a1754d-842e-46d6-88f1-478c94bdf132");
+  
+        xhr.send(data);
+  
+        localStorage.setItem("PreviousPage", previouspage);
+        localStorage.setItem("CurrentPage", "aboutUs");
+  
+        document.querySelector('#authorMenuDIV').style.display = 'inherit';
+        document.querySelector('#sourceMenuDIV').style.display = 'none';
+        document.querySelector('#contactMenuDIV').style.display = 'none';
+        document.querySelector('#loginDIV').style.display = 'none';
+        document.querySelector('#ratingMenuDIV').style.display = 'none';
+        document.querySelector('.menu').classList.remove("menu--show");
+        document.querySelector('.menu__overlay').classList.remove("menu__overlay--show");
+        document.querySelector('.menu').style.transform = 'translateX(-110%)';
+  
+      }
+      
+    }else if(evt.target.myParam == 'review'){
       var previouspage  = localStorage.getItem("CurrentPage");
+      if(previouspage!==evt.target.myParam)
+      {
       var previouspage1  = localStorage.getItem("PreviousPage");
       var entryTimeStamp = localStorage.getItem("CurrentPageTimeStamp");
       var currentTimeStamp = Date.now();
@@ -164,9 +170,12 @@
         function(){
           var userRating = this.value;
       }); 
-    }else if(evt.target.myParam == 'contact'){
+    }
+    }else if(evt.target.myParam == 'contactUs'){
 
       var previouspage  = localStorage.getItem("CurrentPage");
+      if(previouspage!==evt.target.myParam)
+      {
       var previouspage1  = localStorage.getItem("PreviousPage");
       var entryTimeStamp = localStorage.getItem("CurrentPageTimeStamp");
       var currentTimeStamp = Date.now();
@@ -208,11 +217,13 @@
       document.querySelector('.menu').classList.remove("menu--show");
       document.querySelector('.menu__overlay').classList.remove("menu__overlay--show");
       document.querySelector('.menu').style.transform = 'translateX(-110%)';
-
     }
-    else if(evt.target.myParam == 'source'){
+    }
+    else if(evt.target.myParam == 'aboutGroundingLog'){
 
       var previouspage  = localStorage.getItem("CurrentPage");
+      if(previouspage!==evt.target.myParam)
+      {
       var previouspage1  = localStorage.getItem("PreviousPage");
       var entryTimeStamp = localStorage.getItem("CurrentPageTimeStamp");
       var currentTimeStamp = Date.now();
@@ -251,11 +262,13 @@
       document.querySelector('.menu').classList.remove("menu--show");
       document.querySelector('.menu__overlay').classList.remove("menu__overlay--show");
       document.querySelector('.menu').style.transform = 'translateX(-110%)';
-
+    }
     }
     else if(evt.target.myParam == 'logout'){
 
       var previouspage  = localStorage.getItem("CurrentPage");
+      if(previouspage!==evt.target.myParam)
+      {
       var previouspage1  = localStorage.getItem("PreviousPage");
       var entryTimeStamp = localStorage.getItem("CurrentPageTimeStamp");
       var currentTimeStamp = Date.now();
@@ -278,8 +291,6 @@
           xhr2.addEventListener("readystatechange", function () {
             if (this.readyState === 4) {
               console.log(this.responseText);
-              
-
             }
           });
 
@@ -304,7 +315,7 @@
       xhr.setRequestHeader("Postman-Token", "a5a1754d-842e-46d6-88f1-478c94bdf132");
 
       xhr.send(data);
-      
+    }
 
     }
     
@@ -468,6 +479,7 @@
    
   function startTimer() {
       // wait 2 seconds before calling goInactive
+      if(localStorage.getItem("CurrentPage")!=="doLogin")
       timeoutID = window.setTimeout(goInactive, 240000);
   }
    
@@ -481,8 +493,62 @@
       // do something
       //alert('Inactive logout');
     setTimeout(function(){ 
+      var UserInitial = localStorage.getItem('UserInitial');
+      var StudyCode =  localStorage.getItem('StudyCode');
+      if(UserInitial!==null || StudyCode !==null)
+      {
+        var previouspage  = localStorage.getItem("CurrentPage");
+        var entryTimeStamp = localStorage.getItem("CurrentPageTimeStamp");
+        var currentTimeStamp = Date.now();
+
+        var timeDifferenceseconds = (currentTimeStamp - entryTimeStamp)/1000;
+        var timeDifference = Math.floor(timeDifferenceseconds);
+
+        var data = "Event="+previouspage+"&UserInitial="+UserInitial+"&StudyCode="+StudyCode+"&Duration="+timeDifference;
+
+        var xhr = new XMLHttpRequest();
+        xhr.withCredentials = true;
+
+        xhr.addEventListener("readystatechange", function () {
+          if (this.readyState === 4) {
+            console.log(this.responseText);
+            var data1 = "Event=logout&UserInitial="+UserInitial+"&StudyCode="+StudyCode+"&Duration="+timeDifference;
+            var xhr2 = new XMLHttpRequest();
+            xhr2.withCredentials = true;
+
+            xhr2.addEventListener("readystatechange", function () {
+              if (this.readyState === 4) {
+                console.log(this.responseText);
+            localStorage.clear();
+            window.location.reload();
+              }
+            });
+
+            xhr2.open("POST", "https://grounding.herokuapp.com/API/eventLogCreate");
+            xhr2.withCredentials = false;
+            xhr2.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+            xhr2.setRequestHeader("cache-control", "no-cache");
+            xhr2.setRequestHeader("Postman-Token", "a5a1754d-842e-46d6-88f1-478c94bdf132");
+
+            xhr2.send(data1);
+          }
+        });
+
+        xhr.open("POST", "https://grounding.herokuapp.com/API/eventLogCreate");
+        xhr.withCredentials = false;
+        xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+        xhr.setRequestHeader("cache-control", "no-cache");
+        xhr.setRequestHeader("Postman-Token", "a5a1754d-842e-46d6-88f1-478c94bdf132");
+
+        xhr.send(data);
+      }
+      else
+      {
         localStorage.clear();
-        window.location.reload();
+            window.location.reload();
+      }
+          
+       
     }, 10000);
     alert('This page has been inactive for several minutes. You will be logged out shortly.');
 
