@@ -479,6 +479,7 @@
    
   function startTimer() {
       // wait 2 seconds before calling goInactive
+      if(localStorage.getItem("CurrentPage")!=="doLogin")
       timeoutID = window.setTimeout(goInactive, 240000);
   }
    
