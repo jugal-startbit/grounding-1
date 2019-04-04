@@ -41,7 +41,9 @@ export class ContactusEventsComponent implements OnInit {
     //  -
     this.getAllDashboardEvents();
   }
-
+  ngOnLoad(): void {
+    this.getAllDashboardEvents();
+  }
   getAllDashboardEvents() {
     this.FromDate = null;
     this.ToDate = null;
