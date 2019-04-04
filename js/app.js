@@ -76,7 +76,8 @@
         var previouspage1  = localStorage.getItem("PreviousPage");
         var entryTimeStamp = localStorage.getItem("CurrentPageTimeStamp");
         var currentTimeStamp = Date.now();
-  
+        var UserInitial = localStorage.getItem('UserInitial');
+        var StudyCode =  localStorage.getItem('StudyCode');
         var timeDifferenceseconds = (currentTimeStamp - entryTimeStamp)/1000;
         var timeDifference = Math.floor(timeDifferenceseconds);
         if(previouspage !== 'aboutUs'){
@@ -122,7 +123,8 @@
       var previouspage1  = localStorage.getItem("PreviousPage");
       var entryTimeStamp = localStorage.getItem("CurrentPageTimeStamp");
       var currentTimeStamp = Date.now();
-
+      var UserInitial = localStorage.getItem('UserInitial');
+      var StudyCode =  localStorage.getItem('StudyCode');
       var timeDifferenceseconds = (currentTimeStamp - entryTimeStamp)/1000;
       var timeDifference = Math.floor(timeDifferenceseconds);
       if(previouspage !== 'review'){
@@ -179,7 +181,8 @@
       var previouspage1  = localStorage.getItem("PreviousPage");
       var entryTimeStamp = localStorage.getItem("CurrentPageTimeStamp");
       var currentTimeStamp = Date.now();
-
+      var UserInitial = localStorage.getItem('UserInitial');
+      var StudyCode =  localStorage.getItem('StudyCode');
       var timeDifferenceseconds = (currentTimeStamp - entryTimeStamp)/1000;
       var timeDifference = Math.floor(timeDifferenceseconds);
       if(previouspage !== 'contactUs'){
@@ -227,7 +230,8 @@
       var previouspage1  = localStorage.getItem("PreviousPage");
       var entryTimeStamp = localStorage.getItem("CurrentPageTimeStamp");
       var currentTimeStamp = Date.now();
-
+      var UserInitial = localStorage.getItem('UserInitial');
+      var StudyCode =  localStorage.getItem('StudyCode');
       var timeDifferenceseconds = (currentTimeStamp - entryTimeStamp)/1000;
       var timeDifference = Math.floor(timeDifferenceseconds);
       if(previouspage !== 'aboutGroundingLog'){
@@ -272,7 +276,8 @@
       var previouspage1  = localStorage.getItem("PreviousPage");
       var entryTimeStamp = localStorage.getItem("CurrentPageTimeStamp");
       var currentTimeStamp = Date.now();
-
+      var UserInitial = localStorage.getItem('UserInitial');
+      var StudyCode =  localStorage.getItem('StudyCode');
       var timeDifferenceseconds = (currentTimeStamp - entryTimeStamp)/1000;
       var timeDifference = Math.floor(timeDifferenceseconds);
 

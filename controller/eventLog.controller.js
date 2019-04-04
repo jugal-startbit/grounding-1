@@ -14,7 +14,9 @@ var dateFormat = require('dateformat');
 // create
 exports.create = function (req, res, next) {
     let data = req.body;
-    data.dateTime = new Date();
+    data.dateTime = new Date().toLocaleString('en-US', {
+        timeZone: 'Eastern Time (US & Canada)'
+      });
     data.Active = 1;
     console.log(data);
 
@@ -73,7 +75,9 @@ exports.create = function (req, res, next) {
 exports.reviewCreate = function (req, res, next) {
     let data = req.body;
     let localVar;
-    data.DateTime = new Date();
+    data.DateTime = new Date().toLocaleString('en-US', {
+        timeZone: 'Eastern Time (US & Canada)'
+      });
     data.Active = 1;
     console.log(data);
     localVar = review;
@@ -93,7 +97,9 @@ exports.reviewCreate = function (req, res, next) {
 exports.feedbackCreate = function (req, res, next) {
     let data = req.body;
     let localVar;
-    data.DateTime = new Date();
+    data.DateTime = new Date().toLocaleString('en-US', {
+        timeZone: 'Eastern Time (US & Canada)'
+      });
     data.Active = 1;
     console.log(data);
     localVar = feedback;
