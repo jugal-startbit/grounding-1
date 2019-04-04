@@ -80,36 +80,40 @@
       if(previouspage !== 'aboutUs'){
           localStorage.setItem("CurrentPageTimeStamp", Date.now());
       }
-      var data = "Event="+previouspage+"&UserInitial="+UserInitial+"&StudyCode="+StudyCode+"&Duration="+timeDifference;
+      else
+      {
+        var data = "Event="+previouspage+"&UserInitial="+UserInitial+"&StudyCode="+StudyCode+"&Duration="+timeDifference;
 
-      var xhr = new XMLHttpRequest();
-      xhr.withCredentials = true;
-
-      xhr.addEventListener("readystatechange", function () {
-        if (this.readyState === 4) {
-          console.log(this.responseText);
-        }
-      });
-
-      xhr.open("POST", "https://grounding.herokuapp.com/API/eventLogCreate");
-      xhr.withCredentials = false;
-      xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-      xhr.setRequestHeader("cache-control", "no-cache");
-      xhr.setRequestHeader("Postman-Token", "a5a1754d-842e-46d6-88f1-478c94bdf132");
-
-      xhr.send(data);
-
-      localStorage.setItem("PreviousPage", previouspage);
-      localStorage.setItem("CurrentPage", "aboutUs");
-
-      document.querySelector('#authorMenuDIV').style.display = 'inherit';
-      document.querySelector('#sourceMenuDIV').style.display = 'none';
-      document.querySelector('#contactMenuDIV').style.display = 'none';
-      document.querySelector('#loginDIV').style.display = 'none';
-      document.querySelector('#ratingMenuDIV').style.display = 'none';
-      document.querySelector('.menu').classList.remove("menu--show");
-      document.querySelector('.menu__overlay').classList.remove("menu__overlay--show");
-      document.querySelector('.menu').style.transform = 'translateX(-110%)';
+        var xhr = new XMLHttpRequest();
+        xhr.withCredentials = true;
+  
+        xhr.addEventListener("readystatechange", function () {
+          if (this.readyState === 4) {
+            console.log(this.responseText);
+          }
+        });
+  
+        xhr.open("POST", "https://grounding.herokuapp.com/API/eventLogCreate");
+        xhr.withCredentials = false;
+        xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+        xhr.setRequestHeader("cache-control", "no-cache");
+        xhr.setRequestHeader("Postman-Token", "a5a1754d-842e-46d6-88f1-478c94bdf132");
+  
+        xhr.send(data);
+  
+        localStorage.setItem("PreviousPage", previouspage);
+        localStorage.setItem("CurrentPage", "aboutUs");
+  
+        document.querySelector('#authorMenuDIV').style.display = 'inherit';
+        document.querySelector('#sourceMenuDIV').style.display = 'none';
+        document.querySelector('#contactMenuDIV').style.display = 'none';
+        document.querySelector('#loginDIV').style.display = 'none';
+        document.querySelector('#ratingMenuDIV').style.display = 'none';
+        document.querySelector('.menu').classList.remove("menu--show");
+        document.querySelector('.menu__overlay').classList.remove("menu__overlay--show");
+        document.querySelector('.menu').style.transform = 'translateX(-110%)';
+      }
+      
 
     }else if(evt.target.myParam == 'rating'){
       var previouspage  = localStorage.getItem("CurrentPage");
@@ -123,47 +127,50 @@
         
           localStorage.setItem("CurrentPageTimeStamp", Date.now());
       }
-      var data = "Event="+previouspage+"&UserInitial="+UserInitial+"&StudyCode="+StudyCode+"&Duration="+timeDifference;
+      else
+      {
+        var data = "Event="+previouspage+"&UserInitial="+UserInitial+"&StudyCode="+StudyCode+"&Duration="+timeDifference;
 
-      var xhr = new XMLHttpRequest();
-      xhr.withCredentials = true;
+        var xhr = new XMLHttpRequest();
+        xhr.withCredentials = true;
 
-      xhr.addEventListener("readystatechange", function () {
-        if (this.readyState === 4) {
-          console.log(this.responseText);
-        }
-      });
+        xhr.addEventListener("readystatechange", function () {
+          if (this.readyState === 4) {
+            console.log(this.responseText);
+          }
+        });
 
-      xhr.open("POST", "https://grounding.herokuapp.com/API/eventLogCreate");
-      xhr.withCredentials = false;
-      xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-      xhr.setRequestHeader("cache-control", "no-cache");
-      xhr.setRequestHeader("Postman-Token", "a5a1754d-842e-46d6-88f1-478c94bdf132");
+        xhr.open("POST", "https://grounding.herokuapp.com/API/eventLogCreate");
+        xhr.withCredentials = false;
+        xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+        xhr.setRequestHeader("cache-control", "no-cache");
+        xhr.setRequestHeader("Postman-Token", "a5a1754d-842e-46d6-88f1-478c94bdf132");
 
-      xhr.send(data);
+        xhr.send(data);
 
-      localStorage.setItem("PreviousPage", previouspage);
-      localStorage.setItem("CurrentPage", "review");
-      
-      document.querySelector('#loginDIV').style.display = 'none';
-      document.querySelector('#authorMenuDIV').style.display = 'none';
-      document.querySelector('#sourceMenuDIV').style.display = 'none';
-      document.querySelector('#contactMenuDIV').style.display = 'none';
-      document.querySelector('#ratingMenuDIV').style.display = 'inherit';
-      document.querySelector('.menu').classList.remove("menu--show");
-      document.querySelector('.menu__overlay').classList.remove("menu__overlay--show");
-      document.querySelector('.menu').style.transform = 'translateX(-110%)';
-      $(".rating input:radio").attr("checked", false);
+        localStorage.setItem("PreviousPage", previouspage);
+        localStorage.setItem("CurrentPage", "review");
+        
+        document.querySelector('#loginDIV').style.display = 'none';
+        document.querySelector('#authorMenuDIV').style.display = 'none';
+        document.querySelector('#sourceMenuDIV').style.display = 'none';
+        document.querySelector('#contactMenuDIV').style.display = 'none';
+        document.querySelector('#ratingMenuDIV').style.display = 'inherit';
+        document.querySelector('.menu').classList.remove("menu--show");
+        document.querySelector('.menu__overlay').classList.remove("menu__overlay--show");
+        document.querySelector('.menu').style.transform = 'translateX(-110%)';
+        $(".rating input:radio").attr("checked", false);
 
-      $('.rating input').click(function () {
-          $(".rating span").removeClass('checked');
-          $(this).parent().addClass('checked');
-      });
-  
-      $('input:radio').change(
-        function(){
-          var userRating = this.value;
-      }); 
+        $('.rating input').click(function () {
+            $(".rating span").removeClass('checked');
+            $(this).parent().addClass('checked');
+        });
+    
+        $('input:radio').change(
+          function(){
+            var userRating = this.value;
+        }); 
+      }
     }else if(evt.target.myParam == 'contact'){
 
       var previouspage  = localStorage.getItem("CurrentPage");
@@ -177,37 +184,40 @@
         
           localStorage.setItem("CurrentPageTimeStamp", Date.now());
       }
-      var data = "Event="+previouspage+"&UserInitial="+UserInitial+"&StudyCode="+StudyCode+"&Duration="+timeDifference;
+      else
+      {
+        var data = "Event="+previouspage+"&UserInitial="+UserInitial+"&StudyCode="+StudyCode+"&Duration="+timeDifference;
 
-      var xhr = new XMLHttpRequest();
-      xhr.withCredentials = true;
+        var xhr = new XMLHttpRequest();
+        xhr.withCredentials = true;
 
-      xhr.addEventListener("readystatechange", function () {
-        if (this.readyState === 4) {
-          console.log(this.responseText);
-        }
-      });
+        xhr.addEventListener("readystatechange", function () {
+          if (this.readyState === 4) {
+            console.log(this.responseText);
+          }
+        });
 
-      xhr.open("POST", "https://grounding.herokuapp.com/API/eventLogCreate");
-      xhr.withCredentials = false;
-      xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-      xhr.setRequestHeader("cache-control", "no-cache");
-      xhr.setRequestHeader("Postman-Token", "a5a1754d-842e-46d6-88f1-478c94bdf132");
+        xhr.open("POST", "https://grounding.herokuapp.com/API/eventLogCreate");
+        xhr.withCredentials = false;
+        xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+        xhr.setRequestHeader("cache-control", "no-cache");
+        xhr.setRequestHeader("Postman-Token", "a5a1754d-842e-46d6-88f1-478c94bdf132");
 
-      xhr.send(data);
+        xhr.send(data);
 
-      localStorage.setItem("PreviousPage", previouspage);
-      localStorage.setItem("CurrentPage", "contactUs");
+        localStorage.setItem("PreviousPage", previouspage);
+        localStorage.setItem("CurrentPage", "contactUs");
 
-      document.querySelector('#contactMenuDIV').style.display = 'inherit';
-      
-      document.querySelector('#loginDIV').style.display = 'none';
-      document.querySelector('#authorMenuDIV').style.display = 'none';
-      document.querySelector('#sourceMenuDIV').style.display = 'none';
-      document.querySelector('#ratingMenuDIV').style.display = 'none';
-      document.querySelector('.menu').classList.remove("menu--show");
-      document.querySelector('.menu__overlay').classList.remove("menu__overlay--show");
-      document.querySelector('.menu').style.transform = 'translateX(-110%)';
+        document.querySelector('#contactMenuDIV').style.display = 'inherit';
+        
+        document.querySelector('#loginDIV').style.display = 'none';
+        document.querySelector('#authorMenuDIV').style.display = 'none';
+        document.querySelector('#sourceMenuDIV').style.display = 'none';
+        document.querySelector('#ratingMenuDIV').style.display = 'none';
+        document.querySelector('.menu').classList.remove("menu--show");
+        document.querySelector('.menu__overlay').classList.remove("menu__overlay--show");
+        document.querySelector('.menu').style.transform = 'translateX(-110%)';
+      }
 
     }
     else if(evt.target.myParam == 'source'){
@@ -222,35 +232,38 @@
       if(previouspage !== 'aboutGroundingLog'){
           localStorage.setItem("CurrentPageTimeStamp", Date.now());
       }
-      var data = "Event="+previouspage+"&UserInitial="+UserInitial+"&StudyCode="+StudyCode+"&Duration="+timeDifference;
+      else
+      {
+        var data = "Event="+previouspage+"&UserInitial="+UserInitial+"&StudyCode="+StudyCode+"&Duration="+timeDifference;
 
-      var xhr = new XMLHttpRequest();
-      xhr.withCredentials = true;
+        var xhr = new XMLHttpRequest();
+        xhr.withCredentials = true;
 
-      xhr.addEventListener("readystatechange", function () {
-        if (this.readyState === 4) {
-          console.log(this.responseText);
-        }
-      });
+        xhr.addEventListener("readystatechange", function () {
+          if (this.readyState === 4) {
+            console.log(this.responseText);
+          }
+        });
 
-      xhr.open("POST", "https://grounding.herokuapp.com/API/eventLogCreate");
-      xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-      xhr.setRequestHeader("cache-control", "no-cache");
-      xhr.setRequestHeader("Postman-Token", "a5a1754d-842e-46d6-88f1-478c94bdf132");
+        xhr.open("POST", "https://grounding.herokuapp.com/API/eventLogCreate");
+        xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+        xhr.setRequestHeader("cache-control", "no-cache");
+        xhr.setRequestHeader("Postman-Token", "a5a1754d-842e-46d6-88f1-478c94bdf132");
 
-      xhr.send(data);
+        xhr.send(data);
 
-      localStorage.setItem("PreviousPage", previouspage);
-      localStorage.setItem("CurrentPage", "aboutGroundingLog");
+        localStorage.setItem("PreviousPage", previouspage);
+        localStorage.setItem("CurrentPage", "aboutGroundingLog");
 
-      document.querySelector('#sourceMenuDIV').style.display = 'inherit';
-      document.querySelector('#loginDIV').style.display = 'none';
-      document.querySelector('#authorMenuDIV').style.display = 'none';
-      document.querySelector('#ratingMenuDIV').style.display = 'none';
-      document.querySelector('#contactMenuDIV').style.display = 'none';
-      document.querySelector('.menu').classList.remove("menu--show");
-      document.querySelector('.menu__overlay').classList.remove("menu__overlay--show");
-      document.querySelector('.menu').style.transform = 'translateX(-110%)';
+        document.querySelector('#sourceMenuDIV').style.display = 'inherit';
+        document.querySelector('#loginDIV').style.display = 'none';
+        document.querySelector('#authorMenuDIV').style.display = 'none';
+        document.querySelector('#ratingMenuDIV').style.display = 'none';
+        document.querySelector('#contactMenuDIV').style.display = 'none';
+        document.querySelector('.menu').classList.remove("menu--show");
+        document.querySelector('.menu__overlay').classList.remove("menu__overlay--show");
+        document.querySelector('.menu').style.transform = 'translateX(-110%)';
+      }
 
     }
     else if(evt.target.myParam == 'logout'){
