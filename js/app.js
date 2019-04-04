@@ -493,7 +493,8 @@
       // do something
       //alert('Inactive logout');
     setTimeout(function(){ 
-
+      var UserInitial = localStorage.getItem('UserInitial');
+      var StudyCode =  localStorage.getItem('StudyCode');
       if(UserInitial!==null || StudyCode !==null)
       {
         var previouspage  = localStorage.getItem("CurrentPage");
