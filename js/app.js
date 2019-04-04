@@ -542,6 +542,11 @@
 
         xhr.send(data);
       }
+      else
+      {
+        localStorage.clear();
+            window.location.reload();
+      }
           
        
     }, 10000);
