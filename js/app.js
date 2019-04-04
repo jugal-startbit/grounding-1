@@ -492,17 +492,29 @@
       // do something
       //alert('Inactive logout');
     setTimeout(function(){ 
-      var UserInitial = localStorage.getItem('UserInitial');
-      var StudyCode =  localStorage.getItem('StudyCode');
-      var data1 = "Event=logout&UserInitial="+UserInitial+"&StudyCode="+StudyCode+"&Duration="+0;
+
+      var previouspage  = localStorage.getItem("CurrentPage");
+      var entryTimeStamp = localStorage.getItem("CurrentPageTimeStamp");
+      var currentTimeStamp = Date.now();
+
+      var timeDifferenceseconds = (currentTimeStamp - entryTimeStamp)/1000;
+      var timeDifference = Math.floor(timeDifferenceseconds);
+
+      var data = "Event="+previouspage+"&UserInitial="+UserInitial+"&StudyCode="+StudyCode+"&Duration="+timeDifference;
+
+      var xhr = new XMLHttpRequest();
+      xhr.withCredentials = true;
+
+      xhr.addEventListener("readystatechange", function () {
+        if (this.readyState === 4) {
+          console.log(this.responseText);
+          var data1 = "Event=logout&UserInitial="+UserInitial+"&StudyCode="+StudyCode+"&Duration="+timeDifference;
           var xhr2 = new XMLHttpRequest();
           xhr2.withCredentials = true;
 
           xhr2.addEventListener("readystatechange", function () {
             if (this.readyState === 4) {
               console.log(this.responseText);
-              
-
             }
           });
 
@@ -516,7 +528,17 @@
 
 
           localStorage.clear();
-          window.location.reload();        
+          window.location.reload();
+        }
+      });
+
+      xhr.open("POST", "https://grounding.herokuapp.com/API/eventLogCreate");
+      xhr.withCredentials = false;
+      xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+      xhr.setRequestHeader("cache-control", "no-cache");
+      xhr.setRequestHeader("Postman-Token", "a5a1754d-842e-46d6-88f1-478c94bdf132");
+
+      xhr.send(data);  
     }, 10000);
     alert('This page has been inactive for several minutes. You will be logged out shortly.');
 
