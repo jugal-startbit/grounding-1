@@ -1,7 +1,8 @@
 (function () {
   'use strict';
   function isMobileSafari() {
-    return navigator.userAgent.match(/(iPod|iPhone|iPad)/) && navigator.userAgent.match(/AppleWebKit/)
+    return false;
+    //return navigator.userAgent.match(/(iPod|iPhone|iPad)/) && navigator.userAgent.match(/AppleWebKit/)
 }
 if(localStorage.getItem('iOS')==null ||localStorage.getItem('iOS')==undefined||localStorage.getItem('iOS')=='undefined' )
 if(isMobileSafari())
