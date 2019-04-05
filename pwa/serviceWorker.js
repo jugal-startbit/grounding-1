@@ -38,6 +38,7 @@ self.addEventListener('install', (event) => {
       return cache.addAll(files)
       .then(() => {
         console.info('All files are cached');
+        localStorage.setItem("iOS", true);
         return self.skipWaiting(); //To forces the waiting service worker to become the active service worker
       })
       .catch((error) =>  {
