@@ -45,13 +45,8 @@ app.post('/API/eventLogCreate', function(req, res,next) {
   let data = req.body;
   data.DateTime = new Date()
    .toLocaleString('en-US', {
-    timeZone: 'Eastern Time (US & Canada)'
+    timeZone: 'America/New_York'
   }); 
-  var dt1 = new Date();
-  var dt2 = new Date()
-   .toLocaleString('en-US', {
-    timeZone: 'Eastern Time (US & Canada)'
-  });
 
   data.Active = 1;
   console.log(dt1,dt2);
