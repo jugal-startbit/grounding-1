@@ -137,14 +137,14 @@ exports.getAllReview = function (req, res, next) {
 
 // getAlllogin
 exports.getAllReviewByFilter = function (req, res, next) {
-    let StudyCode = req.body.StudyCode;
-    let UserInitial = req.body.UserInitial;
+    let StudyInitials = req.body.StudyInitials;
+    let StudyID = req.body.StudyID;
     var condition = {};
-    if (StudyCode != null || StudyCode != undefined) {
-        condition.StudyCode = {'$regex': StudyCode};
+    if (StudyInitials != null || StudyInitials != undefined) {
+        condition.StudyInitials = {'$regex': StudyInitials};
     }
-    if (UserInitial != null || UserInitial != undefined) {
-        condition.UserInitial = {'$regex': UserInitial};
+    if (StudyID != null || StudyID != undefined) {
+        condition.StudyID = {'$regex': StudyID};
     }
     review.find(condition)
         .sort({_id: 'desc'})
@@ -171,9 +171,9 @@ exports.getAllLogin = function (req, res, next) {
                         "$project":
                             {
                                 _id: 0,
-                                'StudyCode': "$StudyCode",
+                                'StudyInitials': "$StudyInitials",
                                 'Duration': "$Duration",
-                                'UserInitial': "$UserInitial",
+                                'StudyID': "$StudyID",
                                 "datePartDay": {
                                     "$concat": [
                                         {"$substr": [{"$month": "$DateTime"}, 0, 2]}, "/",
@@ -189,7 +189,7 @@ exports.getAllLogin = function (req, res, next) {
                     {
                         "$group":
                             {
-                                _id: {day: "$datePartDay", UserInitial: "$UserInitial", StudyCode: "$StudyCode"},
+                                _id: {day: "$datePartDay", StudyID: "$StudyID", StudyInitials: "$StudyInitials"},
                                 totalAmount:
                                     {
                                         $sum: "$Duration"
@@ -237,14 +237,14 @@ exports.getAllLoginByFilter = function (req, res, next) {
     let To = req.body.ToDate;
     let startDate = dateFormat(From, 'yyyy-mm-dd 00:00:00');
     let endDate = dateFormat(To, 'yyyy-mm-dd 23:59:59');
-    let StudyCode = req.body.StudyCode;
-    let UserInitial = req.body.UserInitial;
+    let StudyInitials = req.body.StudyInitials;
+    let StudyID = req.body.StudyID;
     var condition = {};
-    if (StudyCode != null || StudyCode != undefined) {
-        condition.StudyCode = {'$regex': StudyCode};
+    if (StudyInitials != null || StudyInitials != undefined) {
+        condition.StudyInitials = {'$regex': StudyInitials};
     }
-    if (UserInitial != null || UserInitial != undefined) {
-        condition.UserInitial = {'$regex': UserInitial};
+    if (StudyID != null || StudyID != undefined) {
+        condition.StudyID = {'$regex': StudyID};
     }
     if (From != null || From != undefined) {
         condition.DateTime = {"$gte": new Date(startDate), "$lt": new Date(endDate)};
@@ -263,9 +263,9 @@ exports.getAllLoginByFilter = function (req, res, next) {
                         "$project":
                             {
                                 _id: 0,
-                                'StudyCode': "$StudyCode",
+                                'StudyInitials': "$StudyInitials",
                                 'Duration': "$Duration",
-                                'UserInitial': "$UserInitial",
+                                'StudyID': "$StudyID",
                                 'DateTime': "$DateTime",
                                 "datePartDay": {
                                     "$concat": [{"$substr": [{"$month": "$DateTime"}, 0, 2]}, "/",
@@ -281,7 +281,7 @@ exports.getAllLoginByFilter = function (req, res, next) {
                     {
                         "$group":
                             {
-                                _id: {day: "$datePartDay", UserInitial: "$UserInitial", StudyCode: "$StudyCode"},
+                                _id: {day: "$datePartDay", StudyID: "$StudyID", StudyInitials: "$StudyInitials"},
                                 totalAmount:
                                     {
                                         $sum: "$Duration"
@@ -335,9 +335,9 @@ exports.getAllDashboard = function (req, res, next) {
                         "$project":
                             {
                                 _id: 0,
-                                'StudyCode': "$StudyCode",
+                                'StudyInitials': "$StudyInitials",
                                 'Duration': "$Duration",
-                                'UserInitial': "$UserInitial",
+                                'StudyID': "$StudyID",
                                 "datePartDay": {
                                     "$concat": [
                                         {"$substr": [{"$month": "$DateTime"}, 0, 2]}, "/",
@@ -353,7 +353,7 @@ exports.getAllDashboard = function (req, res, next) {
                     {
                         "$group":
                             {
-                                _id: {day: "$datePartDay", UserInitial: "$UserInitial", StudyCode: "$StudyCode"},
+                                _id: {day: "$datePartDay", StudyID: "$StudyID", StudyInitials: "$StudyInitials"},
                                 totalAmount:
                                     {
                                         $sum: "$Duration"
@@ -401,14 +401,14 @@ exports.getAllDashboardByFilter = function (req, res, next) {
     let To = req.body.ToDate;
     let startDate = dateFormat(From, 'yyyy-mm-dd 00:00:00');
     let endDate = dateFormat(To, 'yyyy-mm-dd 23:59:59');
-    let StudyCode = req.body.StudyCode;
-    let UserInitial = req.body.UserInitial;
+    let StudyInitials = req.body.StudyInitials;
+    let StudyID = req.body.StudyID;
     var condition = {};
-    if (StudyCode != null || StudyCode != undefined) {
-        condition.StudyCode = {'$regex': StudyCode};
+    if (StudyInitials != null || StudyInitials != undefined) {
+        condition.StudyInitials = {'$regex': StudyInitials};
     }
-    if (UserInitial != null || UserInitial != undefined) {
-        condition.UserInitial = {'$regex': UserInitial};
+    if (StudyID != null || StudyID != undefined) {
+        condition.StudyID = {'$regex': StudyID};
     }
     if (From != null || From != undefined) {
         condition.DateTime = {"$gte": new Date(startDate), "$lt": new Date(endDate)};
@@ -427,9 +427,9 @@ exports.getAllDashboardByFilter = function (req, res, next) {
                         "$project":
                             {
                                 _id: 0,
-                                'StudyCode': "$StudyCode",
+                                'StudyInitials': "$StudyInitials",
                                 'Duration': "$Duration",
-                                'UserInitial': "$UserInitial",
+                                'StudyID': "$StudyID",
                                 "datePartDay": {
                                     "$concat": [
                                         {"$substr": [{"$month": "$DateTime"}, 0, 2]}, "/",
@@ -445,7 +445,7 @@ exports.getAllDashboardByFilter = function (req, res, next) {
                     {
                         "$group":
                             {
-                                _id: {day: "$datePartDay", UserInitial: "$UserInitial", StudyCode: "$StudyCode"},
+                                _id: {day: "$datePartDay", StudyID: "$StudyID", StudyInitials: "$StudyInitials"},
                                 totalAmount:
                                     {
                                         $sum: "$Duration"
@@ -499,9 +499,9 @@ exports.getAllContactUs = function (req, res, next) {
                         "$project":
                             {
                                 _id: 0,
-                                'StudyCode': "$StudyCode",
+                                'StudyInitials': "$StudyInitials",
                                 'Duration': "$Duration",
-                                'UserInitial': "$UserInitial",
+                                'StudyID': "$StudyID",
                                 "datePartDay": {
                                     "$concat": [
                                         {"$substr": [{"$month": "$DateTime"}, 0, 2]}, "/",
@@ -517,7 +517,7 @@ exports.getAllContactUs = function (req, res, next) {
                     {
                         "$group":
                             {
-                                _id: {day: "$datePartDay", UserInitial: "$UserInitial", StudyCode: "$StudyCode"},
+                                _id: {day: "$datePartDay", StudyID: "$StudyID", StudyInitials: "$StudyInitials"},
                                 totalAmount:
                                     {
                                         $sum: "$Duration"
@@ -565,14 +565,14 @@ exports.getAllContactUsByFilter = function (req, res, next) {
     let To = req.body.ToDate;
     let startDate = dateFormat(From, 'yyyy-mm-dd 00:00:00');
     let endDate = dateFormat(To, 'yyyy-mm-dd 23:59:59');
-    let StudyCode = req.body.StudyCode;
-    let UserInitial = req.body.UserInitial;
+    let StudyInitials = req.body.StudyInitials;
+    let StudyID = req.body.StudyID;
     var condition = {};
-    if (StudyCode != null || StudyCode != undefined) {
-        condition.StudyCode = {'$regex': StudyCode};
+    if (StudyInitials != null || StudyInitials != undefined) {
+        condition.StudyInitials = {'$regex': StudyInitials};
     }
-    if (UserInitial != null || UserInitial != undefined) {
-        condition.UserInitial = {'$regex': UserInitial};
+    if (StudyID != null || StudyID != undefined) {
+        condition.StudyID = {'$regex': StudyID};
     }
     if (From != null || From != undefined) {
         condition.DateTime = {"$gte": new Date(startDate), "$lt": new Date(endDate)};
@@ -591,9 +591,9 @@ exports.getAllContactUsByFilter = function (req, res, next) {
                         "$project":
                             {
                                 _id: 0,
-                                'StudyCode': "$StudyCode",
+                                'StudyInitials': "$StudyInitials",
                                 'Duration': "$Duration",
-                                'UserInitial': "$UserInitial",
+                                'StudyID': "$StudyID",
                                 "datePartDay": {
                                     "$concat": [
                                         {"$substr": [{"$month": "$DateTime"}, 0, 2]}, "/",
@@ -609,7 +609,7 @@ exports.getAllContactUsByFilter = function (req, res, next) {
                     {
                         "$group":
                             {
-                                _id: {day: "$datePartDay", UserInitial: "$UserInitial", StudyCode: "$StudyCode"},
+                                _id: {day: "$datePartDay", StudyID: "$StudyID", StudyInitials: "$StudyInitials"},
                                 totalAmount:
                                     {
                                         $sum: "$Duration"
@@ -663,9 +663,9 @@ exports.getAllAboutUs = function (req, res, next) {
                         "$project":
                             {
                                 _id: 0,
-                                'StudyCode': "$StudyCode",
+                                'StudyInitials': "$StudyInitials",
                                 'Duration': "$Duration",
-                                'UserInitial': "$UserInitial",
+                                'StudyID': "$StudyID",
                                 "datePartDay": {
                                     "$concat": [
                                         {"$substr": [{"$month": "$DateTime"}, 0, 2]}, "/",
@@ -681,7 +681,7 @@ exports.getAllAboutUs = function (req, res, next) {
                     {
                         "$group":
                             {
-                                _id: {day: "$datePartDay", UserInitial: "$UserInitial", StudyCode: "$StudyCode"},
+                                _id: {day: "$datePartDay", StudyID: "$StudyID", StudyInitials: "$StudyInitials"},
                                 totalAmount:
                                     {
                                         $sum: "$Duration"
@@ -740,14 +740,14 @@ exports.getAllAboutUsByFilter = function (req, res, next) {
     let To = req.body.ToDate;
     let startDate = dateFormat(From, 'yyyy-mm-dd 00:00:00');
     let endDate = dateFormat(To, 'yyyy-mm-dd 23:59:59');
-    let StudyCode = req.body.StudyCode;
-    let UserInitial = req.body.UserInitial;
+    let StudyInitials = req.body.StudyInitials;
+    let StudyID = req.body.StudyID;
     var condition = {};
-    if (StudyCode != null || StudyCode != undefined) {
-        condition.StudyCode = {'$regex': StudyCode};
+    if (StudyInitials != null || StudyInitials != undefined) {
+        condition.StudyInitials = {'$regex': StudyInitials};
     }
-    if (UserInitial != null || UserInitial != undefined) {
-        condition.UserInitial = {'$regex': UserInitial};
+    if (StudyID != null || StudyID != undefined) {
+        condition.StudyID = {'$regex': StudyID};
     }
     if (From != null || From != undefined) {
         condition.DateTime = {"$gte": new Date(startDate), "$lt": new Date(endDate)};
@@ -766,9 +766,9 @@ exports.getAllAboutUsByFilter = function (req, res, next) {
                         "$project":
                             {
                                 _id: 0,
-                                'StudyCode': "$StudyCode",
+                                'StudyInitials': "$StudyInitials",
                                 'Duration': "$Duration",
-                                'UserInitial': "$UserInitial",
+                                'StudyID': "$StudyID",
                                 "datePartDay": {
                                     "$concat": [
                                         {"$substr": [{"$month": "$DateTime"}, 0, 2]}, "/",
@@ -784,7 +784,7 @@ exports.getAllAboutUsByFilter = function (req, res, next) {
                     {
                         "$group":
                             {
-                                _id: {day: "$datePartDay", UserInitial: "$UserInitial", StudyCode: "$StudyCode"},
+                                _id: {day: "$datePartDay", StudyID: "$StudyID", StudyInitials: "$StudyInitials"},
                                 totalAmount:
                                     {
                                         $sum: "$Duration"
@@ -838,9 +838,9 @@ exports.getAllAboutGroundingLog = function (req, res, next) {
                         "$project":
                             {
                                 _id: 0,
-                                'StudyCode': "$StudyCode",
+                                'StudyInitials': "$StudyInitials",
                                 'Duration': "$Duration",
-                                'UserInitial': "$UserInitial",
+                                'StudyID': "$StudyID",
                                 "datePartDay": {
                                     "$concat": [
                                         {"$substr": [{"$month": "$DateTime"}, 0, 2]}, "/",
@@ -856,7 +856,7 @@ exports.getAllAboutGroundingLog = function (req, res, next) {
                     {
                         "$group":
                             {
-                                _id: {day: "$datePartDay", UserInitial: "$UserInitial", StudyCode: "$StudyCode"},
+                                _id: {day: "$datePartDay", StudyID: "$StudyID", StudyInitials: "$StudyInitials"},
                                 totalAmount:
                                     {
                                         $sum: "$Duration"
@@ -904,14 +904,14 @@ exports.getAllAboutGroungingLogByFilter = function (req, res, next) {
     let To = req.body.ToDate;
     let startDate = dateFormat(From, 'yyyy-mm-dd 00:00:00');
     let endDate = dateFormat(To, 'yyyy-mm-dd 23:59:59');
-    let StudyCode = req.body.StudyCode;
-    let UserInitial = req.body.UserInitial;
+    let StudyInitials = req.body.StudyInitials;
+    let StudyID = req.body.StudyID;
     var condition = {};
-    if (StudyCode != null || StudyCode != undefined) {
-        condition.StudyCode = {'$regex': StudyCode};
+    if (StudyInitials != null || StudyInitials != undefined) {
+        condition.StudyInitials = {'$regex': StudyInitials};
     }
-    if (UserInitial != null || UserInitial != undefined) {
-        condition.UserInitial = {'$regex': UserInitial};
+    if (StudyID != null || StudyID != undefined) {
+        condition.StudyID = {'$regex': StudyID};
     }
     if (From != null || From != undefined) {
         condition.DateTime = {"$gte": new Date(startDate), "$lt": new Date(endDate)};
@@ -930,9 +930,9 @@ exports.getAllAboutGroungingLogByFilter = function (req, res, next) {
                         "$project":
                             {
                                 _id: 0,
-                                'StudyCode': "$StudyCode",
+                                'StudyInitials': "$StudyInitials",
                                 'Duration': "$Duration",
-                                'UserInitial': "$UserInitial",
+                                'StudyID': "$StudyID",
                                 "datePartDay": {
                                     "$concat": [
                                         {"$substr": [{"$month": "$DateTime"}, 0, 2]}, "/",
@@ -948,7 +948,7 @@ exports.getAllAboutGroungingLogByFilter = function (req, res, next) {
                     {
                         "$group":
                             {
-                                _id: {day: "$datePartDay", UserInitial: "$UserInitial", StudyCode: "$StudyCode"},
+                                _id: {day: "$datePartDay", StudyID: "$StudyID", StudyInitials: "$StudyInitials"},
                                 totalAmount:
                                     {
                                         $sum: "$Duration"
@@ -1002,9 +1002,9 @@ exports.getAllPdf = function (req, res, next) {
                         "$project":
                             {
                                 _id: 0,
-                                'StudyCode': "$StudyCode",
+                                'StudyInitials': "$StudyInitials",
                                 'Duration': "$Duration",
-                                'UserInitial': "$UserInitial",
+                                'StudyID': "$StudyID",
                                 "datePartDay": {
                                     "$concat": [
                                         {"$substr": [{"$month": "$DateTime"}, 0, 2]}, "/",
@@ -1020,7 +1020,7 @@ exports.getAllPdf = function (req, res, next) {
                     {
                         "$group":
                             {
-                                _id: {day: "$datePartDay", UserInitial: "$UserInitial", StudyCode: "$StudyCode"},
+                                _id: {day: "$datePartDay", StudyID: "$StudyID", StudyInitials: "$StudyInitials"},
                                 totalAmount:
                                     {
                                         $sum: "$Duration"
@@ -1067,14 +1067,14 @@ exports.getAllPdfByFilter = function (req, res, next) {
     let To = req.body.ToDate;
     let startDate = dateFormat(From, 'yyyy-mm-dd 00:00:00');
     let endDate = dateFormat(To, 'yyyy-mm-dd 23:59:59');
-    let StudyCode = req.body.StudyCode;
-    let UserInitial = req.body.UserInitial;
+    let StudyInitials = req.body.StudyInitials;
+    let StudyID = req.body.StudyID;
     var condition = {};
-    if (StudyCode != null || StudyCode != undefined) {
-        condition.StudyCode = {'$regex': StudyCode};
+    if (StudyInitials != null || StudyInitials != undefined) {
+        condition.StudyInitials = {'$regex': StudyInitials};
     }
-    if (UserInitial != null || UserInitial != undefined) {
-        condition.UserInitial = {'$regex': UserInitial};
+    if (StudyID != null || StudyID != undefined) {
+        condition.StudyID = {'$regex': StudyID};
     }
     if (From != null || From != undefined) {
         condition.DateTime = {"$gte": new Date(startDate), "$lt": new Date(endDate)};
@@ -1093,9 +1093,9 @@ exports.getAllPdfByFilter = function (req, res, next) {
                         "$project":
                             {
                                 _id: 0,
-                                'StudyCode': "$StudyCode",
+                                'StudyInitials': "$StudyInitials",
                                 'Duration': "$Duration",
-                                'UserInitial': "$UserInitial",
+                                'StudyID': "$StudyID",
                                 "datePartDay": {
                                     "$concat": [
                                         {"$substr": [{"$month": "$DateTime"}, 0, 2]}, "/",
@@ -1111,7 +1111,7 @@ exports.getAllPdfByFilter = function (req, res, next) {
                     {
                         "$group":
                             {
-                                _id: {day: "$datePartDay", UserInitial: "$UserInitial", StudyCode: "$StudyCode"},
+                                _id: {day: "$datePartDay", StudyID: "$StudyID", StudyInitials: "$StudyInitials"},
                                 totalAmount:
                                     {
                                         $sum: "$Duration"
@@ -1166,9 +1166,9 @@ exports.getAllLogout = function (req, res, next) {
                         "$project":
                             {
                                 _id: 0,
-                                'StudyCode': "$StudyCode",
+                                'StudyInitials': "$StudyInitials",
                                 'Duration': "$Duration",
-                                'UserInitial': "$UserInitial",
+                                'StudyID': "$StudyID",
                                 "datePartDay": {
                                     "$concat": [
                                         {"$substr": [{"$month": "$DateTime"}, 0, 2]}, "/",
@@ -1184,7 +1184,7 @@ exports.getAllLogout = function (req, res, next) {
                     {
                         "$group":
                             {
-                                _id: {day: "$datePartDay", UserInitial: "$UserInitial", StudyCode: "$StudyCode"},
+                                _id: {day: "$datePartDay", StudyID: "$StudyID", StudyInitials: "$StudyInitials"},
                                 totalAmount:
                                     {
                                         $sum: "$Duration"
@@ -1231,14 +1231,14 @@ exports.getAllLogoutByFilter = function (req, res, next) {
     let To = req.body.ToDate;
     let startDate = dateFormat(From, 'yyyy-mm-dd 00:00:00');
     let endDate = dateFormat(To, 'yyyy-mm-dd 23:59:59');
-    let StudyCode = req.body.StudyCode;
-    let UserInitial = req.body.UserInitial;
+    let StudyInitials = req.body.StudyInitials;
+    let StudyID = req.body.StudyID;
     var condition = {};
-    if (StudyCode != null || StudyCode != undefined) {
-        condition.StudyCode = {'$regex': StudyCode};
+    if (StudyInitials != null || StudyInitials != undefined) {
+        condition.StudyInitials = {'$regex': StudyInitials};
     }
-    if (UserInitial != null || UserInitial != undefined) {
-        condition.UserInitial = {'$regex': UserInitial};
+    if (StudyID != null || StudyID != undefined) {
+        condition.StudyID = {'$regex': StudyID};
     }
     if (From != null || From != undefined) {
         condition.DateTime = {"$gte": new Date(startDate), "$lt": new Date(endDate)};
@@ -1257,9 +1257,9 @@ exports.getAllLogoutByFilter = function (req, res, next) {
                         "$project":
                             {
                                 _id: 0,
-                                'StudyCode': "$StudyCode",
+                                'StudyInitials': "$StudyInitials",
                                 'Duration': "$Duration",
-                                'UserInitial': "$UserInitial",
+                                'StudyID': "$StudyID",
                                 "datePartDay": {
                                     "$concat": [
                                         {"$substr": [{"$month": "$DateTime"}, 0, 2]}, "/",
@@ -1275,7 +1275,7 @@ exports.getAllLogoutByFilter = function (req, res, next) {
                     {
                         "$group":
                             {
-                                _id: {day: "$datePartDay", UserInitial: "$UserInitial", StudyCode: "$StudyCode"},
+                                _id: {day: "$datePartDay", StudyID: "$StudyID", StudyInitials: "$StudyInitials"},
                                 totalAmount:
                                     {
                                         $sum: "$Duration"

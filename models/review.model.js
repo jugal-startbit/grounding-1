@@ -3,8 +3,8 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 let ReviewSchema = new Schema({
-    UserInitial: {type: String},
-    StudyCode: {type: String},
+    StudyID: {type: String},
+    StudyInitials: {type: String},
     RatingComment: {type: String},
     Rating:{type:Number},
     GroundingRate:{type:Number},

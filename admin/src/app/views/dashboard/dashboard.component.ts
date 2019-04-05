@@ -12,12 +12,12 @@ export class DashboardComponent implements OnInit {
 
   localStorage: any;
   Entries: any;
-  StudyCode: any;
-  UserInitial: any;
+  StudyInitials: any;
+  StudyID: any;
   FromDate: Date;
   ToDate: Date;
 
-  displayedColumns: string[] = ['UserInitial' , 'StudyCode' , 'Event' , 'DateTime'];
+  displayedColumns: string[] = ['StudyID' , 'StudyInitials' , 'Event' , 'DateTime'];
   dataSource: MatTableDataSource<any>;
   isLoadingResults: any;
   isRateLimitReached: any;
@@ -41,8 +41,8 @@ export class DashboardComponent implements OnInit {
   getAllDashboardEvents() {
     this.FromDate = null;
     this.ToDate = null;
-    this.StudyCode = null;
-    this.UserInitial = null;
+    this.StudyInitials = null;
+    this.StudyID = null;
     this.dashboardService.getAllDashboardEvents().subscribe((data: {}) => {
       this.dataSource = new MatTableDataSource(data['result']);
       this.Entries = data['result'];
@@ -103,8 +103,8 @@ export class DashboardComponent implements OnInit {
     let condition = {
       'FromDate': this.FromDate,
       'ToDate': this.ToDate,
-      'StudyCode': this.StudyCode,
-      'UserInitial': this.UserInitial,
+      'StudyInitials': this.StudyInitials,
+      'StudyID': this.StudyID,
       'Date':n,
     }
 
@@ -136,8 +136,8 @@ export class DashboardComponent implements OnInit {
     console.log(this.dataSource.data)
     const localArray = this.dataSource.data.map((row) => {
       return {
-        UserInitial: row._id.UserInitial,
-        StudyCode: row._id.StudyCode,
+        StudyID: row._id.StudyID,
+        StudyInitials: row._id.StudyInitials,
         Event: 'Dashboard',
         Day: row._id.day,
         Time: row.Time,

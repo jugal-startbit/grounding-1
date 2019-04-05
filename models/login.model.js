@@ -3,8 +3,8 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 let EventLogSchema = new Schema({
-    UserInitial: {type: String},
-    StudyCode: {type: String},
+    StudyID: {type: String},
+    StudyInitials: {type: String},
     Event: {type: String},
     Duration:{type:Number},
     DateTime: {type: Date},

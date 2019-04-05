@@ -17,9 +17,9 @@
 
   localStorage.setItem("CurrentPage", "doLogin");
   localStorage.setItem("PreviousPage", "None");
-  var UserInitial = localStorage.getItem('UserInitial');
-  var StudyCode =  localStorage.getItem('StudyCode');
-  if(UserInitial !== null && StudyCode !== null){
+  var StudyID = localStorage.getItem('StudyID');
+  var StudyInitials =  localStorage.getItem('StudyInitials');
+  if(StudyID !== null && StudyInitials !== null){
     document.querySelector('#menu_header').style.display = 'inherit';
     document.querySelector('#authorMenuDIV').style.display = 'inherit';
     document.querySelector('#sourceMenuDIV').style.display = 'inherit';
@@ -66,8 +66,8 @@
   function displayMenusPage(evt) {
 
 
-    var UserInitial = localStorage.getItem('UserInitial');
-    var StudyCode =  localStorage.getItem('StudyCode');
+    var StudyID = localStorage.getItem('StudyID');
+    var StudyInitials =  localStorage.getItem('StudyInitials');
 
     var previouspage  = localStorage.getItem("CurrentPage");
     if(evt.target.myParam == 'aboutUs'){
@@ -76,14 +76,14 @@
         var previouspage1  = localStorage.getItem("PreviousPage");
         var entryTimeStamp = localStorage.getItem("CurrentPageTimeStamp");
         var currentTimeStamp = Date.now();
-        var UserInitial = localStorage.getItem('UserInitial');
-        var StudyCode =  localStorage.getItem('StudyCode');
+        var StudyID = localStorage.getItem('StudyID');
+        var StudyInitials =  localStorage.getItem('StudyInitials');
         var timeDifferenceseconds = (currentTimeStamp - entryTimeStamp)/1000;
         var timeDifference = Math.floor(timeDifferenceseconds);
         if(previouspage !== 'aboutUs'){
             localStorage.setItem("CurrentPageTimeStamp", Date.now());
         }
-        var data = "Event="+previouspage+"&UserInitial="+UserInitial+"&StudyCode="+StudyCode+"&Duration="+timeDifference;
+        var data = "Event="+previouspage+"&StudyID="+StudyID+"&StudyInitials="+StudyInitials+"&Duration="+timeDifference;
   
         var xhr = new XMLHttpRequest();
         xhr.withCredentials = true;
@@ -124,15 +124,15 @@
       var previouspage1  = localStorage.getItem("PreviousPage");
       var entryTimeStamp = localStorage.getItem("CurrentPageTimeStamp");
       var currentTimeStamp = Date.now();
-      var UserInitial = localStorage.getItem('UserInitial');
-      var StudyCode =  localStorage.getItem('StudyCode');
+      var StudyID = localStorage.getItem('StudyID');
+      var StudyInitials =  localStorage.getItem('StudyInitials');
       var timeDifferenceseconds = (currentTimeStamp - entryTimeStamp)/1000;
       var timeDifference = Math.floor(timeDifferenceseconds);
       if(previouspage !== 'review'){
         
           localStorage.setItem("CurrentPageTimeStamp", Date.now());
       }
-      var data = "Event="+previouspage+"&UserInitial="+UserInitial+"&StudyCode="+StudyCode+"&Duration="+timeDifference;
+      var data = "Event="+previouspage+"&StudyID="+StudyID+"&StudyInitials="+StudyInitials+"&Duration="+timeDifference;
 
       var xhr = new XMLHttpRequest();
       xhr.withCredentials = true;
@@ -183,15 +183,15 @@
       var previouspage1  = localStorage.getItem("PreviousPage");
       var entryTimeStamp = localStorage.getItem("CurrentPageTimeStamp");
       var currentTimeStamp = Date.now();
-      var UserInitial = localStorage.getItem('UserInitial');
-      var StudyCode =  localStorage.getItem('StudyCode');
+      var StudyID = localStorage.getItem('StudyID');
+      var StudyInitials =  localStorage.getItem('StudyInitials');
       var timeDifferenceseconds = (currentTimeStamp - entryTimeStamp)/1000;
       var timeDifference = Math.floor(timeDifferenceseconds);
       if(previouspage !== 'contactUs'){
         
           localStorage.setItem("CurrentPageTimeStamp", Date.now());
       }
-      var data = "Event="+previouspage+"&UserInitial="+UserInitial+"&StudyCode="+StudyCode+"&Duration="+timeDifference;
+      var data = "Event="+previouspage+"&StudyID="+StudyID+"&StudyInitials="+StudyInitials+"&Duration="+timeDifference;
 
       var xhr = new XMLHttpRequest();
       xhr.withCredentials = true;
@@ -233,14 +233,14 @@
       var previouspage1  = localStorage.getItem("PreviousPage");
       var entryTimeStamp = localStorage.getItem("CurrentPageTimeStamp");
       var currentTimeStamp = Date.now();
-      var UserInitial = localStorage.getItem('UserInitial');
-      var StudyCode =  localStorage.getItem('StudyCode');
+      var StudyID = localStorage.getItem('StudyID');
+      var StudyInitials =  localStorage.getItem('StudyInitials');
       var timeDifferenceseconds = (currentTimeStamp - entryTimeStamp)/1000;
       var timeDifference = Math.floor(timeDifferenceseconds);
       if(previouspage !== 'aboutGroundingLog'){
           localStorage.setItem("CurrentPageTimeStamp", Date.now());
       }
-      var data = "Event="+previouspage+"&UserInitial="+UserInitial+"&StudyCode="+StudyCode+"&Duration="+timeDifference;
+      var data = "Event="+previouspage+"&StudyID="+StudyID+"&StudyInitials="+StudyInitials+"&Duration="+timeDifference;
 
       var xhr = new XMLHttpRequest();
       xhr.withCredentials = true;
@@ -280,12 +280,12 @@
       var previouspage1  = localStorage.getItem("PreviousPage");
       var entryTimeStamp = localStorage.getItem("CurrentPageTimeStamp");
       var currentTimeStamp = Date.now();
-      var UserInitial = localStorage.getItem('UserInitial');
-      var StudyCode =  localStorage.getItem('StudyCode');
+      var StudyID = localStorage.getItem('StudyID');
+      var StudyInitials =  localStorage.getItem('StudyInitials');
       var timeDifferenceseconds = (currentTimeStamp - entryTimeStamp)/1000;
       var timeDifference = Math.floor(timeDifferenceseconds);
 
-      var data = "Event="+previouspage+"&UserInitial="+UserInitial+"&StudyCode="+StudyCode+"&Duration="+timeDifference;
+      var data = "Event="+previouspage+"&StudyID="+StudyID+"&StudyInitials="+StudyInitials+"&Duration="+timeDifference;
 
       var xhr = new XMLHttpRequest();
       xhr.withCredentials = true;
@@ -293,7 +293,7 @@
       xhr.addEventListener("readystatechange", function () {
         if (this.readyState === 4) {
           console.log(this.responseText);
-          var data1 = "Event=logout&UserInitial="+UserInitial+"&StudyCode="+StudyCode+"&Duration="+timeDifference;
+          var data1 = "Event=logout&StudyID="+StudyID+"&StudyInitials="+StudyInitials+"&Duration="+timeDifference;
           var xhr2 = new XMLHttpRequest();
           xhr2.withCredentials = true;
 
@@ -338,27 +338,26 @@
 
   var addCardBtnElement = document.querySelector('.add__btn');
   //Add github user data to the card
-  var addCardInputElement = document.querySelector('#studyID');
-  var addCardInputElement1 = document.querySelector('#studyInitials');
+  var addCardInputElement = document.querySelector('#StudyID');
+  var addCardInputElement1 = document.querySelector('#StudyInitials');
   function addGitUserCard() {
-    var userInput = addCardInputElement.value;
-    var userInput1 = addCardInputElement1.value;
-    if (userInput === '' || userInput.length !== 3)  { 
+    var StudyID = addCardInputElement.value;
+    var StudyInitials = addCardInputElement1.value;
+    if (StudyID === '' || StudyID.length !== 3)  { 
       alert('StudyID should be 3 digits');
       return;
     }
-    if (userInput1 === '' || userInput1.length !== 4) {
+    if (StudyInitials === '' || StudyInitials.length !== 4) {
       alert('Study Initials should be 4 letters');
       return;
     }
  
 
     addCardInputElement.value = '';
-    localStorage.setItem('request', userInput);
-    localStorage.setItem('UserInitial', userInput);
-    localStorage.setItem('StudyCode', userInput1);
+    localStorage.setItem('StudyID', StudyID);
+    localStorage.setItem('StudyInitials', StudyInitials);
 
-    fetchReqInfo(userInput);
+    fetchReqInfo(StudyID);
 
     var previouspage  = localStorage.getItem("CurrentPage");
 
@@ -366,10 +365,10 @@
     localStorage.setItem("CurrentPage", "aboutUs");
     localStorage.setItem("CurrentPageTimeStamp", Date.now());
 
-      var data = "Event=doLogin&UserInitial="+userInput+"&StudyCode="+userInput1;
+      var data = "Event=doLogin&StudyID="+StudyID+"&StudyInitials="+StudyInitials;
 
-      document.querySelector('#StudyInitialslb').innerHTML =userInput;
-      document.querySelector('#StudyIDlb').innerHTML =userInput1;
+      document.querySelector('#StudyInitialslb').innerHTML =StudyInitials;
+      document.querySelector('#StudyIDlb').innerHTML =StudyID;
       var xhr = new XMLHttpRequest();
       xhr.withCredentials = true;
 
@@ -436,13 +435,13 @@
     //Add github user data to the card
   function addReviewUserCard() {
     var comments = document.querySelector('#comments').value;
-    var UserInitial = localStorage.getItem('UserInitial');
-    var StudyCode =  localStorage.getItem('StudyCode');
+    var StudyID = localStorage.getItem('StudyID');
+    var StudyInitials =  localStorage.getItem('StudyInitials');
     if (rating === 0 || GroundingRate === 0)  { 
       alert('All questions are required to answer');
       return;
     }
-      var data = "UserInitial="+UserInitial+"&StudyCode="+StudyCode+"&RatingComment="+comments+"&Rating="+rating+"&GroundingRate="+GroundingRate;
+      var data = "StudyID="+StudyID+"&StudyInitials="+StudyInitials+"&RatingComment="+comments+"&Rating="+rating+"&GroundingRate="+GroundingRate;
 
       var xhr = new XMLHttpRequest();
       xhr.withCredentials = true;
@@ -475,7 +474,7 @@
   function fetchReqInfo(username, requestFromBGSync) {
   }
 
-  fetchReqInfo(localStorage.getItem('request')); //Fetch github users data
+  fetchReqInfo(localStorage.getItem('StudyID')); //Fetch github users data
 
 
   var timeoutID;
@@ -509,9 +508,9 @@
       // do something
       //alert('Inactive logout');
     setTimeout(function(){ 
-      var UserInitial = localStorage.getItem('UserInitial');
-      var StudyCode =  localStorage.getItem('StudyCode');
-      if(UserInitial!==null || StudyCode !==null)
+      var StudyID = localStorage.getItem('StudyID');
+      var StudyInitials =  localStorage.getItem('StudyInitials');
+      if(StudyID!==null || StudyInitials !==null)
       {
         var previouspage  = localStorage.getItem("CurrentPage");
         var entryTimeStamp = localStorage.getItem("CurrentPageTimeStamp");
@@ -520,7 +519,7 @@
         var timeDifferenceseconds = (currentTimeStamp - entryTimeStamp)/1000;
         var timeDifference = Math.floor(timeDifferenceseconds);
 
-        var data = "Event="+previouspage+"&UserInitial="+UserInitial+"&StudyCode="+StudyCode+"&Duration="+timeDifference;
+        var data = "Event="+previouspage+"&StudyID="+StudyID+"&StudyInitials="+StudyInitials+"&Duration="+timeDifference;
 
         var xhr = new XMLHttpRequest();
         xhr.withCredentials = true;
@@ -528,7 +527,7 @@
         xhr.addEventListener("readystatechange", function () {
           if (this.readyState === 4) {
             console.log(this.responseText);
-            var data1 = "Event=logout&UserInitial="+UserInitial+"&StudyCode="+StudyCode+"&Duration="+timeDifference;
+            var data1 = "Event=logout&StudyID="+StudyID+"&StudyInitials="+StudyInitials+"&Duration="+timeDifference;
             var xhr2 = new XMLHttpRequest();
             xhr2.withCredentials = true;
 

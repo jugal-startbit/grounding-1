@@ -12,12 +12,12 @@ export class ReviewComponent implements OnInit {
 
   localStorage: any;
   Entries: any;
-  StudyCode: any;
-  UserInitial: any;
+  StudyInitials: any;
+  StudyID: any;
   FromDate: Date;
   ToDate: Date;
 
-  displayedColumns: string[] = [ 'StudyCode' ,'UserInitial' , 'Rating' ,'GroundingRate', 'RatingComment'];
+  displayedColumns: string[] = [ 'StudyInitials' ,'StudyID' , 'Rating' ,'GroundingRate', 'RatingComment'];
   dataSource: MatTableDataSource<any>;
   isLoadingResults: any;
   isRateLimitReached: any;
@@ -41,8 +41,8 @@ export class ReviewComponent implements OnInit {
   }
 
   getAllReviews() {
-    this.StudyCode = null;
-    this.UserInitial = null;
+    this.StudyInitials = null;
+    this.StudyID = null;
     this.dashboardService.getAllReview().subscribe((data: {}) => {
       this.dataSource = new MatTableDataSource(data['result']);
       this.Entries = data['result'];
@@ -69,8 +69,8 @@ export class ReviewComponent implements OnInit {
 
   filter(){
     let condition = {
-      'StudyCode': this.StudyCode,
-      'UserInitial': this.UserInitial,
+      'StudyInitials': this.StudyInitials,
+      'StudyID': this.StudyID,
     }
 
     this.dashboardService.getAllReviewByFilter(condition).subscribe((data: {}) => {
@@ -99,8 +99,8 @@ export class ReviewComponent implements OnInit {
   exportToExcel() {
     const localArray = this.dataSource.data.map((row) => {
       return {
-        StudyCode: row.StudyCode,
-        UserInitial: row.UserInitial,
+        StudyInitials: row.StudyInitials,
+        StudyID: row.StudyID,
         Rating: row.Rating,
         GroundingRate:row.GroundingRate,
         RatingComment: row.RatingComment,

@@ -12,12 +12,12 @@ export class AboutgroundinglogEventsComponent implements OnInit {
 
   localStorage: any;
   Entries: any;
-  StudyCode: any;
-  UserInitial: any;
+  StudyInitials: any;
+  StudyID: any;
   FromDate: Date;
   ToDate: Date;
 
-  displayedColumns: string[] = ['StudyCode' ,'UserInitial' ,  'Event' , 'DateTime' , 'Time'];
+  displayedColumns: string[] = ['StudyInitials' ,'StudyID' ,  'Event' , 'DateTime' , 'Time'];
   dataSource: MatTableDataSource<any>;
   isLoadingResults: any;
   isRateLimitReached: any;
@@ -45,8 +45,8 @@ export class AboutgroundinglogEventsComponent implements OnInit {
   getAllDashboardEvents() {
     this.FromDate = null;
     this.ToDate = null;
-    this.StudyCode = null;
-    this.UserInitial = null;
+    this.StudyInitials = null;
+    this.StudyID = null;
     this.dashboardService.getAllAboutGroungingLogEvents().subscribe((data: {}) => {
       this.dataSource = new MatTableDataSource(data['Group']);
       this.Entries = data['result'];
@@ -103,8 +103,8 @@ export class AboutgroundinglogEventsComponent implements OnInit {
     let condition = {
       'FromDate': this.FromDate,
       'ToDate': this.ToDate,
-      'StudyCode': this.StudyCode,
-      'UserInitial': this.UserInitial,
+      'StudyInitials': this.StudyInitials,
+      'StudyID': this.StudyID,
     }
 
     this.dashboardService.getAllAboutGroungingLogByFilter(condition).subscribe((data: {}) => {
@@ -135,8 +135,8 @@ export class AboutgroundinglogEventsComponent implements OnInit {
     console.log(this.dataSource.data)
     const localArray = this.dataSource.data.map((row) => {
       return {
-        StudyCode: row._id.StudyCode,
-        UserInitial: row._id.UserInitial,
+        StudyInitials: row._id.StudyInitials,
+        StudyID: row._id.StudyID,
         Event: 'AboutGroundingLog',
         Day: row._id.day,
         Time: row.Time,
