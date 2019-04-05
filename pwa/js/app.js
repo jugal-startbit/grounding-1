@@ -360,7 +360,7 @@
     divStudyInitials.value = '';
     localStorage.setItem('StudyID', StudyID);
     localStorage.setItem('StudyInitials', StudyInitials);
-    var random = Math.random( ); 
+    var random = Math.random()*100000000000000000; 
     localStorage.setItem('Session', random);
     fetchReqInfo(StudyID);
 
