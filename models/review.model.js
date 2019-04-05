@@ -8,6 +8,7 @@ let ReviewSchema = new Schema({
     RatingComment: {type: String},
     Rating:{type:Number},
     GroundingRate:{type:Number},
+    Session: {type: String},
     DateTime: {type: Date},
     Active: {type: Number, required: true},
 });

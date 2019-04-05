@@ -119,7 +119,7 @@
 									placeholder="Your study ID (3 digits)" /> </b> <span></span></p>
 						<p class="card__following"><b><input type="text" id="StudyInitials" class="add__input"  minlength="4" maxlength="4"  onkeypress='return (event.charCode >= 97 && event.charCode <= 122) ||(event.charCode >= 65 && event.charCode <= 90) || event.charCode  == 8'
 									placeholder="Your study initials (4 letters)" /></b> <span></span></p>
-						<p class="card__followers"><b><button class="add__btn">ENTER</button></b> <span></span></p>
+						<p class="card__followers"><b><button class="doLoginBtn">ENTER</button></b> <span></span></p>
 
 					</div>
 				</div>
@@ -155,7 +155,7 @@
 			<div class="app__content">
 				<h2>Comparison App Survey 3-19 (GN)</h2>
 				<h4> We welcome your feedback at any time and you can fill this out as many times as you choose to </h4>
-				<form target="#">
+				<form>
 				<div class="card">
 					<div class="card__spinner"></div>
 					<div class="card__container">
@@ -174,11 +174,11 @@
 								</tr>
 								<tr>
 									<td>not at all</td>
-									<td><input type="radio" name="rating1" id="str1" value="1"></td>
-									<td><input type="radio" name="rating2" id="str2" value="2"></td>
-									<td><input type="radio" name="rating3" id="str3" value="3"></td>
-									<td><input type="radio" name="rating4" id="str4" value="4"></td>
-									<td><input type="radio" name="rating5" id="str5" value="5"></td>
+									<td><input type="radio" name="rating[]" id="str1" value="1"></td>
+									<td><input type="radio" name="rating[]" id="str2" value="2"></td>
+									<td><input type="radio" name="rating[]" id="str3" value="3"></td>
+									<td><input type="radio" name="rating[]" id="str4" value="4"></td>
+									<td><input type="radio" name="rating[]" id="str5" value="5"></td>
 									<td>love it</td>
 								</tr>
 							
@@ -198,11 +198,11 @@
 								</tr>
 								<tr>
 									<td>not at all</td>
-									<td><input type="radio" name="brating1" id="bstr1" value="1"></td>
-									<td><input type="radio" name="brating2" id="bstr2" value="2"></td>
-									<td><input type="radio" name="brating3" id="bstr3" value="3"></td>
-									<td><input type="radio" name="brating4" id="bstr4" value="4"></td>
-									<td><input type="radio" name="brating5" id="bstr5" value="5"></td>
+									<td><input type="radio" name="brating[]" id="bstr1" value="1"></td>
+									<td><input type="radio" name="brating[]" id="bstr2" value="2"></td>
+									<td><input type="radio" name="brating[]" id="bstr3" value="3"></td>
+									<td><input type="radio" name="brating[]" id="bstr4" value="4"></td>
+									<td><input type="radio" name="brating[]" id="bstr5" value="5"></td>
 									<td>love it</td>
 								</tr>
 							
@@ -223,7 +223,7 @@
 
 		</div>
 		<!-- SOURCE MENU-->
-		<div id="sourceMenuDIV">
+		<div id="aboutUsMenuDIV">
 
 			<div class="app__content">
 				<h1 align="center">Read about Grounding </h1>

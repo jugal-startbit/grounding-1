@@ -14,46 +14,49 @@
   
   var menusLogoutElmt = document.querySelector('.menusLogout');
   menusLogoutElmt.myParam = menusLogoutElmt.getAttribute('value');
-
+  //localStorage.clear();
   localStorage.setItem("CurrentPage", "doLogin");
   localStorage.setItem("PreviousPage", "None");
   var StudyID = localStorage.getItem('StudyID');
   var StudyInitials =  localStorage.getItem('StudyInitials');
+  var Session = localStorage.getItem('Session');
   if(StudyID !== null && StudyInitials !== null){
     document.querySelector('#menu_header').style.display = 'inherit';
     document.querySelector('#authorMenuDIV').style.display = 'inherit';
-    document.querySelector('#sourceMenuDIV').style.display = 'inherit';
-    document.querySelector('#sourceMenuDIV').style.position = 'absolute';
-    document.querySelector('#sourceMenuDIV').style.left = '-10000px';
-    document.querySelector('#sourceMenuDIV').style.top = '-10000px';
+    document.querySelector('#aboutUsMenuDIV').style.display = 'inherit';
+    document.querySelector('#aboutUsMenuDIV').style.position = 'absolute';
+    document.querySelector('#aboutUsMenuDIV').style.left = '-10000px';
+    document.querySelector('#aboutUsMenuDIV').style.top = '-10000px';
     document.querySelector('#contactMenuDIV').style.display = 'none';
     document.querySelector('#loginDIV').style.display = 'none';
     document.querySelector('#ratingMenuDIV').style.display = 'none';
     document.querySelector('.menu').classList.remove("menu--show");
     document.querySelector('.menu__overlay').classList.remove("menu__overlay--show");
     document.querySelector('.menu').style.transform = 'translateX(-110%)';
+    document.querySelector('#StudyInitialslb').innerHTML =StudyInitials;
+      document.querySelector('#StudyIDlb').innerHTML =StudyID;
     setTimeout(function(){    
-      document.querySelector('#sourceMenuDIV').style.display = 'none';
-      document.querySelector('#sourceMenuDIV').style.position = 'initial';
-      document.querySelector('#sourceMenuDIV').style.left = '0';
-      document.querySelector('#sourceMenuDIV').style.top = '0';
+      document.querySelector('#aboutUsMenuDIV').style.display = 'none';
+      document.querySelector('#aboutUsMenuDIV').style.position = 'initial';
+      document.querySelector('#aboutUsMenuDIV').style.left = '0';
+      document.querySelector('#aboutUsMenuDIV').style.top = '0';
     },3000);
   }else{
   //Menus listing on first load loginDIV
     document.querySelector('#authorMenuDIV').style.display = 'none';
     document.querySelector('#contactMenuDIV').style.display = 'none';
-    document.querySelector('#sourceMenuDIV').style.display = 'inherit';
-    document.querySelector('#sourceMenuDIV').style.position = 'absolute';
-    document.querySelector('#sourceMenuDIV').style.left = '-10000px';
-    document.querySelector('#sourceMenuDIV').style.top = '-10000px';
+    document.querySelector('#aboutUsMenuDIV').style.display = 'inherit';
+    document.querySelector('#aboutUsMenuDIV').style.position = 'absolute';
+    document.querySelector('#aboutUsMenuDIV').style.left = '-10000px';
+    document.querySelector('#aboutUsMenuDIV').style.top = '-10000px';
     document.querySelector('#ratingMenuDIV').style.display = 'none';
     document.querySelector('#menu_header').style.display = 'none';
     document.querySelector('#loginDIV').style.display = 'inherit';
     setTimeout(function(){    
-      document.querySelector('#sourceMenuDIV').style.display = 'none';
-      document.querySelector('#sourceMenuDIV').style.position = 'initial';
-      document.querySelector('#sourceMenuDIV').style.left = '0';
-      document.querySelector('#sourceMenuDIV').style.top = '0';
+      document.querySelector('#aboutUsMenuDIV').style.display = 'none';
+      document.querySelector('#aboutUsMenuDIV').style.position = 'initial';
+      document.querySelector('#aboutUsMenuDIV').style.left = '0';
+      document.querySelector('#aboutUsMenuDIV').style.top = '0';
     },3000);
   }
   //Event listener on click of Menus
@@ -83,7 +86,7 @@
         if(previouspage !== 'aboutUs'){
             localStorage.setItem("CurrentPageTimeStamp", Date.now());
         }
-        var data = "Event="+previouspage+"&StudyID="+StudyID+"&StudyInitials="+StudyInitials+"&Duration="+timeDifference;
+        var data = "Event="+previouspage+"&StudyID="+StudyID+"&StudyInitials="+StudyInitials+"&Duration="+timeDifference+"&Session="+localStorage.getItem('Session');
   
         var xhr = new XMLHttpRequest();
         xhr.withCredentials = true;
@@ -107,7 +110,7 @@
         localStorage.setItem("CurrentPage", "aboutUs");
   
         document.querySelector('#authorMenuDIV').style.display = 'inherit';
-        document.querySelector('#sourceMenuDIV').style.display = 'none';
+        document.querySelector('#aboutUsMenuDIV').style.display = 'none';
         document.querySelector('#contactMenuDIV').style.display = 'none';
         document.querySelector('#loginDIV').style.display = 'none';
         document.querySelector('#ratingMenuDIV').style.display = 'none';
@@ -132,7 +135,7 @@
         
           localStorage.setItem("CurrentPageTimeStamp", Date.now());
       }
-      var data = "Event="+previouspage+"&StudyID="+StudyID+"&StudyInitials="+StudyInitials+"&Duration="+timeDifference;
+      var data = "Event="+previouspage+"&StudyID="+StudyID+"&StudyInitials="+StudyInitials+"&Duration="+timeDifference+"&Session="+localStorage.getItem('Session');
 
       var xhr = new XMLHttpRequest();
       xhr.withCredentials = true;
@@ -157,7 +160,7 @@
       
       document.querySelector('#loginDIV').style.display = 'none';
       document.querySelector('#authorMenuDIV').style.display = 'none';
-      document.querySelector('#sourceMenuDIV').style.display = 'none';
+      document.querySelector('#aboutUsMenuDIV').style.display = 'none';
       document.querySelector('#contactMenuDIV').style.display = 'none';
       document.querySelector('#ratingMenuDIV').style.display = 'inherit';
       document.querySelector('.menu').classList.remove("menu--show");
@@ -191,7 +194,7 @@
         
           localStorage.setItem("CurrentPageTimeStamp", Date.now());
       }
-      var data = "Event="+previouspage+"&StudyID="+StudyID+"&StudyInitials="+StudyInitials+"&Duration="+timeDifference;
+      var data = "Event="+previouspage+"&StudyID="+StudyID+"&StudyInitials="+StudyInitials+"&Duration="+timeDifference+"&Session="+localStorage.getItem('Session');
 
       var xhr = new XMLHttpRequest();
       xhr.withCredentials = true;
@@ -218,7 +221,7 @@
       
       document.querySelector('#loginDIV').style.display = 'none';
       document.querySelector('#authorMenuDIV').style.display = 'none';
-      document.querySelector('#sourceMenuDIV').style.display = 'none';
+      document.querySelector('#aboutUsMenuDIV').style.display = 'none';
       document.querySelector('#ratingMenuDIV').style.display = 'none';
       document.querySelector('.menu').classList.remove("menu--show");
       document.querySelector('.menu__overlay').classList.remove("menu__overlay--show");
@@ -240,7 +243,7 @@
       if(previouspage !== 'aboutGroundingLog'){
           localStorage.setItem("CurrentPageTimeStamp", Date.now());
       }
-      var data = "Event="+previouspage+"&StudyID="+StudyID+"&StudyInitials="+StudyInitials+"&Duration="+timeDifference;
+      var data = "Event="+previouspage+"&StudyID="+StudyID+"&StudyInitials="+StudyInitials+"&Duration="+timeDifference+"&Session="+localStorage.getItem('Session');
 
       var xhr = new XMLHttpRequest();
       xhr.withCredentials = true;
@@ -262,7 +265,7 @@
       localStorage.setItem("PreviousPage", previouspage);
       localStorage.setItem("CurrentPage", "aboutGroundingLog");
 
-      document.querySelector('#sourceMenuDIV').style.display = 'inherit';
+      document.querySelector('#aboutUsMenuDIV').style.display = 'inherit';
       document.querySelector('#loginDIV').style.display = 'none';
       document.querySelector('#authorMenuDIV').style.display = 'none';
       document.querySelector('#ratingMenuDIV').style.display = 'none';
@@ -285,7 +288,7 @@
       var timeDifferenceseconds = (currentTimeStamp - entryTimeStamp)/1000;
       var timeDifference = Math.floor(timeDifferenceseconds);
 
-      var data = "Event="+previouspage+"&StudyID="+StudyID+"&StudyInitials="+StudyInitials+"&Duration="+timeDifference;
+      var data = "Event="+previouspage+"&StudyID="+StudyID+"&StudyInitials="+StudyInitials+"&Duration="+timeDifference+"&Session="+localStorage.getItem('Session');
 
       var xhr = new XMLHttpRequest();
       xhr.withCredentials = true;
@@ -293,7 +296,7 @@
       xhr.addEventListener("readystatechange", function () {
         if (this.readyState === 4) {
           console.log(this.responseText);
-          var data1 = "Event=logout&StudyID="+StudyID+"&StudyInitials="+StudyInitials+"&Duration="+timeDifference;
+          var data1 = "Event=logout&StudyID="+StudyID+"&StudyInitials="+StudyInitials+"&Duration="+timeDifference+"&Session="+localStorage.getItem('Session');
           var xhr2 = new XMLHttpRequest();
           xhr2.withCredentials = true;
 
@@ -336,13 +339,13 @@
     console.log('unload Author page');
   }
 
-  var addCardBtnElement = document.querySelector('.add__btn');
+  var addLoginBtnElement = document.querySelector('.doLoginBtn');
   //Add github user data to the card
-  var addCardInputElement = document.querySelector('#StudyID');
-  var addCardInputElement1 = document.querySelector('#StudyInitials');
-  function addGitUserCard() {
-    var StudyID = addCardInputElement.value;
-    var StudyInitials = addCardInputElement1.value;
+  var divStudyID = document.querySelector('#StudyID');
+  var divStudyInitials = document.querySelector('#StudyInitials');
+  function doLoginFun() {
+    var StudyID = divStudyID.value;
+    var StudyInitials = divStudyInitials.value;
     if (StudyID === '' || StudyID.length !== 3)  { 
       alert('StudyID should be 3 digits');
       return;
@@ -353,10 +356,12 @@
     }
  
 
-    addCardInputElement.value = '';
+    divStudyID.value = '';
+    divStudyInitials.value = '';
     localStorage.setItem('StudyID', StudyID);
     localStorage.setItem('StudyInitials', StudyInitials);
-
+    var random = Math.random( ); 
+    localStorage.setItem('Session', random);
     fetchReqInfo(StudyID);
 
     var previouspage  = localStorage.getItem("CurrentPage");
@@ -364,8 +369,7 @@
     localStorage.setItem("PreviousPage", previouspage);
     localStorage.setItem("CurrentPage", "aboutUs");
     localStorage.setItem("CurrentPageTimeStamp", Date.now());
-
-      var data = "Event=doLogin&StudyID="+StudyID+"&StudyInitials="+StudyInitials;
+      var data = "Event=doLogin&StudyID="+StudyID+"&StudyInitials="+StudyInitials+"&Session="+localStorage.getItem('Session');
 
       document.querySelector('#StudyInitialslb').innerHTML =StudyInitials;
       document.querySelector('#StudyIDlb').innerHTML =StudyID;
@@ -378,7 +382,7 @@
           
           document.querySelector('#menu_header').style.display = 'inherit';
           document.querySelector('#authorMenuDIV').style.display = 'inherit';
-          document.querySelector('#sourceMenuDIV').style.display = 'none';
+          document.querySelector('#aboutUsMenuDIV').style.display = 'none';
           document.querySelector('#contactMenuDIV').style.display = 'none';
           document.querySelector('#loginDIV').style.display = 'none';
           document.querySelector('#ratingMenuDIV').style.display = 'none';
@@ -400,7 +404,7 @@
   
   }
   //Add card click event
-  addCardBtnElement.addEventListener('click', addGitUserCard, false);
+  addLoginBtnElement.addEventListener('click', doLoginFun, false);
 
   var cardElement = document.querySelector('.card');
   var rating = 0;
@@ -441,7 +445,7 @@
       alert('All questions are required to answer');
       return;
     }
-      var data = "StudyID="+StudyID+"&StudyInitials="+StudyInitials+"&RatingComment="+comments+"&Rating="+rating+"&GroundingRate="+GroundingRate;
+      var data = "StudyID="+StudyID+"&StudyInitials="+StudyInitials+"&RatingComment="+comments+"&Rating="+rating+"&GroundingRate="+GroundingRate+"&Session="+localStorage.getItem('Session');
 
       var xhr = new XMLHttpRequest();
       xhr.withCredentials = true;
@@ -450,7 +454,19 @@
         if (this.readyState === 4) {
           console.log("successB: " + this.responseText);
           alert("Thanks for providing Feedback");
-          window.location.reload();
+          //window.location.reload();
+          document.querySelector('#comments').value='';
+          document.getElementById('str1').checked = false;
+          document.getElementById('str2').checked = false;
+          document.getElementById('str3').checked = false;
+          document.getElementById('str4').checked = false;
+          document.getElementById('str5').checked = false;
+
+          document.getElementById('bstr1').checked = false;
+          document.getElementById('bstr2').checked = false;
+          document.getElementById('bstr3').checked = false;
+          document.getElementById('bstr4').checked = false;
+          document.getElementById('bstr5').checked = false;
         }
       });
 
@@ -475,7 +491,6 @@
   }
 
   fetchReqInfo(localStorage.getItem('StudyID')); //Fetch github users data
-
 
   var timeoutID;
  //BodyElement
@@ -519,7 +534,7 @@
         var timeDifferenceseconds = (currentTimeStamp - entryTimeStamp)/1000;
         var timeDifference = Math.floor(timeDifferenceseconds);
 
-        var data = "Event="+previouspage+"&StudyID="+StudyID+"&StudyInitials="+StudyInitials+"&Duration="+timeDifference;
+        var data = "Event="+previouspage+"&StudyID="+StudyID+"&StudyInitials="+StudyInitials+"&Duration="+timeDifference+"&Session="+localStorage.getItem('Session');
 
         var xhr = new XMLHttpRequest();
         xhr.withCredentials = true;
@@ -527,7 +542,7 @@
         xhr.addEventListener("readystatechange", function () {
           if (this.readyState === 4) {
             console.log(this.responseText);
-            var data1 = "Event=logout&StudyID="+StudyID+"&StudyInitials="+StudyInitials+"&Duration="+timeDifference;
+            var data1 = "Event=logout&StudyID="+StudyID+"&StudyInitials="+StudyInitials+"&Duration="+timeDifference+"&Session="+localStorage.getItem('Session');
             var xhr2 = new XMLHttpRequest();
             xhr2.withCredentials = true;
 
@@ -576,6 +591,4 @@
            
       startTimer();
   }
-
-
 })();

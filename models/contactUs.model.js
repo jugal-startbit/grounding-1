@@ -7,6 +7,7 @@ let EventLogSchema = new Schema({
     StudyInitials: {type: String},
     Event: {type: String},
     Duration:{type:Number},
+    Session: {type: String},
     DateTime: {type: Date},
     Active: {type: Number, required: true},
 });
