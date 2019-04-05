@@ -49,7 +49,7 @@ app.post('/API/eventLogCreate', function(req, res,next) {
   }); */
 
   data.Active = 1;
-  console.log(dt1,dt2);
+  //console.log(dt1,dt2);
   let localVar;
   if(data.Event == 'doLogin') {localVar = login;}
   else if(data.Event == 'dashboard') {localVar = dashboard;}
