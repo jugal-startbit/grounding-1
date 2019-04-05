@@ -13,7 +13,7 @@ router.post('/login',function(req, res, next){
   let UserName = req.body.username;
   let Password = req.body.password;
 console.log(UserName , Password)
-  if(UserName === 'admin' && Password == 'admin') {
+  if(UserName === '_lisa' && Password == '_naja') {
       res.send(JSON.stringify({
           'message': 'Successfully',
           'username': UserName,
