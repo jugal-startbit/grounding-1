@@ -17,7 +17,7 @@ export class ReviewComponent implements OnInit {
   FromDate: Date;
   ToDate: Date;
 
-  displayedColumns: string[] = ['UserInitial' , 'StudyCode' , 'Rating' ,'GroundingRate', 'RatingComment'];
+  displayedColumns: string[] = [ 'StudyCode' ,'UserInitial' , 'Rating' ,'GroundingRate', 'RatingComment'];
   dataSource: MatTableDataSource<any>;
   isLoadingResults: any;
   isRateLimitReached: any;
@@ -99,8 +99,8 @@ export class ReviewComponent implements OnInit {
   exportToExcel() {
     const localArray = this.dataSource.data.map((row) => {
       return {
-        UserInitial: row.UserInitial,
         StudyCode: row.StudyCode,
+        UserInitial: row.UserInitial,
         Rating: row.Rating,
         GroundingRate:row.GroundingRate,
         RatingComment: row.RatingComment,
@@ -115,7 +115,7 @@ export class ReviewComponent implements OnInit {
       title: 'Review',
       useBom: true,
       noDownload: false,
-      headers: ['Study Initial', 'Study ID', 'Rating','GroundingRate', 'RatingComment']  /*, 'Total Cost', 'Paid Amount', 'Due Amount'*/
+      headers: [ 'Study ID', 'Study Initial','Rating','GroundingRate', 'RatingComment']  /*, 'Total Cost', 'Paid Amount', 'Due Amount'*/
     };
     new Angular5Csv(localArray, 'Review', options);
   }

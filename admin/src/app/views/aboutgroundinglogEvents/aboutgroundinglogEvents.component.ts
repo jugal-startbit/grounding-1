@@ -17,7 +17,7 @@ export class AboutgroundinglogEventsComponent implements OnInit {
   FromDate: Date;
   ToDate: Date;
 
-  displayedColumns: string[] = ['UserInitial' , 'StudyCode' , 'Event' , 'DateTime','Time'];
+  displayedColumns: string[] = ['StudyCode' ,'UserInitial' ,  'Event' , 'DateTime' , 'Time'];
   dataSource: MatTableDataSource<any>;
   isLoadingResults: any;
   isRateLimitReached: any;
@@ -135,8 +135,8 @@ export class AboutgroundinglogEventsComponent implements OnInit {
     console.log(this.dataSource.data)
     const localArray = this.dataSource.data.map((row) => {
       return {
-        UserInitial: row._id.UserInitial,
         StudyCode: row._id.StudyCode,
+        UserInitial: row._id.UserInitial,
         Event: 'AboutGroundingLog',
         Day: row._id.day,
         Time: row.Time,
@@ -151,7 +151,7 @@ export class AboutgroundinglogEventsComponent implements OnInit {
       title: 'AboutGroundingLog',
       useBom: true,
       noDownload: false,
-      headers: ['Study Initials', 'Study ID', 'Event', 'Time Spend', 'Date & Time of Logged']  /*, 'Total Cost', 'Paid Amount', 'Due Amount'*/
+      headers: ['Study ID', 'Study Initials', 'Event', 'Date & Time of Log', 'Time Spent']  /*, 'Total Cost', 'Paid Amount', 'Due Amount'*/
     };
     new Angular5Csv(localArray, 'AboutGroundingLog', options);
   }

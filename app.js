@@ -43,12 +43,18 @@ const aboutGroundingLog = require('./models/aboutGroundingLog.model');
 const logout = require('./models/logout.model');
 app.post('/API/eventLogCreate', function(req, res,next) {
   let data = req.body;
-  data.DateTime = new Date();
-  /* .toLocaleString('en-US', {
+  data.DateTime = new Date()
+   .toLocaleString('en-US', {
     timeZone: 'Eastern Time (US & Canada)'
-  }); */ 
+  }); 
+  var dt1 = new Date();
+  var dt2 = new Date()
+   .toLocaleString('en-US', {
+    timeZone: 'Eastern Time (US & Canada)'
+  });
+
   data.Active = 1;
-  console.log(data);
+  console.log(dt1,dt2);
   let localVar;
   if(data.Event == 'doLogin') {localVar = login;}
   else if(data.Event == 'dashboard') {localVar = dashboard;}
@@ -70,7 +76,7 @@ app.post('/API/eventLogCreate', function(req, res,next) {
       }
       res.status(200).json({
           'status': true,
-          'message': 'Successfully created record',
+          'message': 'Successfully created record'+dt1+dt2,
           'result': localVar
       });
   });

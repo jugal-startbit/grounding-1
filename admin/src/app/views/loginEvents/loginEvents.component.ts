@@ -17,7 +17,7 @@ export class LoginEventsComponent implements OnInit {
   FromDate: Date;
   ToDate: Date;
 
-  displayedColumns: string[] = ['UserInitial' , 'StudyCode' , 'Event' , 'DateTime' ];
+  displayedColumns: string[] = [ 'StudyCode' , 'UserInitial' ,'Event' , 'DateTime' ];
   dataSource: MatTableDataSource<any>;
   isLoadingResults: any;
   isRateLimitReached: any;
@@ -135,8 +135,8 @@ export class LoginEventsComponent implements OnInit {
     console.log(this.dataSource.data)
     const localArray = this.dataSource.data.map((row) => {
       return {
-        UserInitial: row._id.UserInitial,
         StudyCode: row._id.StudyCode,
+        UserInitial: row._id.UserInitial,
         Event: 'Login',
         Day: row._id.day,
         Time: row.Time,
@@ -151,7 +151,7 @@ export class LoginEventsComponent implements OnInit {
       title: 'Login',
       useBom: true,
       noDownload: false,
-      headers: ['Study Initials', 'Study ID', 'Event',  'Date & Time of Logged']  /*, 'Total Cost', 'Paid Amount', 'Due Amount'*/
+      headers: ['Study ID', 'Study Initials', 'Event', 'Date & Time of Log'] /*, 'Total Cost', 'Paid Amount', 'Due Amount'*/
     };
     new Angular5Csv(localArray, 'Login', options);
   }

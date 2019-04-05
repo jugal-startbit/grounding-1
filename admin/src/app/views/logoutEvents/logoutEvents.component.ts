@@ -17,7 +17,7 @@ export class LogoutEventsComponent implements OnInit {
   FromDate: Date;
   ToDate: Date;
 
-  displayedColumns: string[] = ['UserInitial' , 'StudyCode' , 'Event' , 'DateTime'];
+  displayedColumns: string[] = ['StudyCode' ,'UserInitial' ,  'Event' , 'DateTime'];
   dataSource: MatTableDataSource<any>;
   isLoadingResults: any;
   isRateLimitReached: any;
@@ -135,8 +135,8 @@ export class LogoutEventsComponent implements OnInit {
     console.log(this.dataSource.data)
     const localArray = this.dataSource.data.map((row) => {
       return {
-        UserInitial: row._id.UserInitial,
         StudyCode: row._id.StudyCode,
+        UserInitial: row._id.UserInitial,
         Day: row._id.day,
         Time: row.Time,
         Event: 'Logout',
@@ -151,7 +151,7 @@ export class LogoutEventsComponent implements OnInit {
       title: 'Logout',
       useBom: true,
       noDownload: false,
-      headers: ['Study Initials', 'Study ID', 'Event', 'Date & Time of Logged']  /*, 'Total Cost', 'Paid Amount', 'Due Amount'*/
+      headers: ['Study ID', 'Study Initials', 'Event', 'Date & Time of Log']  /*, 'Total Cost', 'Paid Amount', 'Due Amount'*/
     };
     new Angular5Csv(localArray, 'Logout', options);
   }

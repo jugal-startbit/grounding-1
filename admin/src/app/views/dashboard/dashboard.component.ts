@@ -152,7 +152,7 @@ export class DashboardComponent implements OnInit {
       title: 'Dashboard',
       useBom: true,
       noDownload: false,
-      headers: ['Study Initials', 'Study ID', 'Event',  'Date & Time of Logged', 'Time Spend']  /*, 'Total Cost', 'Paid Amount', 'Due Amount'*/
+      headers: ['Study Initials', 'Study ID', 'Event',  'Date & Time of Log', 'Time Spent']  /*, 'Total Cost', 'Paid Amount', 'Due Amount'*/
     };
     new Angular5Csv(localArray, 'Dashboard', options);
   }
