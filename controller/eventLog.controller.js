@@ -683,7 +683,7 @@ exports.getAllAboutUs = function (req, res, next) {
                     {
                         "$group":
                             {
-                                _id: {day: "$datePartDay", StudyID: "$StudyID", StudyInitials: "$StudyInitials", Session: "$Session",Event:"Event"},
+                                _id: {day: "$datePartDay", StudyID: "$StudyID", StudyInitials: "$StudyInitials", Session: "$Session",Event:"$Event"},
                                 totalAmount:
                                     {
                                         $sum: "$Duration"
@@ -742,9 +742,13 @@ exports.getAllAboutUsByFilter = function (req, res, next) {
     let To = req.body.ToDate;
     let startDate = dateFormat(From, 'yyyy-mm-dd 00:00:00');
     let endDate = dateFormat(To, 'yyyy-mm-dd 23:59:59');
+    let Session = req.body.Session;
     let StudyInitials = req.body.StudyInitials;
     let StudyID = req.body.StudyID;
     var condition = {};
+    if (Session != null || Session != undefined) {
+        condition.Session = {'$regex': Session};
+    }
     if (StudyInitials != null || StudyInitials != undefined) {
         condition.StudyInitials = {'$regex': StudyInitials};
     }
