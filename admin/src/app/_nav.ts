@@ -42,7 +42,7 @@ export const navItems: NavData[] = [
     url: '/dashboardEvent',
     icon: 'icon-settings',
 
-  },*/{
+  },{
     name: 'Login Event',
     url: '/loginEvent',
     icon: 'icon-energy',
@@ -50,11 +50,11 @@ export const navItems: NavData[] = [
     name: 'Logout Event',
     url: '/logoutEvent',
     icon: 'icon-speedometer',
-  },{
-    name: 'About this App',
+  },*/{
+    name: 'Analytics',
     url: '/aboutusEvent',
     icon: 'icon-globe',
-  },{
+  },/*{
     name: 'Contact',
     url: '/contactusEvent',
     icon: 'icon-support',
@@ -62,12 +62,12 @@ export const navItems: NavData[] = [
     name: 'Read about Grounding',
     url: '/aboutgroundinglogEvent',
     icon: 'icon-note',
-  },/*{
+  },{
     name: 'PDF',
     url: '/pdfEvent',
     icon: 'icon-pencil',
   },*/{
-    name: 'Review & comments',
+    name: 'Reviews',
     url: '/review',
     icon: 'icon-people',
   },

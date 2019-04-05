@@ -162,11 +162,11 @@ export class AboutusEventsComponent implements OnInit {
       decimalseparator: '.',
       showLabels: true,
       showTitle: true,
-      title: 'AboutUs',
+      title: 'Analytics',
       useBom: true,
       noDownload: false,
       headers: ['Session','Study ID', 'Study Initials', 'Event', 'Date & Time of Log', 'Time Spent']  
     };
-    new Angular5Csv(localArray, 'AboutUs', options);
+    new Angular5Csv(localArray, 'Analytics', options);
   }
 }

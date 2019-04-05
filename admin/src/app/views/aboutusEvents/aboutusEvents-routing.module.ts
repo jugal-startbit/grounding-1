@@ -9,14 +9,14 @@ const routes: Routes = [
     path: '',
     component: AboutusEventsComponent,
     data: {
-      title: 'AboutusEvents'
+      title: 'Analytics'
     }
   },
   {
     path: 'aboutusEvents',
     component: AboutusEventsComponent,
     data: {
-      title: 'AboutusEvents'
+      title: 'Analytics'
     }
   },
 ];
