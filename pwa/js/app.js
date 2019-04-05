@@ -368,12 +368,15 @@
 
       var data = "Event=doLogin&UserInitial="+userInput+"&StudyCode="+userInput1;
 
+      document.querySelector('#StudyInitialslb').innerHTML =userInput;
+      document.querySelector('#StudyIDlb').innerHTML =userInput1;
       var xhr = new XMLHttpRequest();
       xhr.withCredentials = true;
 
       xhr.addEventListener("readystatechange", function () {
         if (this.readyState === 4) {
           console.log(this.responseText);
+          
           document.querySelector('#menu_header').style.display = 'inherit';
           document.querySelector('#authorMenuDIV').style.display = 'inherit';
           document.querySelector('#sourceMenuDIV').style.display = 'none';
