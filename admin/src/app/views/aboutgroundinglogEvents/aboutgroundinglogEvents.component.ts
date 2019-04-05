@@ -39,7 +39,9 @@ export class AboutgroundinglogEventsComponent implements OnInit {
     //  -
     this.getAllDashboardEvents();
   }
-
+  ngAfterViewInit(): void {
+    this.getAllDashboardEvents();
+  }
   getAllDashboardEvents() {
     this.FromDate = null;
     this.ToDate = null;

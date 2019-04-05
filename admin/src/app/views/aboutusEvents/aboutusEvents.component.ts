@@ -48,7 +48,7 @@ export class AboutusEventsComponent implements OnInit {
     //  -
     this.getAllDashboardEvents();
   }
-  ngOnLoad(): void {
+  ngAfterViewInit(): void {
     this.getAllDashboardEvents();
   }
   getAllDashboardEvents() {
