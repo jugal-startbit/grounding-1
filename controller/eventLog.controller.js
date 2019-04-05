@@ -663,6 +663,7 @@ exports.getAllAboutUs = function (req, res, next) {
                         "$project":
                             {
                                 _id: 0,
+                                'Session':"$Session",
                                 'StudyInitials': "$StudyInitials",
                                 'Duration': "$Duration",
                                 'StudyID': "$StudyID",
@@ -681,7 +682,7 @@ exports.getAllAboutUs = function (req, res, next) {
                     {
                         "$group":
                             {
-                                _id: {day: "$datePartDay", StudyID: "$StudyID", StudyInitials: "$StudyInitials"},
+                                _id: {day: "$datePartDay", StudyID: "$StudyID", StudyInitials: "$StudyInitials", Session: "$Session"},
                                 totalAmount:
                                     {
                                         $sum: "$Duration"
@@ -766,6 +767,7 @@ exports.getAllAboutUsByFilter = function (req, res, next) {
                         "$project":
                             {
                                 _id: 0,
+                                'Session':"$Session",
                                 'StudyInitials': "$StudyInitials",
                                 'Duration': "$Duration",
                                 'StudyID': "$StudyID",
@@ -784,7 +786,7 @@ exports.getAllAboutUsByFilter = function (req, res, next) {
                     {
                         "$group":
                             {
-                                _id: {day: "$datePartDay", StudyID: "$StudyID", StudyInitials: "$StudyInitials"},
+                                _id: {day: "$datePartDay", StudyID: "$StudyID", StudyInitials: "$StudyInitials", Session: "$Session"},
                                 totalAmount:
                                     {
                                         $sum: "$Duration"
