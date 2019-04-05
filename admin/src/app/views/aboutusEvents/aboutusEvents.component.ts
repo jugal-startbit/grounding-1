@@ -18,7 +18,7 @@ export class AboutusEventsComponent implements OnInit {
   FromDate: Date;
   ToDate: Date;
 
-  displayedColumns: string[] =['Session','StudyInitials' ,'StudyID' ,  'Event' , 'DateTime' , 'Time'];
+  displayedColumns: string[] =['Session','StudyID','StudyInitials'  ,  'Event' , 'DateTime' , 'Time'];
   dataSource: MatTableDataSource<any>;
   isLoadingResults: any;
   isRateLimitReached: any;
