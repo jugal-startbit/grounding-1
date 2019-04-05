@@ -17,6 +17,11 @@
           </mat-form-field>
         </div>
         <div class="col-sm-2 col-lg-2">
+            <mat-form-field>
+              <input matInput [(ngModel)]="Session" placeholder="Session">
+            </mat-form-field>
+          </div>
+        <div class="col-sm-2 col-lg-2">
           <mat-form-field>
             <input matInput [(ngModel)]="StudyInitials" placeholder="Study ID">
           </mat-form-field>
@@ -26,7 +31,7 @@
             <input matInput [(ngModel)]="StudyID" placeholder="Study Initials">
           </mat-form-field>
         </div>
-        <div class="col-sm-4 col-lg-4 pt-2 text-center">
+        <div class="col-sm-2 col-lg-2 pt-2 text-center">
           <button class="btn btn-success" (click)="filter()">filter</button>&nbsp;&nbsp;&nbsp;
           <button class="btn btn-success" (click)="getAllDashboardEvents()">Reset</button>&nbsp;&nbsp;
           <button mat-raised-button color="accent" (click)="exportToExcel()">Export to Excel</button>
@@ -76,7 +81,7 @@
                 <!-- Phone Column -->
                 <ng-container matColumnDef="Event">
                   <th mat-header-cell fxFlex="100" style="width:130px;" *matHeaderCellDef mat-sort-header id="entryRowPhone"> Event </th>
-                  <td fxFlex="100" mat-cell *matCellDef="let row"> {{row.Event}} </td>
+                  <td fxFlex="100" mat-cell *matCellDef="let row"> {{row._id.Event}} </td>
                 </ng-container>
 
                 <!-- ClientType Column -->

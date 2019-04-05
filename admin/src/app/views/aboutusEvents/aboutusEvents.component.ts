@@ -12,6 +12,7 @@ export class AboutusEventsComponent implements OnInit {
 
   localStorage: any;
   Entries: any;
+  Session:any;
   StudyInitials: any;
   StudyID: any;
   FromDate: Date;
@@ -54,6 +55,7 @@ export class AboutusEventsComponent implements OnInit {
   getAllDashboardEvents() {
     this.FromDate = null;
     this.ToDate = null;
+    this.Session = null;
     this.StudyInitials = null;
     this.StudyID = null;
     this.dashboardService.getAllAboutUsEvents().subscribe((data: {}) => {
@@ -113,6 +115,7 @@ export class AboutusEventsComponent implements OnInit {
     let condition = {
       'FromDate': this.FromDate,
       'ToDate': this.ToDate,
+      'Session':this.Session,
       'StudyInitials': this.StudyInitials,
       'StudyID': this.StudyID,
     }
@@ -146,9 +149,9 @@ export class AboutusEventsComponent implements OnInit {
     const localArray = this.dataSource.data.map((row) => {
       return {
         Session: row._id.Session,
-        StudyInitials: row._id.StudyInitials,
         StudyID: row._id.StudyID,
-        Event: row.Event,
+        StudyInitials: row._id.StudyInitials,
+        Event: row._id.Event,
         Day: row._id.day,
         Time: row.Time,
       };
