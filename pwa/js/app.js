@@ -343,11 +343,11 @@
   function addGitUserCard() {
     var userInput = addCardInputElement.value;
     var userInput1 = addCardInputElement1.value;
-    if (userInput === '' && userInput.length !== 3)  { 
+    if (userInput === '' || userInput.length !== 3)  { 
       alert('StudyID should be 3 digits');
       return;
     }
-    if (userInput1 === '' && userInput1.length !== 4) {
+    if (userInput1 === '' || userInput1.length !== 4) {
       alert('Study Initials should be 4 letters');
       return;
     }
