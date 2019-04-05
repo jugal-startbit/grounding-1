@@ -97,6 +97,7 @@
         xhr.open("POST", "https://grounding.herokuapp.com/API/eventLogCreate");
         xhr.withCredentials = false;
         xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+        xhr.setRequestHeader("Access-Control-Allow-Origin", "https://facing-forward.org");
         xhr.setRequestHeader("cache-control", "no-cache");
         xhr.setRequestHeader("Postman-Token", "a5a1754d-842e-46d6-88f1-478c94bdf132");
   
@@ -145,6 +146,7 @@
       xhr.open("POST", "https://grounding.herokuapp.com/API/eventLogCreate");
       xhr.withCredentials = false;
       xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+      xhr.setRequestHeader("Access-Control-Allow-Origin", "https://facing-forward.org");
       xhr.setRequestHeader("cache-control", "no-cache");
       xhr.setRequestHeader("Postman-Token", "a5a1754d-842e-46d6-88f1-478c94bdf132");
 
@@ -203,6 +205,7 @@
       xhr.open("POST", "https://grounding.herokuapp.com/API/eventLogCreate");
       xhr.withCredentials = false;
       xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+      xhr.setRequestHeader("Access-Control-Allow-Origin", "https://facing-forward.org");
       xhr.setRequestHeader("cache-control", "no-cache");
       xhr.setRequestHeader("Postman-Token", "a5a1754d-842e-46d6-88f1-478c94bdf132");
 
@@ -250,6 +253,7 @@
 
       xhr.open("POST", "https://grounding.herokuapp.com/API/eventLogCreate");
       xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+      xhr.setRequestHeader("Access-Control-Allow-Origin", "https://facing-forward.org");
       xhr.setRequestHeader("cache-control", "no-cache");
       xhr.setRequestHeader("Postman-Token", "a5a1754d-842e-46d6-88f1-478c94bdf132");
 
@@ -302,6 +306,7 @@
           xhr2.open("POST", "https://grounding.herokuapp.com/API/eventLogCreate");
           xhr2.withCredentials = false;
           xhr2.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+          xhr2.setRequestHeader("Access-Control-Allow-Origin", "https://facing-forward.org");
           xhr2.setRequestHeader("cache-control", "no-cache");
           xhr2.setRequestHeader("Postman-Token", "a5a1754d-842e-46d6-88f1-478c94bdf132");
 
@@ -316,6 +321,7 @@
       xhr.open("POST", "https://grounding.herokuapp.com/API/eventLogCreate");
       xhr.withCredentials = false;
       xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+      xhr.setRequestHeader("Access-Control-Allow-Origin", "https://facing-forward.org");
       xhr.setRequestHeader("cache-control", "no-cache");
       xhr.setRequestHeader("Postman-Token", "a5a1754d-842e-46d6-88f1-478c94bdf132");
 
@@ -383,6 +389,7 @@
       xhr.open("POST", "https://grounding.herokuapp.com/API/eventLogCreate");
       xhr.withCredentials = false;
       xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+       xhr.setRequestHeader("Access-Control-Allow-Origin", "https://facing-forward.org");
       xhr.setRequestHeader("cache-control", "no-cache");
       xhr.setRequestHeader("Postman-Token", "a5a1754d-842e-46d6-88f1-478c94bdf132");
 
@@ -448,6 +455,7 @@
       xhr.open("POST", "https://grounding.herokuapp.com/reviewCreate");
       xhr.withCredentials = false;
       xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+      xhr.setRequestHeader("Access-Control-Allow-Origin", "https://facing-forward.org");
       xhr.setRequestHeader("cache-control", "no-cache");
       xhr.setRequestHeader("Postman-Token", "a5a1754d-842e-46d6-88f1-478c94bdf132");
 
@@ -532,6 +540,7 @@
             xhr2.open("POST", "https://grounding.herokuapp.com/API/eventLogCreate");
             xhr2.withCredentials = false;
             xhr2.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+            xhr2.setRequestHeader("Access-Control-Allow-Origin", "https://facing-forward.org");
             xhr2.setRequestHeader("cache-control", "no-cache");
             xhr2.setRequestHeader("Postman-Token", "a5a1754d-842e-46d6-88f1-478c94bdf132");
 
@@ -542,6 +551,7 @@
         xhr.open("POST", "https://grounding.herokuapp.com/API/eventLogCreate");
         xhr.withCredentials = false;
         xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+        xhr.setRequestHeader("Access-Control-Allow-Origin", "https://facing-forward.org");
         xhr.setRequestHeader("cache-control", "no-cache");
         xhr.setRequestHeader("Postman-Token", "a5a1754d-842e-46d6-88f1-478c94bdf132");
 
