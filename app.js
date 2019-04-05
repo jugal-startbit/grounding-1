@@ -43,10 +43,10 @@ const aboutGroundingLog = require('./models/aboutGroundingLog.model');
 const logout = require('./models/logout.model');
 app.post('/API/eventLogCreate', function(req, res,next) {
   let data = req.body;
-  data.DateTime = new Date();
-  /* .toLocaleString('en-US', {
+  data.DateTime = new Date()
+   .toLocaleString('en-US', {
     timeZone: 'Eastern Time (US & Canada)'
-  }); */
+  }); 
 
   data.Active = 1;
   //console.log(dt1,dt2);
