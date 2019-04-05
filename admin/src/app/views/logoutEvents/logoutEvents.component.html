@@ -78,7 +78,7 @@
                 <!-- ClientType Column -->
                 <ng-container matColumnDef="DateTime">
                   <th mat-header-cell fxFlex="100" *matHeaderCellDef mat-sort-header>Date & Time of Log</th>
-                  <td fxFlex="100" mat-cell *matCellDef="let row"> {{ row._id.day | date: 'medium':'+0130'}} (EST) </td>
+                  <td fxFlex="100" mat-cell *matCellDef="let row"> {{ row._id.day | date: 'medium':'+0130'}} (EST)  {{date}}</td>
                 </ng-container>
 
 
