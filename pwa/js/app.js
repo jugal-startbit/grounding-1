@@ -1,5 +1,12 @@
 (function () {
   'use strict';
+  function isMobileSafari() {
+    return navigator.userAgent.match(/(iPod|iPhone|iPad)/) && navigator.userAgent.match(/AppleWebKit/)
+}
+if(isMobileSafari())
+document.querySelector('#iOSInstall').style.display = 'inherit';
+else
+document.querySelector('#iOSInstall').style.display = 'none';
   var menusAuthorElmt = document.querySelector('.menusAuthor');
   menusAuthorElmt.myParam = menusAuthorElmt.getAttribute('value');
   

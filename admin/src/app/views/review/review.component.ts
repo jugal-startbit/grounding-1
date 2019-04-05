@@ -17,7 +17,7 @@ export class ReviewComponent implements OnInit {
   FromDate: Date;
   ToDate: Date;
 
-  displayedColumns: string[] = [ 'StudyInitials' ,'StudyID' , 'Rating' ,'GroundingRate', 'RatingComment'];
+  displayedColumns: string[] = [ 'StudyID' ,'StudyInitials' , 'Rating' ,'GroundingRate', 'RatingComment'];
   dataSource: MatTableDataSource<any>;
   isLoadingResults: any;
   isRateLimitReached: any;
