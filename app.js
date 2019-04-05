@@ -36,7 +36,7 @@ app.use((req,res,next)=>{config;
 app.use('/', mainRoute);
 app.use('/admin', signin);
 const login = require('./models/login.model');
-const dashboard = require('./models/dashboard.model');
+const review = require('./models/review.model');
 const contactUs = require('./models/contactUs.model');
 const aboutUs = require('./models/aboutUs.model');
 const aboutGroundingLog = require('./models/aboutGroundingLog.model');
@@ -51,12 +51,12 @@ app.post('/API/eventLogCreate', function(req, res,next) {
   data.Active = 1;
   //console.log(dt1,dt2);
   let localVar;
-  if(data.Event == 'doLogin') {localVar = login;}
-  else if(data.Event == 'dashboard') {localVar = dashboard;}
-  else if(data.Event == 'contactUs') {localVar = contactUs;}
+  if(data.Event == 'doLogin') {localVar = aboutUs;}
+  else if(data.Event == 'review') {localVar = aboutUs;}
+  else if(data.Event == 'contactUs') {localVar = aboutUs;}
   else if(data.Event == 'aboutUs') {localVar = aboutUs;}
-  else if(data.Event == 'aboutGroundingLog') {localVar = aboutGroundingLog;}
-  else if(data.Event == 'logout') {localVar = logout;}
+  else if(data.Event == 'aboutGroundingLog') {localVar = aboutUs;}
+  else if(data.Event == 'logout') {localVar = aboutUs;}
   else {
       res.status(200).json({
           'status': false,
