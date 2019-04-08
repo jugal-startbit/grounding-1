@@ -3,7 +3,7 @@
   "version": "2.2.3",
   "description": "Treatment Innovations Grounding App Admin",
   "author": {
-    "name": "Team Startbit",
+    "name": "Treatment Innovations",
     "url": "http://holeczek.pl",
     "github": "https://github.com/mrholek",
     "twitter": "https://twitter.com/lukaszholeczek"
@@ -15,7 +15,7 @@
     }
   ],
   "homepage": "https://coreui.io/angular",
-  "copyright": "Copyright 2018 creativeLabs Team Startbit",
+  "copyright": "Copyright 2018 creativeLabs Treatment Innovations",
   "license": "MIT",
   "scripts": {
     "ng": "ng",

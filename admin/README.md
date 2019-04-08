@@ -115,7 +115,7 @@ See [the Releases section of our project](https://github.com/coreui/coreui-free-
 
 ## Creators
 
-**Team Startbit**
+**Treatment Innovations**
 
 * <https://twitter.com/lukaszholeczek>
 * <https://github.com/mrholek>
@@ -140,7 +140,7 @@ Some of projects created by community but not maintained by CoreUI team.
 
 ## Copyright and license
 
-copyright 2018 creativeLabs Team Startbit. Code released under [the MIT license](https://github.com/coreui/coreui-free-angular-admin-template/blob/master/LICENSE).
+copyright 2018 creativeLabs Treatment Innovations. Code released under [the MIT license](https://github.com/coreui/coreui-free-angular-admin-template/blob/master/LICENSE).
 There is only one limitation you can't re-distribute the CoreUI as stock. You can’t do this if you modify the CoreUI. In past we faced some problems with persons who tried to sell CoreUI based templates.
 
 ## Support CoreUI Development
