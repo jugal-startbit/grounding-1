@@ -17,7 +17,7 @@ export class ReviewComponent implements OnInit {
   FromDate: Date;
   ToDate: Date;
 
-  displayedColumns: string[] = [ 'StudyID' ,'StudyInitials' , 'Rating' ,'GroundingRate', 'RatingComment'];
+  displayedColumns: string[] = [ 'StudyID' ,'StudyInitials' , 'Rating' ,'GroundingRate', 'RatingComment', 'DateTime'];
   dataSource: MatTableDataSource<any>;
   isLoadingResults: any;
   isRateLimitReached: any;
@@ -104,6 +104,7 @@ export class ReviewComponent implements OnInit {
         Rating: row.Rating,
         GroundingRate:row.GroundingRate,
         RatingComment: row.RatingComment,
+        DateTime: row.DateTime,
       };
     });
     const options = {
@@ -115,7 +116,7 @@ export class ReviewComponent implements OnInit {
       title: 'Review',
       useBom: true,
       noDownload: false,
-      headers: [ 'Study ID', 'Study Initial','Rating','GroundingRate', 'RatingComment']  /*, 'Total Cost', 'Paid Amount', 'Due Amount'*/
+      headers: [ 'Study ID', 'Study Initial','Rating','GroundingRate', 'RatingComment', 'Date & Time of Log']  /*, 'Total Cost', 'Paid Amount', 'Due Amount'*/
     };
     new Angular5Csv(localArray, 'Review', options);
   }

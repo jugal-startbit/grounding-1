@@ -1,291 +1,290 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
 
-	<meta charset="utf-8" />
-	<title>Treatment Innovations Grounding App</title>
-	
-	<meta http-equiv="X-UA-Compatible" content="IE=edge" />
-	<meta name="description"
-		content="Treatment Innovations Grounding App" />
-	<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
-	<meta name="theme-color" content="#29434d" />
-	<meta name="msapplication-TileColor" content="#29434d" />
-	<meta name="msapplication-TileImage" content="./images/icons/mstile-150x150.png" />
-	<meta name="mobile-web-app-capable" content="yes" />
-	
-	<meta name="apple-mobile-web-app-capable" content="yes" />
-	<meta name="apple-mobile-web-app-title" content="Grounding App">
-	<meta name="application-name" content="Treatment Innovations Grounding App">
-	<link rel="apple-touch-icon" sizes="180x180" href="./images/icons/apple-touch-icon.png">
-	<link rel="apple-touch-icon" sizes="152x152" href="./images/icons/apple-touch-icon152.png">
-	<link rel="apple-touch-icon" sizes="167x167" href="./images/icons/apple-touch-icon167.png">
-	<link rel="icon" type="image/png" sizes="32x32" href="./images/icons/favicon-32x32.png">
-	<link rel="icon" type="image/png" sizes="16x16" href="./images/icons/favicon-16x16.png">
-	<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
-	<link rel="manifest" href="./manifest.json" />
-	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:200,300,400,500,700" />
-	<link rel="stylesheet" href="./css/styles.css" />
-	<link rel="apple-touch-icon" href="./images/icons/touch-icon-iphone.png">
-	<meta name="apple-mobile-web-app-status-bar-style" content="default">
-	
+    <meta charset="utf-8" />
+    <title>Treatment Innovations Grounding App</title>
+
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="description" content="Treatment Innovations Grounding App" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+    <meta name="theme-color" content="#29434d" />
+    <meta name="msapplication-TileColor" content="#29434d" />
+    <meta name="msapplication-TileImage" content="./images/icons/mstile-150x150.png" />
+    <meta name="mobile-web-app-capable" content="yes" />
+
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-title" content="Grounding App">
+    <meta name="application-name" content="Treatment Innovations Grounding App">
+    <link rel="apple-touch-icon" sizes="180x180" href="./images/icons/apple-touch-icon.png">
+    <link rel="apple-touch-icon" sizes="152x152" href="./images/icons/apple-touch-icon152.png">
+    <link rel="apple-touch-icon" sizes="167x167" href="./images/icons/apple-touch-icon167.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="./images/icons/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="./images/icons/favicon-16x16.png">
+    <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+    <link rel="manifest" href="./manifest.json" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:200,300,400,500,700" />
+    <link rel="stylesheet" href="./css/styles.css" />
+    <link rel="apple-touch-icon" href="./images/icons/touch-icon-iphone.png">
+    <meta name="apple-mobile-web-app-status-bar-style" content="default">
+
 </head>
 
 <body id="BodyElement">
-	<script language="JavaScript">
-		'use strict';
-  /**
-    * Disable right-click of mouse, F12 key, and save key combinations on page
-    * By Arthur Gareginyan (arthurgareginyan@gmail.com)
-    * For full source code, visit https://mycyberuniverse.com
-    */
-  window.onload = function() {
-    document.addEventListener("contextmenu", function(e){
-      e.preventDefault();
-    }, false);
-    document.addEventListener("keydown", function(e) {
-    //document.onkeydown = function(e) {
-      // "I" key
-      if (e.ctrlKey && e.shiftKey && e.keyCode == 73) {
-        disabledEvent(e);
-      }
-      // "J" key
-      if (e.ctrlKey && e.shiftKey && e.keyCode == 74) {
-        disabledEvent(e);
-      }
-      // "S" key + macOS
-      if (e.keyCode == 83 && (navigator.platform.match("Mac") ? e.metaKey : e.ctrlKey)) {
-        disabledEvent(e);
-      }
-      // "U" key
-      if (e.ctrlKey && e.keyCode == 85) {
-        disabledEvent(e);
-      }
-      // "F12" key
-      if (event.keyCode == 123) {
-        disabledEvent(e);
-      }
-    }, false);
-    function disabledEvent(e){
-      if (e.stopPropagation){
-        e.stopPropagation();
-      } else if (window.event){
-        window.event.cancelBubble = true;
-      }
-      e.preventDefault();
-      return false;
-    }
-  };
-</script>
-	<div class="app app__layout">
-		<header id="menu_header">
-			<span class="header__icon">
+    <script language="JavaScript">
+        'use strict';
+        /**
+         * Disable right-click of mouse, F12 key, and save key combinations on page
+         * By Arthur Gareginyan (arthurgareginyan@gmail.com)
+         * For full source code, visit https://mycyberuniverse.com
+         */
+        window.onload = function() {
+            document.addEventListener("contextmenu", function(e) {
+                e.preventDefault();
+            }, false);
+            document.addEventListener("keydown", function(e) {
+                //document.onkeydown = function(e) {
+                // "I" key
+                if (e.ctrlKey && e.shiftKey && e.keyCode == 73) {
+                    disabledEvent(e);
+                }
+                // "J" key
+                if (e.ctrlKey && e.shiftKey && e.keyCode == 74) {
+                    disabledEvent(e);
+                }
+                // "S" key + macOS
+                if (e.keyCode == 83 && (navigator.platform.match("Mac") ? e.metaKey : e.ctrlKey)) {
+                    disabledEvent(e);
+                }
+                // "U" key
+                if (e.ctrlKey && e.keyCode == 85) {
+                    disabledEvent(e);
+                }
+                // "F12" key
+                if (event.keyCode == 123) {
+                    disabledEvent(e);
+                }
+            }, false);
+
+            function disabledEvent(e) {
+                if (e.stopPropagation) {
+                    e.stopPropagation();
+                } else if (window.event) {
+                    window.event.cancelBubble = true;
+                }
+                e.preventDefault();
+                return false;
+            }
+        };
+    </script>
+    <div class="app app__layout">
+        <header id="menu_header">
+            <span class="header__icon">
 				<svg class="menu__icon no--select" width="24px" height="24px" viewBox="0 0 48 48" fill="#fff">
 					<path d="M6 36h36v-4H6v4zm0-10h36v-4H6v4zm0-14v4h36v-4H6z"></path>
 				</svg>
 			</span>
-			<span class="header__title no--select">Grounding App</span>
+            <span class="header__title no--select">Grounding App</span>
 
-			<span class="userInfo">
+            <span class="userInfo">
 					Study ID : <span id="StudyIDlb"></span>
-			<br>
-			Study Initials : <span id="StudyInitialslb"></span></span>
-				
-		</header>
+            <br> Study Initials : <span id="StudyInitialslb"></span></span>
 
-		<div id="menu_overlay" class="menu">
-			<div class="menu__header"><img src="images/Logo.png" alt="Grounding App"/></div>
-			<ul class="menu__list">
-				<li><a target="_blank" rel="noopener" class="menusAuthor" value="aboutUs">About this App</a></li>
-				<li><a target="_blank" rel="noopener" class="menusSource" value="aboutGroundingLog"> Read about Grounding </a></li>
-				<li><a target="_blank" rel="noopener" class="menusContact" value="contactUs">Contact</a></li>
-				<li><a target="_blank" rel="noopener" class="menusRating" value="review"> Rate this App </a></li>
-				<li><a target="_blank" rel="noopener" class="menusLogout" value="logout"> Logout</a></li>
-			</ul>
-		</div>
-		<div class="menu__overlay"></div>
+        </header>
 
-		<div id="loginDIV">
+        <div id="menu_overlay" class="menu">
+            <div class="menu__header"><img src="images/Logo.png" alt="Grounding App" /></div>
+            <ul class="menu__list">
+                <li><a target="_blank" rel="noopener" class="menusAuthor" value="aboutUs">About this App</a></li>
+                <li><a target="_blank" rel="noopener" class="menusSource" value="aboutGroundingLog"> Read about Grounding </a></li>
+                <li><a target="_blank" rel="noopener" class="menusContact" value="contactUs">Contact</a></li>
+                <li><a target="_blank" rel="noopener" class="menusRating" value="review"> Rate this App </a></li>
+                <li><a target="_blank" rel="noopener" class="menusLogout" value="logout"> Logout</a></li>
+            </ul>
+        </div>
+        <div class="menu__overlay"></div>
 
-			<div class="app__content">
-					<h1 align="center">Login</h1>
+        <div id="loginDIV">
 
-				<div class="card">
-					<div class="card__spinner"></div>
-					<div class="card__container">
+            <div class="app__content">
+                <h1 align="center">Login</h1>
 
-						<p class="card__temp"><b><input type="text" id="StudyID" class="add__input" minlength="3" maxlength="3"  onkeypress='return event.charCode >= 48 && event.charCode <= 57'
+                <div class="card">
+                    <div class="card__spinner"></div>
+                    <div class="card__container">
+
+                        <p class="card__temp"><b><input type="text" id="StudyID" class="add__input" minlength="3" maxlength="3"  onkeypress='return event.charCode >= 48 && event.charCode <= 57'
 									placeholder="Your study ID (3 digits)" /> </b> <span></span></p>
-						<p class="card__following"><b><input type="text" id="StudyInitials" class="add__input"  minlength="4" maxlength="4"  onkeypress='return (event.charCode >= 97 && event.charCode <= 122) ||(event.charCode >= 65 && event.charCode <= 90) || event.charCode  == 8'
+                        <p class="card__following"><b><input type="text" id="StudyInitials" class="add__input"  minlength="4" maxlength="4"  onkeypress='return (event.charCode >= 97 && event.charCode <= 122) ||(event.charCode >= 65 && event.charCode <= 90) || event.charCode  == 8'
 									placeholder="Your study initials (4 letters)" /></b> <span></span></p>
-						<p class="card__followers"><b><button class="doLoginBtn">ENTER</button></b> <span></span></p>
+                        <p class="card__followers"><b><button class="doLoginBtn">ENTER</button></b> <span></span></p>
 
-					</div>
-				</div>
-
-
-				<!-- Toast msg -->
-				<div class="toast__msg"></div>
-			</div>
+                    </div>
+                </div>
 
 
-		</div>
-		<!--loginDIV closed-->
+                <!-- Toast msg -->
+                <div class="toast__msg"></div>
+            </div>
 
-		<!--AUTHOR MENU-->
-		<div id="authorMenuDIV">
 
-			<div class="app__content">
-					<h1 align="center">About this App</h1>
-				<br>
-				<p>This app was developed by <u>Treatment Innovations</u> for the project you are participating in, called the
-					<b>Grounding Study</b>.<br><br> If you have any questions about the study or your participation, contact us at <a
-						href="mailto:info@treatment-innovations.org">info@treatment-innovations.org</a> or by text or
-					phone at <a href="tel:6172991610">617-299-1610</a>.</p>
-				<!-- Toast msg -->
-				<div class="toast__msg"></div>
-			</div>
+        </div>
+        <!--loginDIV closed-->
 
-		</div>
+        <!--AUTHOR MENU-->
+        <div id="authorMenuDIV">
 
-		<!--rating MENU-->
-		<div id="ratingMenuDIV">
+            <div class="app__content">
+                <h1 align="center">About this App</h1>
+                <br>
+                <p>This app was developed by <u>Treatment Innovations</u> for the project you are participating in, called the
+                    <b>Grounding Study</b>.<br><br> If you have any questions about the study or your participation, contact us at <a href="mailto:info@treatment-innovations.org">info@treatment-innovations.org</a> or by text or phone at <a href="tel:6172991610">617-299-1610</a>.</p>
+                <!-- Toast msg -->
+                <div class="toast__msg"></div>
+            </div>
 
-			<div class="app__content">
-				<h2>Comparison App Survey 3-19 (GN)</h2>
-				<h4> We welcome your feedback at any time and you can fill this out as many times as you choose to </h4>
-				<form>
-				<div class="card">
-					<div class="card__spinner"></div>
-					<div class="card__container">
-						<b>How much do you like this app?</b>	
-						
-						<fieldset id="group1">
-						<table class="tg">
-								<tr>
-									<th></th>
-									<th>1</th>
-									<th>2</th>
-									<th>3</th>
-									<th>4</th>
-									<th>5</th>
-									<th></th>
-								</tr>
-								<tr>
-									<td>not at all</td>
-									<td><input type="radio" name="rating[]" id="str1" value="1"></td>
-									<td><input type="radio" name="rating[]" id="str2" value="2"></td>
-									<td><input type="radio" name="rating[]" id="str3" value="3"></td>
-									<td><input type="radio" name="rating[]" id="str4" value="4"></td>
-									<td><input type="radio" name="rating[]" id="str5" value="5"></td>
-									<td>love it</td>
-								</tr>
-							
-							</table>
-							</fieldset><br>
-							<b>How much do you like the coping skill called Grounding?</b>	
-						
-								<fieldset id="group2"><table class="tg">
-								<tr>
-									<th></th>
-									<th>1</th>
-									<th>2</th>
-									<th>3</th>
-									<th>4</th>
-									<th>5</th>
-									<th></th>
-								</tr>
-								<tr>
-									<td>not at all</td>
-									<td><input type="radio" name="brating[]" id="bstr1" value="1"></td>
-									<td><input type="radio" name="brating[]" id="bstr2" value="2"></td>
-									<td><input type="radio" name="brating[]" id="bstr3" value="3"></td>
-									<td><input type="radio" name="brating[]" id="bstr4" value="4"></td>
-									<td><input type="radio" name="brating[]" id="bstr5" value="5"></td>
-									<td>love it</td>
-								</tr>
-							
-							</table>		</fieldset>			<br>		
-						<b>Any feedback you want to share?</b>						
-						<p class="card__following"><b><textarea id="comments"
+        </div>
+
+        <!--rating MENU-->
+        <div id="ratingMenuDIV">
+
+            <div class="app__content">
+                <center>
+                    <h4> We welcome your feedback at any time and you can fill this out as many times as you choose to </h4>
+                </center>
+                <form>
+                    <div class="card">
+                        <div class="card__spinner"></div>
+                        <div class="card__container">
+                            <b>How much do you like this app?</b>
+
+                            <fieldset id="group1">
+                                <table class="tg">
+                                    <tr>
+                                        <th></th>
+                                        <th>1</th>
+                                        <th>2</th>
+                                        <th>3</th>
+                                        <th>4</th>
+                                        <th>5</th>
+                                        <th></th>
+                                    </tr>
+                                    <tr>
+                                        <td><b>not at all</b></td>
+                                        <td><input type="radio" name="rating[]" id="str1" value="1"></td>
+                                        <td><input type="radio" name="rating[]" id="str2" value="2"></td>
+                                        <td><input type="radio" name="rating[]" id="str3" value="3"></td>
+                                        <td><input type="radio" name="rating[]" id="str4" value="4"></td>
+                                        <td><input type="radio" name="rating[]" id="str5" value="5"></td>
+                                        <td><b>love it</b></td>
+                                    </tr>
+
+                                </table>
+                            </fieldset><br>
+                            <b>How much do you like the coping skill called Grounding?</b>
+
+                            <fieldset id="group2">
+                                <table class="tg">
+                                    <tr>
+                                        <th></th>
+                                        <th>1</th>
+                                        <th>2</th>
+                                        <th>3</th>
+                                        <th>4</th>
+                                        <th>5</th>
+                                        <th></th>
+                                    </tr>
+                                    <tr>
+                                        <td><b>not at all</b></td>
+                                        <td><input type="radio" name="brating[]" id="bstr1" value="1"></td>
+                                        <td><input type="radio" name="brating[]" id="bstr2" value="2"></td>
+                                        <td><input type="radio" name="brating[]" id="bstr3" value="3"></td>
+                                        <td><input type="radio" name="brating[]" id="bstr4" value="4"></td>
+                                        <td><input type="radio" name="brating[]" id="bstr5" value="5"></td>
+                                        <td><b>love it</b></td>
+                                    </tr>
+
+                                </table>
+                            </fieldset> <br>
+                            <b>Any feedback you want to share?</b>
+                            <p class="card__following"><b><textarea id="comments"
 									placeholder="Provide your valuable comments." rows="4" cols="36"></textarea>
 							</b> </p>
-							<br><span>If you have questions or concerns, please contact us at <a href="mailto:info@treatment-innovations.org">info@treatment-innovations.org</a></span>
-						<p class="card__followers"><b><button type="button" class="add_review__btn">SUBMIT</button></b> <span></span>
-						</p>
-					</div>
-				</div>
-			</form>
-				<!-- Toast msg -->
-				<div class="toast__msg"></div>
-			</div>
+                            <br><span>If you have questions or concerns, please contact us at <a href="mailto:info@treatment-innovations.org">info@treatment-innovations.org</a></span>
+                            <p class="card__followers"><b><button type="button" class="add_review__btn">SUBMIT</button></b> <span></span>
+                            </p>
+                        </div>
+                    </div>
+                </form>
+                <!-- Toast msg -->
+                <div class="toast__msg"></div>
+            </div>
 
-		</div>
-		<!-- SOURCE MENU-->
-		<div id="aboutUsMenuDIV">
+        </div>
+        <!-- SOURCE MENU-->
+        <div id="aboutUsMenuDIV">
 
-			<div class="app__content">
-				<h1 align="center">Read about Grounding </h1>
-			<iframe
-				    src="web/viewer.html?file=https://facing-forward.org/pdfs/Detaching from Emotional Pain - Grounding.pdf"
-				    width="100%"
-				    height="600px"
-				    style="border: none;"></iframe>
-				 <!--	<embed src="pdfs/Detaching from Emotional Pain - Grounding.pdf" width="320px" type="application/pdf" height="393px" alt="pdf"
+            <div class="app__content">
+                <h1 align="center">Read about Grounding </h1>
+                <iframe src="web/viewer.html?file=https://facing-forward.org/pdfs/Detaching from Emotional Pain - Grounding.pdf" width="100%" height="600px" style="border: none;"></iframe>
+                <!--	<embed src="pdfs/Detaching from Emotional Pain - Grounding.pdf" width="320px" type="application/pdf" height="393px" alt="pdf"
 					pluginspage="https://www.adobe.com/products/acrobat/readstep2.html"> -->
-				<!-- Toast msg -->
-				<div class="toast__msg"></div>
-			</div>
+                <!-- Toast msg -->
+                <div class="toast__msg"></div>
+            </div>
 
-		</div>
-		<!--CONTACT	 MENU-->
-		<div id="contactMenuDIV">
+        </div>
+        <!--CONTACT	 MENU-->
+        <div id="contactMenuDIV">
 
-			<div class="app__content">
-				<h1 align="center">Contact Us</h1>
-				<br>
-				<p>If you need to contact us relates to this app study you can email <a
-						href="mailto:info@treatment-innovations.org">info@treatment-innovations.org</a> or text or call
-					<a href="tel:6172991610">617-299-1610</a></p>
+            <div class="app__content">
+                <h1 align="center">Contact Us</h1>
+                <br>
+                <p>If you need to contact us relates to this app study you can email <a href="mailto:info@treatment-innovations.org">info@treatment-innovations.org</a> or text or call
+                    <a href="tel:6172991610">617-299-1610</a></p>
 
-				<!-- Toast msg -->
-				<div class="toast__msg"></div>
-			</div>
+                <!-- Toast msg -->
+                <div class="toast__msg"></div>
+            </div>
 
-		</div>
+        </div>
 
-		<div id="iOSInstall" name="iOSInstall" class="ad2hs-prompt bounceInUp">
-				<h1>How to install Grounding App on iPhone</h1>
+        <div id="iOSInstall" name="iOSInstall" class="ad2hs-prompt bounceInUp">
+            <h1>How to install Grounding App on iPhone</h1>
 
-				<p>You can open a Grounding App on your iPhone, iPad or iPod touch with iOS 11.3 simply by visiting its URL in Safari. Please keep in mind that mobile Safari won’t launch App properly unless you enable Service Workers under Experimental WebKit Features in Settings → Safari (as a matter of fact, enable all experimental features in Safari).</p>
-				
-				<p>To put a "Grounding App" shortcut on your Home screen, do the following:</p>
-				
-				<ol>
-				<li>Tap the Share button in Safari for the Grounding App you’re using.</li>
-				
-				<li>Tap the icon labeled Add to Home Screen.</li>
-				
-				<li>Tap Add in the upper-right corner.</li>
-				
-				<li>Now name your App "Grounding App" so that it’s distinguishable from its native counterpart on the Home screen and in Search, then tap Add in the upper-right corner.</li>
-				
-				<li>You can now launch the Grounding App from your Home screen by tapping its icon.</li>
-				
-				</ol>
-				<br><br><br>
-				<p>Note that third-party browsers available on App Store (including Chrome, Firefox, Brave and Edge) are not allowed to “install” Grounding App and some of them don’t support Service Workers.<p>		<div>
-		</div>				
+            <p>You can open a Grounding App on your iPhone, iPad or iPod touch with iOS 11.3 simply by visiting its URL in Safari. Please keep in mind that mobile Safari won’t launch App properly unless you enable Service Workers under Experimental WebKit
+                Features in Settings → Safari (as a matter of fact, enable all experimental features in Safari).</p>
+
+            <p>To put a "Grounding App" shortcut on your Home screen, do the following:</p>
+
+            <ol>
+                <li>Tap the Share button in Safari for the Grounding App you’re using.</li>
+
+                <li>Tap the icon labeled Add to Home Screen.</li>
+
+                <li>Tap Add in the upper-right corner.</li>
+
+                <li>Now name your App "Grounding App" so that it’s distinguishable from its native counterpart on the Home screen and in Search, then tap Add in the upper-right corner.</li>
+
+                <li>You can now launch the Grounding App from your Home screen by tapping its icon.</li>
+
+            </ol>
+            <br><br><br>
+            <p>Note that third-party browsers available on App Store (including Chrome, Firefox, Brave and Edge) are not allowed to “install” Grounding App and some of them don’t support Service Workers.
+                <p>
+                    <div>
+                    </div>
 </body>
-	<script src="./js/toast.js"></script>
-	<script src="./js/main.js"></script>
-	<script src="./js/offline.js"></script>
-	<script src="./js/app.js"></script>
-	<script src="./js/push.js"></script>
-	<script src="./js/sync.js"></script>
-	<script src="./js/share.js"></script>
-	<script src="./js/menu.js"></script>
-	<script src="./js/jquery.min.js"></script>
+<script src="./js/toast.js"></script>
+<script src="./js/main.js"></script>
+<script src="./js/offline.js"></script>
+<script src="./js/app.js"></script>
+<script src="./js/push.js"></script>
+<script src="./js/sync.js"></script>
+<script src="./js/share.js"></script>
+<script src="./js/menu.js"></script>
+<script src="./js/jquery.min.js"></script>
 
 </html>
