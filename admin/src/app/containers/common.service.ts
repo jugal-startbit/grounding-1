@@ -19,7 +19,6 @@ export class CommonService {
     return body || { };
   }
   getApiUrl() {
-    //return 'http://192.168.1.21:5006';
     return 'https://grounding.herokuapp.com';
   }
   playNotification() {

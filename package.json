@@ -3,7 +3,7 @@
 	"description": "Treatment Innovations Grounding App",
 	"version": "1.0.0",
 	"private": true,
-	"author": "https://github.com/jugal-startbit",
+	"author": "",
 	"dependencies": {
 		"async": "^1.1.0",
 		"atob": "^2.1.2",
