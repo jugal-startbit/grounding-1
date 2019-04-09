@@ -116,7 +116,7 @@ export class ReviewComponent implements OnInit {
       title: 'Review',
       useBom: true,
       noDownload: false,
-      headers: [ 'Study ID', 'Study Initial','Rating','GroundingRate', 'RatingComment', 'Date & Time of Log']  /*, 'Total Cost', 'Paid Amount', 'Due Amount'*/
+      headers: [ 'Study ID', 'Study Initial','Rating','GroundingRate', 'RatingComment', 'Date & Time of Log']  
     };
     new Angular5Csv(localArray, 'Review', options);
   }
