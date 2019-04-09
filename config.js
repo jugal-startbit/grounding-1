@@ -3,7 +3,7 @@ var mongoose = require('mongoose');
 
 //Set up default mongoose connection
 
-var mongoDB = 'mongodb+srv://grounding:pwadmin2019@grounding-926u7.mongodb.net/Grounding';
+var mongoDB = 'mongodb+srv://teja:mean@cluster0-37hv6.mongodb.net/Grounding';
 mongoose.connect(mongoDB, { useNewUrlParser: true }, (err) => {
     if (err)
         console.log(err);
