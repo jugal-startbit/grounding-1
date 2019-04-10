@@ -1,6 +1,22 @@
 (function() {
     'use strict';
 
+    function logClickEvent(category, label) {
+        if (window.ga && ga.create) {
+            //Universal event tracking
+            //https://developers.google.com/analytics/devguides/collection/analyticsjs/events
+            ga('send', 'event', category, 'click', label, {
+                nonInteraction: true
+            });
+        } else if (window._gaq && _gaq._getAsyncTracker) {
+            //classic event tracking
+            //https://developers.google.com/analytics/devguides/collection/gajs/eventTrackerGuide
+            _gaq.push(['_trackEvent', category, 'click', label, 1, true]);
+        } else {
+            console.info('Google analytics not found in this page')
+        }
+    }
+
     function isMobileSafari() {
         return false;
         //return navigator.userAgent.match(/(iPod|iPhone|iPad)/) && navigator.userAgent.match(/AppleWebKit/)
@@ -385,7 +401,7 @@
             return;
         }
 
-
+        logClickEvent('doLogin', StudyInitials);
         divStudyID.value = '';
         divStudyInitials.value = '';
         localStorage.setItem('StudyID', StudyID);

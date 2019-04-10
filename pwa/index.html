@@ -294,12 +294,12 @@
 <script>
     window.dataLayer = window.dataLayer || [];
 
-    function gtag() {
+    function ga() {
         dataLayer.push(arguments);
     }
-    gtag('js', new Date());
+    ga('js', new Date());
 
-    gtag('config', 'UA-138071662-1');
+    ga('config', 'UA-138071662-1');
     /*  gtag('set', 'appName', 'GroundingApp');
      gtag('set', {
          'content_group1': 'My Group Name'
@@ -308,8 +308,7 @@
      // screenview hits don't need to include it.
      gtag('send', 'screenview', {
          screenName: 'Home'
-     }); */
-    ga('send', 'event', 'Pageview', 'read', 'Init');
+     });ga('send', 'event', 'Pageview', 'read', 'Init'); */
 </script>
 
 </html>
