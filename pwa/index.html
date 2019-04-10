@@ -300,7 +300,13 @@
     gtag('js', new Date());
 
     gtag('config', 'UA-138071662-1');
-    gtag('send', 'event', 'Study', 'Init');
+    gtag('set', 'appName', 'GroundingApp');
+
+    // The `appName` field is now set, so
+    // screenview hits don't need to include it.
+    gtag('send', 'screenview', {
+        screenName: 'Home'
+    });
 </script>
 
 </html>
