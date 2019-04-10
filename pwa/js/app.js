@@ -235,7 +235,6 @@
                 var data = "Event=" + previouspage + "&StudyID=" + StudyID + "&StudyInitials=" + StudyInitials + "&Duration=" + timeDifference + "&Session=" + localStorage.getItem('Session');
 
                 var xhr = new XMLHttpRequest();
-                xhr.withCredentials = true;
 
                 xhr.addEventListener("readystatechange", function() {
                     if (this.readyState === 4) {
@@ -449,17 +448,13 @@
                 }); */
             }
         });
-
         xhr.open("POST", "https://grounding.herokuapp.com/API/eventLogCreate");
         xhr.withCredentials = false;
         xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
         xhr.setRequestHeader("Access-Control-Allow-Origin", "https://facing-forward.org");
         xhr.setRequestHeader("cache-control", "no-cache");
         xhr.setRequestHeader("Postman-Token", "a5a1754d-842e-46d6-88f1-478c94bdf132");
-
         xhr.send(data);
-
-
     }
     //Add card click event
     addLoginBtnElement.addEventListener('click', doLoginFun, false);
