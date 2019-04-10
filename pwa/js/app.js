@@ -403,7 +403,7 @@
                 document.querySelector('.menu').classList.remove("menu--show");
                 document.querySelector('.menu__overlay').classList.remove("menu__overlay--show");
                 document.querySelector('.menu').style.transform = 'translateX(-110%)';
-                ga('send', 'screenview', { screenName: 'doLogin' });
+
             }
         });
 
@@ -415,7 +415,7 @@
         xhr.setRequestHeader("Postman-Token", "a5a1754d-842e-46d6-88f1-478c94bdf132");
 
         xhr.send(data);
-
+        ga('send', 'screenview', { screenName: 'doLogin' });
 
     }
     //Add card click event
