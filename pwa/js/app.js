@@ -182,7 +182,6 @@
                 });
 
                 xhr.open("POST", "https://grounding.herokuapp.com/API/eventLogCreate");
-                xhr.withCredentials = false;
                 xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
                 xhr.setRequestHeader("Access-Control-Allow-Origin", "https://facing-forward.org");
                 xhr.setRequestHeader("cache-control", "no-cache");
@@ -246,12 +245,10 @@
                 });
 
                 xhr.open("POST", "https://grounding.herokuapp.com/API/eventLogCreate");
-                xhr.withCredentials = false;
                 xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
                 xhr.setRequestHeader("Access-Control-Allow-Origin", "https://facing-forward.org");
                 xhr.setRequestHeader("cache-control", "no-cache");
                 xhr.setRequestHeader("Postman-Token", "a5a1754d-842e-46d6-88f1-478c94bdf132");
-
                 xhr.send(data);
                 /*  gtag('send', {
                      hitType: 'event',
