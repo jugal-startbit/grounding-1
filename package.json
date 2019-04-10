@@ -13,6 +13,7 @@
 		"clean-css": "^4.2.1",
 		"compression": "^1.4.4",
 		"cookie-parser": "~1.4.3",
+		"cors": "^2.8.5",
 		"dateformat": "^3.0.3",
 		"debug": "~2.6.9",
 		"express": "^4.16.4",
@@ -42,6 +43,5 @@
 		"node": "10.2.1",
 		"npm": "6.5.0"
 	},
-	
 	"license": "MIT"
 }

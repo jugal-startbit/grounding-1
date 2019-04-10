@@ -9,8 +9,18 @@ var bodyParser = require('body-parser');
 var gcm = require('node-gcm');
 const config = require('./config');
 var app = express(); //,
-
-//Here we are configuring express to use body-parser as middle-ware.
+var cors = require('cors');
+var whitelist = ['https://facing-forward.org/', 'https://grounding.herokuapp.com/']
+var corsOptionsDelegate = function(req, callback) {
+        var corsOptions;
+        if (whitelist.indexOf(req.header('Origin')) !== -1) {
+            corsOptions = { origin: true } // reflect (enable) the requested origin in the CORS response
+        } else {
+            corsOptions = { origin: false } // disable CORS for this request
+        }
+        callback(null, corsOptions) // callback expects two parameters: error and options
+    }
+    //Here we are configuring express to use body-parser as middle-ware.
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
@@ -18,7 +28,7 @@ app.use(bodyParser.json());
 //h5bp({ root: __dirname + '/public' })
 app.use(express.static(__dirname));
 //To allow cross origin request
-app.use(function(req, res, next) {
+/* app.use(function(req, res, next) {
     res.header('Access-Control-Allow-Origin', '*');
     res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE,OPTIONS');
     res.header('Access-Control-Allow-Headers', 'Content-type,Accept,X-Custom-Header');
@@ -28,7 +38,7 @@ app.use(function(req, res, next) {
         res.header('Access-Control-Allow-Origin', '*');
     }
     next();
-});
+}); */
 
 //To server index.html page
 // app.get('/', function (req, res) {
@@ -39,15 +49,15 @@ app.use((req, res, next) => {
     next();
 });
 
-app.use('/', mainRoute);
-app.use('/admin', signin);
+app.use('/', cors(corsOptionsDelegate), mainRoute);
+app.use('/admin', cors(corsOptionsDelegate), signin);
 const login = require('./models/login.model');
 const review = require('./models/review.model');
 const contactUs = require('./models/contactUs.model');
 const aboutUs = require('./models/aboutUs.model');
 const aboutGroundingLog = require('./models/aboutGroundingLog.model');
 const logout = require('./models/logout.model');
-app.post('/API/eventLogCreate', function(req, res, next) {
+app.post('/API/eventLogCreate', cors(corsOptionsDelegate), function(req, res, next) {
     let data = req.body;
     data.DateTime = new Date();
     /* .toLocaleString('en-US', {
