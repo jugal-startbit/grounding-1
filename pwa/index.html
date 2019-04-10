@@ -300,16 +300,16 @@
     gtag('js', new Date());
 
     gtag('config', 'UA-138071662-1');
-    gtag('set', 'appName', 'GroundingApp');
-    gtag('set', {
-        'content_group1': 'My Group Name'
-    });
-    // The `appName` field is now set, so
-    // screenview hits don't need to include it.
-    gtag('send', 'screenview', {
-        screenName: 'Home'
-    });
-    ga('send', 'event', 'Videos', 'play', 'Fall Campaign');
+    /*  gtag('set', 'appName', 'GroundingApp');
+     gtag('set', {
+         'content_group1': 'My Group Name'
+     });
+     // The `appName` field is now set, so
+     // screenview hits don't need to include it.
+     gtag('send', 'screenview', {
+         screenName: 'Home'
+     }); */
+    ga('send', 'event', 'Pageview', 'read', 'Init');
 </script>
 
 </html>
