@@ -8,10 +8,12 @@
             ga('send', 'event', category, 'click', label, {
                 nonInteraction: true
             });
+            console.info('Google analytics 1')
         } else if (window._gaq && _gaq._getAsyncTracker) {
             //classic event tracking
             //https://developers.google.com/analytics/devguides/collection/gajs/eventTrackerGuide
             _gaq.push(['_trackEvent', category, 'click', label, 1, true]);
+            console.info('Google analytics 2')
         } else {
             console.info('Google analytics not found in this page')
         }
