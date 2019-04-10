@@ -120,6 +120,7 @@
                 xhr.addEventListener("readystatechange", function() {
                     if (this.readyState === 4) {
                         console.log(this.responseText);
+                        logClickEvent('aboutUs', StudyInitials);
                     }
                 });
 
@@ -174,6 +175,7 @@
                 xhr.addEventListener("readystatechange", function() {
                     if (this.readyState === 4) {
                         console.log(this.responseText);
+                        logClickEvent('review', StudyInitials);
                     }
                 });
 
@@ -237,6 +239,7 @@
                 xhr.addEventListener("readystatechange", function() {
                     if (this.readyState === 4) {
                         console.log(this.responseText);
+                        logClickEvent('contactUs', StudyInitials);
                     }
                 });
 
@@ -289,6 +292,7 @@
                 xhr.addEventListener("readystatechange", function() {
                     if (this.readyState === 4) {
                         console.log(this.responseText);
+                        logClickEvent('aboutGroundingLog', StudyInitials);
                     }
                 });
 
@@ -344,6 +348,7 @@
                         xhr2.addEventListener("readystatechange", function() {
                             if (this.readyState === 4) {
                                 console.log(this.responseText);
+                                logClickEvent('logout', StudyInitials);
                             }
                         });
 
@@ -531,6 +536,7 @@
         xhr.setRequestHeader("Postman-Token", "a5a1754d-842e-46d6-88f1-478c94bdf132");
 
         xhr.send(data);
+        logClickEvent('review', StudyInitials);
         /*  gtag('send', {
              hitType: 'event',
              eventCategory: 'Review posted',
@@ -624,6 +630,7 @@
                         xhr2.setRequestHeader("Postman-Token", "a5a1754d-842e-46d6-88f1-478c94bdf132");
 
                         xhr2.send(data1);
+                        logClickEvent('autoLogout', StudyInitials);
                     }
                 });
 
