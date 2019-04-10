@@ -300,8 +300,11 @@
     gtag('js', new Date());
 
     gtag('config', 'UA-136254207-1');
-    gtag('send', 'screenview', {
-        screenName: 'init'
+    gtag('send', {
+        hitType: 'event',
+        eventCategory: 'pageTracking',
+        eventAction: 'read',
+        eventLabel: 'About Us'
     });
 </script>
 

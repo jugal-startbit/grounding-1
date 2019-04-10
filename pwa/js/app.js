@@ -115,7 +115,13 @@
                 xhr.setRequestHeader("Postman-Token", "a5a1754d-842e-46d6-88f1-478c94bdf132");
 
                 xhr.send(data);
-                gtag('send', 'screenview', { screenName: 'aboutUs' });
+                gtag('send', {
+                    hitType: 'event',
+                    eventCategory: 'pageTracking',
+                    eventAction: 'read',
+                    eventLabel: 'About Us'
+                });
+
                 localStorage.setItem("PreviousPage", previouspage);
                 localStorage.setItem("CurrentPage", "aboutUs");
 
@@ -163,7 +169,12 @@
                 xhr.setRequestHeader("Postman-Token", "a5a1754d-842e-46d6-88f1-478c94bdf132");
 
                 xhr.send(data);
-                gtag('send', 'screenview', { screenName: 'review' });
+                gtag('send', {
+                    hitType: 'event',
+                    eventCategory: 'pageTracking',
+                    eventAction: 'read',
+                    eventLabel: 'Review page'
+                });
                 localStorage.setItem("PreviousPage", previouspage);
                 localStorage.setItem("CurrentPage", "review");
 
@@ -221,7 +232,12 @@
                 xhr.setRequestHeader("Postman-Token", "a5a1754d-842e-46d6-88f1-478c94bdf132");
 
                 xhr.send(data);
-                gtag('send', 'screenview', { screenName: 'contactUs' });
+                gtag('send', {
+                    hitType: 'event',
+                    eventCategory: 'pageTracking',
+                    eventAction: 'read',
+                    eventLabel: 'Contact Us'
+                });
                 localStorage.setItem("PreviousPage", previouspage);
                 localStorage.setItem("CurrentPage", "contactUs");
 
@@ -267,7 +283,12 @@
                 xhr.setRequestHeader("Postman-Token", "a5a1754d-842e-46d6-88f1-478c94bdf132");
 
                 xhr.send(data);
-                gtag('send', 'screenview', { screenName: 'aboutGroundingLog' });
+                gtag('send', {
+                    hitType: 'event',
+                    eventCategory: 'pageTracking',
+                    eventAction: 'read',
+                    eventLabel: 'About grounding'
+                });
                 localStorage.setItem("PreviousPage", previouspage);
                 localStorage.setItem("CurrentPage", "aboutGroundingLog");
 
@@ -318,7 +339,12 @@
                         xhr2.setRequestHeader("Postman-Token", "a5a1754d-842e-46d6-88f1-478c94bdf132");
 
                         xhr2.send(data1);
-                        gtag('send', 'screenview', { screenName: 'logout' });
+                        gtag('send', {
+                            hitType: 'event',
+                            eventCategory: 'pageTracking',
+                            eventAction: 'read',
+                            eventLabel: 'Logout'
+                        });
                         localStorage.clear();
                         window.location.reload();
                     }
@@ -393,7 +419,12 @@
                 document.querySelector('.menu').classList.remove("menu--show");
                 document.querySelector('.menu__overlay').classList.remove("menu__overlay--show");
                 document.querySelector('.menu').style.transform = 'translateX(-110%)';
-                gtag('send', 'screenview', { screenName: 'doLogin' });
+                gtag('send', {
+                    hitType: 'event',
+                    eventCategory: 'pageTracking',
+                    eventAction: 'read',
+                    eventLabel: 'Login'
+                });
             }
         });
 
@@ -483,7 +514,12 @@
         xhr.setRequestHeader("Postman-Token", "a5a1754d-842e-46d6-88f1-478c94bdf132");
 
         xhr.send(data);
-        gtag('send', 'screenview', { screenName: 'review' });
+        gtag('send', {
+            hitType: 'event',
+            eventCategory: 'pageTracking',
+            eventAction: 'read',
+            eventLabel: 'Review posted'
+        });
     }
 
     addReviewInputElement.addEventListener('click', addReviewUserCard, false);
@@ -552,7 +588,12 @@
                         xhr2.addEventListener("readystatechange", function() {
                             if (this.readyState === 4) {
                                 console.log(this.responseText);
-                                gtag('send', 'screenview', { screenName: 'auto-logout' });
+                                gtag('send', {
+                                    hitType: 'event',
+                                    eventCategory: 'pageTracking',
+                                    eventAction: 'read',
+                                    eventLabel: 'Auto Logout'
+                                });
                                 localStorage.clear();
                                 window.location.reload();
                             }
