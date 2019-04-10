@@ -1,10 +1,5 @@
 (function() {
     'use strict';
-    window.ga = window.ga || function() {
-        (ga.q = ga.q || []).push(arguments)
-    };
-    ga.l = +new Date;
-    ga('create', 'UA-137800914-1', 'auto');
 
     function isMobileSafari() {
         return false;
@@ -120,12 +115,7 @@
                 xhr.setRequestHeader("Postman-Token", "a5a1754d-842e-46d6-88f1-478c94bdf132");
 
                 xhr.send(data);
-                window.ga = window.ga || function() {
-                    (ga.q = ga.q || []).push(arguments)
-                };
-                ga.l = +new Date;
-                ga('create', 'UA-137800914-1', 'auto');
-                ga('send', 'screenview', { screenName: 'aboutUs' });
+                gtag('send', 'screenview', { screenName: 'aboutUs' });
                 localStorage.setItem("PreviousPage", previouspage);
                 localStorage.setItem("CurrentPage", "aboutUs");
 
@@ -173,12 +163,7 @@
                 xhr.setRequestHeader("Postman-Token", "a5a1754d-842e-46d6-88f1-478c94bdf132");
 
                 xhr.send(data);
-                window.ga = window.ga || function() {
-                    (ga.q = ga.q || []).push(arguments)
-                };
-                ga.l = +new Date;
-                ga('create', 'UA-137800914-1', 'auto');
-                ga('send', 'screenview', { screenName: 'review' });
+                gtag('send', 'screenview', { screenName: 'review' });
                 localStorage.setItem("PreviousPage", previouspage);
                 localStorage.setItem("CurrentPage", "review");
 
@@ -236,12 +221,7 @@
                 xhr.setRequestHeader("Postman-Token", "a5a1754d-842e-46d6-88f1-478c94bdf132");
 
                 xhr.send(data);
-                window.ga = window.ga || function() {
-                    (ga.q = ga.q || []).push(arguments)
-                };
-                ga.l = +new Date;
-                ga('create', 'UA-137800914-1', 'auto');
-                ga('send', 'screenview', { screenName: 'contactUs' });
+                gtag('send', 'screenview', { screenName: 'contactUs' });
                 localStorage.setItem("PreviousPage", previouspage);
                 localStorage.setItem("CurrentPage", "contactUs");
 
@@ -287,12 +267,7 @@
                 xhr.setRequestHeader("Postman-Token", "a5a1754d-842e-46d6-88f1-478c94bdf132");
 
                 xhr.send(data);
-                window.ga = window.ga || function() {
-                    (ga.q = ga.q || []).push(arguments)
-                };
-                ga.l = +new Date;
-                ga('create', 'UA-137800914-1', 'auto');
-                ga('send', 'screenview', { screenName: 'aboutGroundingLog' });
+                gtag('send', 'screenview', { screenName: 'aboutGroundingLog' });
                 localStorage.setItem("PreviousPage", previouspage);
                 localStorage.setItem("CurrentPage", "aboutGroundingLog");
 
@@ -343,12 +318,7 @@
                         xhr2.setRequestHeader("Postman-Token", "a5a1754d-842e-46d6-88f1-478c94bdf132");
 
                         xhr2.send(data1);
-                        window.ga = window.ga || function() {
-                            (ga.q = ga.q || []).push(arguments)
-                        };
-                        ga.l = +new Date;
-                        ga('create', 'UA-137800914-1', 'auto');
-                        ga('send', 'screenview', { screenName: 'logout' });
+                        gtag('send', 'screenview', { screenName: 'logout' });
                         localStorage.clear();
                         window.location.reload();
                     }
@@ -423,12 +393,7 @@
                 document.querySelector('.menu').classList.remove("menu--show");
                 document.querySelector('.menu__overlay').classList.remove("menu__overlay--show");
                 document.querySelector('.menu').style.transform = 'translateX(-110%)';
-                window.ga = window.ga || function() {
-                    (ga.q = ga.q || []).push(arguments)
-                };
-                ga.l = +new Date;
-                ga('create', 'UA-137800914-1', 'auto');
-                ga('send', 'screenview', { screenName: 'doLogin' });
+                gtag('send', 'screenview', { screenName: 'doLogin' });
             }
         });
 
@@ -518,12 +483,7 @@
         xhr.setRequestHeader("Postman-Token", "a5a1754d-842e-46d6-88f1-478c94bdf132");
 
         xhr.send(data);
-        window.ga = window.ga || function() {
-            (ga.q = ga.q || []).push(arguments)
-        };
-        ga.l = +new Date;
-        ga('create', 'UA-137800914-1', 'auto');
-        ga('send', 'screenview', { screenName: 'review' });
+        gtag('send', 'screenview', { screenName: 'review' });
     }
 
     addReviewInputElement.addEventListener('click', addReviewUserCard, false);
@@ -592,12 +552,7 @@
                         xhr2.addEventListener("readystatechange", function() {
                             if (this.readyState === 4) {
                                 console.log(this.responseText);
-                                window.ga = window.ga || function() {
-                                    (ga.q = ga.q || []).push(arguments)
-                                };
-                                ga.l = +new Date;
-                                ga('create', 'UA-137800914-1', 'auto');
-                                ga('send', 'screenview', { screenName: 'auto-logout' });
+                                gtag('send', 'screenview', { screenName: 'auto-logout' });
                                 localStorage.clear();
                                 window.location.reload();
                             }
