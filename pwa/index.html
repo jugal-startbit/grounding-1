@@ -300,12 +300,7 @@
     gtag('js', new Date());
 
     gtag('config', 'UA-138071662-1');
-    gtag('send', {
-        hitType: 'event',
-        eventCategory: 'Study',
-        eventAction: 'read',
-        eventLabel: 'Init'
-    });
+    gtag('send', 'event', 'Study', 'Init');
 </script>
 
 </html>
