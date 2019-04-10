@@ -419,6 +419,7 @@
                 document.querySelector('.menu').classList.remove("menu--show");
                 document.querySelector('.menu__overlay').classList.remove("menu__overlay--show");
                 document.querySelector('.menu').style.transform = 'translateX(-110%)';
+                gtag('set', 'userId', StudyID + "_" + StudyInitials); // Set the user ID using signed-in user_id.
                 gtag('send', {
                     hitType: 'event',
                     eventCategory: 'pageTracking',
