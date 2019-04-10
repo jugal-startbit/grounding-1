@@ -1,5 +1,10 @@
 (function() {
     'use strict';
+    window.ga = window.ga || function() {
+        (ga.q = ga.q || []).push(arguments)
+    };
+    ga.l = +new Date;
+    ga('create', 'UA-137800914-1', 'auto');
 
     function isMobileSafari() {
         return false;
