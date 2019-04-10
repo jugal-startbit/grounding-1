@@ -5,7 +5,6 @@ import { MatDialog, MatDialogRef  } from '@angular/material';
 import { AuthenticationService } from '../_services/authentication.service';
 import { HttpClient, HttpHeaders, HttpErrorResponse } from '@angular/common/http';
 import { CommonService} from '../common.service';
-import { RoleService} from '../../views/settings/role/role.service';
 
 @Component({
   selector: 'app-dashboard',
@@ -24,8 +23,7 @@ export class DefaultLayoutComponent implements OnDestroy {
     private authenticationService: AuthenticationService,
     public dialog: MatDialog,
     public http: HttpClient,
-    public commonService: CommonService,
-    public roleService: RoleService
+    public commonService: CommonService
   ) {
     this.localStorage = JSON.parse(localStorage.getItem('currentUser'));
 
