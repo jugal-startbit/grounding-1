@@ -42,6 +42,11 @@ export const routes: Routes = [
         canActivate: [AuthGuard]
       },
       {
+        path: 'loginEvent',
+        loadChildren: './views/loginEvents/loginEvents.module#LoginEventsModule',
+        canActivate: [AuthGuard]
+      },
+      {
         path: 'aboutusEvent',
         loadChildren: './views/aboutusEvents/aboutusEvents.module#AboutusEventsModule',
         canActivate: [AuthGuard]
