@@ -1,18 +1,5 @@
 (function() {
     'use strict';
-    var ga = document.createElement('script');
-    document.addEventListener('DOMContentLoaded', function() {
-        var _gaq = _gaq || [];
-        _gaq.push(['_setAccount', 'UA-137800914-1']);
-        _gaq.push(['_trackPageview']);
-
-
-        ga.type = 'text/javascript';
-        ga.async = true;
-        ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
-        var s = document.getElementsByTagName('script')[0];
-        s.parentNode.insertBefore(ga, s);
-    });
 
     function isMobileSafari() {
         return false;
@@ -406,7 +393,7 @@
                 document.querySelector('.menu').classList.remove("menu--show");
                 document.querySelector('.menu__overlay').classList.remove("menu__overlay--show");
                 document.querySelector('.menu').style.transform = 'translateX(-110%)';
-
+                ga('send', 'screenview', { screenName: 'doLogin' });
             }
         });
 
@@ -418,7 +405,7 @@
         xhr.setRequestHeader("Postman-Token", "a5a1754d-842e-46d6-88f1-478c94bdf132");
 
         xhr.send(data);
-        ga('send', 'screenview', { screenName: 'doLogin' });
+
 
     }
     //Add card click event
