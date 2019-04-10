@@ -122,7 +122,7 @@
                 xhr.addEventListener("readystatechange", function() {
                     if (this.readyState === 4) {
                         console.log(this.responseText);
-                        logClickEvent('aboutUs', StudyInitials);
+                        logClickEvent('About Us', StudyInitials);
                     }
                 });
 
@@ -177,7 +177,7 @@
                 xhr.addEventListener("readystatechange", function() {
                     if (this.readyState === 4) {
                         console.log(this.responseText);
-                        logClickEvent('review', StudyInitials);
+                        logClickEvent('Review', StudyInitials);
                     }
                 });
 
@@ -241,7 +241,7 @@
                 xhr.addEventListener("readystatechange", function() {
                     if (this.readyState === 4) {
                         console.log(this.responseText);
-                        logClickEvent('contactUs', StudyInitials);
+                        logClickEvent('Contact Us', StudyInitials);
                     }
                 });
 
@@ -294,7 +294,7 @@
                 xhr.addEventListener("readystatechange", function() {
                     if (this.readyState === 4) {
                         console.log(this.responseText);
-                        logClickEvent('aboutGroundingLog', StudyInitials);
+                        logClickEvent('Read PDF', StudyInitials);
                     }
                 });
 
@@ -350,7 +350,7 @@
                         xhr2.addEventListener("readystatechange", function() {
                             if (this.readyState === 4) {
                                 console.log(this.responseText);
-                                logClickEvent('logout', StudyInitials);
+                                logClickEvent('Logout', StudyInitials);
                             }
                         });
 
@@ -408,7 +408,7 @@
             return;
         }
 
-        logClickEvent('doLogin', StudyInitials);
+
         divStudyID.value = '';
         divStudyInitials.value = '';
         localStorage.setItem('StudyID', StudyID);
@@ -432,7 +432,7 @@
         xhr.addEventListener("readystatechange", function() {
             if (this.readyState === 4) {
                 console.log(this.responseText);
-
+                logClickEvent('Login', StudyInitials);
                 document.querySelector('#menu_header').style.display = 'inherit';
                 document.querySelector('#authorMenuDIV').style.display = 'inherit';
                 document.querySelector('#aboutUsMenuDIV').style.display = 'none';
@@ -538,7 +538,7 @@
         xhr.setRequestHeader("Postman-Token", "a5a1754d-842e-46d6-88f1-478c94bdf132");
 
         xhr.send(data);
-        logClickEvent('review', StudyInitials);
+        //logClickEvent('review', StudyInitials);
         /*  gtag('send', {
              hitType: 'event',
              eventCategory: 'Review posted',
@@ -613,6 +613,7 @@
                         xhr2.addEventListener("readystatechange", function() {
                             if (this.readyState === 4) {
                                 console.log(this.responseText);
+                                logClickEvent('Auto Logout', StudyInitials);
                                 /*  gtag('send', {
                                      hitType: 'event',
                                      eventCategory: 'Auto Logout',
@@ -632,7 +633,6 @@
                         xhr2.setRequestHeader("Postman-Token", "a5a1754d-842e-46d6-88f1-478c94bdf132");
 
                         xhr2.send(data1);
-                        logClickEvent('autoLogout', StudyInitials);
                     }
                 });
 
