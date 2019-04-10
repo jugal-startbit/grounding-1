@@ -117,7 +117,7 @@
                 xhr.send(data);
                 gtag('send', {
                     hitType: 'event',
-                    eventCategory: 'pageTracking',
+                    eventCategory: 'About Us',
                     eventAction: 'read',
                     eventLabel: 'About Us'
                 });
@@ -171,7 +171,7 @@
                 xhr.send(data);
                 gtag('send', {
                     hitType: 'event',
-                    eventCategory: 'pageTracking',
+                    eventCategory: 'Review page',
                     eventAction: 'read',
                     eventLabel: 'Review page'
                 });
@@ -234,7 +234,7 @@
                 xhr.send(data);
                 gtag('send', {
                     hitType: 'event',
-                    eventCategory: 'pageTracking',
+                    eventCategory: 'Contact Us',
                     eventAction: 'read',
                     eventLabel: 'Contact Us'
                 });
@@ -285,7 +285,7 @@
                 xhr.send(data);
                 gtag('send', {
                     hitType: 'event',
-                    eventCategory: 'pageTracking',
+                    eventCategory: 'About grounding',
                     eventAction: 'read',
                     eventLabel: 'About grounding'
                 });
@@ -341,7 +341,7 @@
                         xhr2.send(data1);
                         gtag('send', {
                             hitType: 'event',
-                            eventCategory: 'pageTracking',
+                            eventCategory: 'Logout',
                             eventAction: 'read',
                             eventLabel: 'Logout'
                         });
@@ -422,7 +422,7 @@
                 gtag('set', 'userId', StudyID + "_" + StudyInitials); // Set the user ID using signed-in user_id.
                 gtag('send', {
                     hitType: 'event',
-                    eventCategory: 'pageTracking',
+                    eventCategory: 'Login',
                     eventAction: 'read',
                     eventLabel: 'Login'
                 });
@@ -517,7 +517,7 @@
         xhr.send(data);
         gtag('send', {
             hitType: 'event',
-            eventCategory: 'pageTracking',
+            eventCategory: 'Review posted',
             eventAction: 'read',
             eventLabel: 'Review posted'
         });
@@ -591,7 +591,7 @@
                                 console.log(this.responseText);
                                 gtag('send', {
                                     hitType: 'event',
-                                    eventCategory: 'pageTracking',
+                                    eventCategory: 'Auto Logout',
                                     eventAction: 'read',
                                     eventLabel: 'Auto Logout'
                                 });
