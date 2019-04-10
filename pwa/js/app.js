@@ -1,7 +1,7 @@
 (function() {
     'use strict';
     var ga = document.createElement('script');
-    $(document).ready(function() {
+    document.addEventListener('DOMContentLoaded', function() {
         var _gaq = _gaq || [];
         _gaq.push(['_setAccount', 'UA-137800914-1']);
         _gaq.push(['_trackPageview']);
