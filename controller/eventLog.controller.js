@@ -694,8 +694,10 @@ exports.getAllAboutUs = function(req, res, next) {
 exports.getAllAboutUsByFilter = function(req, res, next) {
     let From = req.body.FromDate;
     let To = req.body.ToDate;
-    let startDate = dateFormat(From, 'yyyy-mm-dd 23:59:59');
-    let endDate = dateFormat(To, 'yyyy-mm-dd 00:00:00');
+    let startDate = dateFormat(From, 'yyyy-mm-dd 00:00:00');
+    startDate.setDate(startDate.getDate() - 1);
+    let endDate = dateFormat(To, 'yyyy-mm-dd 23:59:59');
+    endDate.setDate(endDate.getDate() - 1);
     let Session = req.body.Session;
     let StudyInitials = req.body.StudyInitials;
     let StudyID = req.body.StudyID;
