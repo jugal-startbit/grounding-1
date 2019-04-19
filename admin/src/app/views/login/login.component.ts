@@ -22,7 +22,7 @@ export class LoginComponent implements OnInit{
     private route: ActivatedRoute,
     ) {
     if (this.authenticationService.currentUserValue) {
-      this.router.navigate(['/loginEvent']);
+      this.router.navigate(['/aboutusEvent']);
     } else {
       this.showLoginForm = true;
     }
@@ -36,7 +36,7 @@ export class LoginComponent implements OnInit{
       UserName: ['', Validators.required],
       Password: ['', Validators.required]
     });
-    this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/loginEvent';
+    this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/aboutusEvent';
   }
 
   registerPage() {

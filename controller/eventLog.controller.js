@@ -12,7 +12,7 @@ var dateFormat = require('dateformat');
 
 
 // create
-exports.create = function (req, res, next) {
+exports.create = function(req, res, next) {
     let data = req.body;
     data.dateTime = new Date();
     /*.toLocaleString('en-US', {
@@ -34,25 +34,19 @@ exports.create = function (req, res, next) {
     let localVar;
     if (data.Event == 'doLogin') {
         localVar = login;
-    }
-    else if (data.Event == 'dashboard') {
+    } else if (data.Event == 'dashboard') {
         localVar = dashboard;
-    }
-    else if (data.Event == 'contactUs') {
+    } else if (data.Event == 'contactUs') {
         localVar = contactUs;
-    }
-    else if (data.Event == 'aboutUs') {
+    } else if (data.Event == 'aboutUs') {
         localVar = aboutUs;
-    }
-    else if (data.Event == 'aboutGroundingLog') {
+    } else if (data.Event == 'aboutGroundingLog') {
         localVar = aboutGroundingLog;
-    }
-    else if (data.Event == 'review') {
+    } else if (data.Event == 'review') {
         localVar = review;
-    }else if (data.Event == 'logout') {
+    } else if (data.Event == 'logout') {
         localVar = logout;
-    }
-    else {
+    } else {
         res.status(200).json({
             'status': false,
             'message': 'Invalid event name',
@@ -60,7 +54,7 @@ exports.create = function (req, res, next) {
         })
     }
     localVar = new localVar(data);
-    localVar.save(function (err) {
+    localVar.save(function(err) {
         if (err) {
             return next(err);
         }
@@ -73,30 +67,30 @@ exports.create = function (req, res, next) {
 }
 
 // Review Create
-exports.reviewCreate = function (req, res, next) {
-    let data = req.body;
-    let localVar;
-    data.DateTime = new Date()
-    /*.toLocaleString('en-US', {
-        timeZone: 'Eastern Time (US & Canada)'
-      });*/
-    data.Active = 1;
-    console.log(data);
-    localVar = review;
-    localVar = new review(data);
-    localVar.save(function (err) {
-        if (err) {
-            return next(err);
-        }
-        res.status(200).json({
-            'status': true,
-            'message': 'Successfully review created',
-            'result': localVar
+exports.reviewCreate = function(req, res, next) {
+        let data = req.body;
+        let localVar;
+        data.DateTime = new Date()
+            /*.toLocaleString('en-US', {
+                timeZone: 'Eastern Time (US & Canada)'
+              });*/
+        data.Active = 1;
+        console.log(data);
+        localVar = review;
+        localVar = new review(data);
+        localVar.save(function(err) {
+            if (err) {
+                return next(err);
+            }
+            res.status(200).json({
+                'status': true,
+                'message': 'Successfully review created',
+                'result': localVar
+            })
         })
-    })
-}
-// FeedBack Create
-exports.feedbackCreate = function (req, res, next) {
+    }
+    // FeedBack Create
+exports.feedbackCreate = function(req, res, next) {
     let data = req.body;
     let localVar;
     data.DateTime = new Date();
@@ -107,7 +101,7 @@ exports.feedbackCreate = function (req, res, next) {
     console.log(data);
     localVar = feedback;
     localVar = new feedback(data);
-    localVar.save(function (err) {
+    localVar.save(function(err) {
         if (err) {
             return next(err);
         }
@@ -120,12 +114,12 @@ exports.feedbackCreate = function (req, res, next) {
 }
 
 // getAlllogin
-exports.getAllReview = function (req, res, next) {
+exports.getAllReview = function(req, res, next) {
     review.find()
-        .sort({_id: 'desc'})
-        .exec(function (err, data) {
+        .sort({ _id: 'desc' })
+        .exec(function(err, data) {
             if (err) res.send(err);
-            else{
+            else {
                 res.status(200).json({
                     'status': true,
                     'message': 'Success',
@@ -136,19 +130,19 @@ exports.getAllReview = function (req, res, next) {
 }
 
 // getAlllogin
-exports.getAllReviewByFilter = function (req, res, next) {
+exports.getAllReviewByFilter = function(req, res, next) {
     let StudyInitials = req.body.StudyInitials;
     let StudyID = req.body.StudyID;
     var condition = {};
     if (StudyInitials != null || StudyInitials != undefined) {
-        condition.StudyInitials = {'$regex': StudyInitials};
+        condition.StudyInitials = { '$regex': StudyInitials };
     }
     if (StudyID != null || StudyID != undefined) {
-        condition.StudyID = {'$regex': StudyID};
+        condition.StudyID = { '$regex': StudyID };
     }
     review.find(condition)
-        .sort({_id: 'desc'})
-        .exec(function (err, data) {
+        .sort({ _id: 'desc' })
+        .exec(function(err, data) {
             if (err) res.send(err);
             else
                 res.status(200).json({
@@ -160,79 +154,73 @@ exports.getAllReviewByFilter = function (req, res, next) {
 }
 
 // getAlllogin
-exports.getAllLogin = function (req, res, next) {
+exports.getAllLogin = function(req, res, next) {
     login.find()
-        .sort({_id: 'desc'})
-        .exec(function (err, data) {
+        .sort({ _id: 'desc' })
+        .exec(function(err, data) {
             if (err) res.send(err);
             else
-                login.aggregate([
-                    {
-                        "$project":
-                            {
-                                _id: 0,
-                                'StudyInitials': "$StudyInitials",
-                                'Duration': "$Duration",
-                                'StudyID': "$StudyID",
-                                "datePartDay": {
-                                    "$concat": [
-                                        {"$substr": [{"$month": "$DateTime"}, 0, 2]}, "/",
-                                        {"$substr": [{"$dayOfMonth": "$DateTime"}, 0, 2]}, "/",
-                                        {"$substr": [{"$year": "$DateTime"}, 0, 4]}, " ",
-                                        {"$substr": [{"$hour": "$DateTime"}, 0, 2]}, ":",
-                                        {"$substr": [{"$minute": "$DateTime"}, 0, 2]}, ":",
-                                        {"$substr": [{"$second": "$DateTime"}, 0, 2]}
-                                    ]
-                                },
-                            }
+                login.aggregate([{
+                        "$project": {
+                            _id: 0,
+                            'StudyInitials': "$StudyInitials",
+                            'Duration': "$Duration",
+                            'StudyID': "$StudyID",
+                            "datePartDay": {
+                                "$concat": [
+                                    { "$substr": [{ "$month": "$DateTime" }, 0, 2] }, "/",
+                                    { "$substr": [{ "$dayOfMonth": "$DateTime" }, 0, 2] }, "/",
+                                    { "$substr": [{ "$year": "$DateTime" }, 0, 4] }, " ",
+                                    { "$substr": [{ "$hour": "$DateTime" }, 0, 2] }, ":",
+                                    { "$substr": [{ "$minute": "$DateTime" }, 0, 2] }, ":",
+                                    { "$substr": [{ "$second": "$DateTime" }, 0, 2] }
+                                ]
+                            },
+                        }
                     },
                     {
-                        "$group":
-                            {
-                                _id: {day: "$datePartDay", StudyID: "$StudyID", StudyInitials: "$StudyInitials"},
-                                totalAmount:
-                                    {
-                                        $sum: "$Duration"
-                                    }
-                                ,
-                                count: {
-                                    $sum: 1
-                                }
+                        "$group": {
+                            _id: { day: "$datePartDay", StudyID: "$StudyID", StudyInitials: "$StudyInitials" },
+                            totalAmount: {
+                                $sum: "$Duration"
+                            },
+                            count: {
+                                $sum: 1
                             }
+                        }
                     }
                 ])
-                    .exec(function (err, result) {
-                        if (err) res.send(err);
-                        else
-                            console.log("tiem");
-                        var group = result.map((row) => {
-                            var secs = row.totalAmount;
-                            var hours = Math.floor(secs / (60 * 60));
-   
-                            var divisor_for_minutes = secs % (60 * 60);
-                            var minutes = Math.floor(divisor_for_minutes / 60);
-                         
-                            var divisor_for_seconds = divisor_for_minutes % 60;
-                            var seconds = Math.floor(divisor_for_seconds);
-                            var result = (hours < 10 ? "0" + hours : hours) + ":" + (minutes < 10 ? "0" + minutes : minutes) + ":" + (seconds  < 10 ? "0" + seconds : seconds);
+                .exec(function(err, result) {
+                    if (err) res.send(err);
+                    else
+                        console.log("tiem");
+                    var group = result.map((row) => {
+                        var secs = row.totalAmount;
+                        var hours = Math.floor(secs / (60 * 60));
 
-                            var time = result;
+                        var divisor_for_minutes = secs % (60 * 60);
+                        var minutes = Math.floor(divisor_for_minutes / 60);
+
+                        var divisor_for_seconds = divisor_for_minutes % 60;
+                        var seconds = Math.floor(divisor_for_seconds);
+                        var result = (hours < 10 ? "0" + hours : hours) + ":" + (minutes < 10 ? "0" + minutes : minutes) + ":" + (seconds < 10 ? "0" + seconds : seconds);
+
+                        var time = result;
                         row.Time = time;
                         return row;
+                    });
+                    res.status(200).json({
+                        'status': true,
+                        'message': 'Success',
+                        'result': data,
+                        'Group': group,
                     })
-                        ;
-                        res.status(200).json({
-                            'status': true,
-                            'message': 'Success',
-                            'result': data,
-                            'Group': group,
-                        })
-                    })
+                })
         })
 }
 
 // getAllLoginUsByFilter
-exports.getAllLoginByFilter = function (req, res, next) {
+exports.getAllLoginByFilter = function(req, res, next) {
     let From = req.body.FromDate;
     let To = req.body.ToDate;
     let startDate = dateFormat(From, 'yyyy-mm-dd 00:00:00');
@@ -241,673 +229,628 @@ exports.getAllLoginByFilter = function (req, res, next) {
     let StudyID = req.body.StudyID;
     var condition = {};
     if (StudyInitials != null || StudyInitials != undefined) {
-        condition.StudyInitials = {'$regex': StudyInitials};
+        condition.StudyInitials = { '$regex': StudyInitials };
     }
     if (StudyID != null || StudyID != undefined) {
-        condition.StudyID = {'$regex': StudyID};
+        condition.StudyID = { '$regex': StudyID };
     }
     if (From != null || From != undefined) {
-        condition.DateTime = {"$gte": new Date(startDate), "$lt": new Date(endDate)};
+        condition.DateTime = { "$gte": new Date(startDate), "$lt": new Date(endDate) };
     }
     console.log(condition)
     login.find(condition)
-        .sort({_id: 'desc'})
-        .exec(function (err, data) {
+        .sort({ _id: 'desc' })
+        .exec(function(err, data) {
             if (err) res.send(err);
             else
-                login.aggregate([
-                    {
+                login.aggregate([{
                         "$match": condition
                     },
                     {
-                        "$project":
-                            {
-                                _id: 0,
-                                'StudyInitials': "$StudyInitials",
-                                'Duration': "$Duration",
-                                'StudyID': "$StudyID",
-                                'DateTime': "$DateTime",
-                                "datePartDay": {
-                                    "$concat": [{"$substr": [{"$month": "$DateTime"}, 0, 2]}, "/",
-                                    {"$substr": [{"$dayOfMonth": "$DateTime"}, 0, 2]}, "/",
-                                    {"$substr": [{"$year": "$DateTime"}, 0, 4]}, " ",
-                                    {"$substr": [{"$hour": "$DateTime"}, 0, 2]}, ":",
-                                    {"$substr": [{"$minute": "$DateTime"}, 0, 2]}, ":",
-                                    {"$substr": [{"$second": "$DateTime"}, 0, 2]}
-                                    ]
-                                },
-                            }
+                        "$project": {
+                            _id: 0,
+                            'StudyInitials': "$StudyInitials",
+                            'Duration': "$Duration",
+                            'StudyID': "$StudyID",
+                            'DateTime': "$DateTime",
+                            "datePartDay": {
+                                "$concat": [{ "$substr": [{ "$month": "$DateTime" }, 0, 2] }, "/",
+                                    { "$substr": [{ "$dayOfMonth": "$DateTime" }, 0, 2] }, "/",
+                                    { "$substr": [{ "$year": "$DateTime" }, 0, 4] }, " ",
+                                    { "$substr": [{ "$hour": "$DateTime" }, 0, 2] }, ":",
+                                    { "$substr": [{ "$minute": "$DateTime" }, 0, 2] }, ":",
+                                    { "$substr": [{ "$second": "$DateTime" }, 0, 2] }
+                                ]
+                            },
+                        }
                     },
                     {
-                        "$group":
-                            {
-                                _id: {day: "$datePartDay", StudyID: "$StudyID", StudyInitials: "$StudyInitials"},
-                                totalAmount:
-                                    {
-                                        $sum: "$Duration"
-                                    }
-                                ,
-                                count: {
-                                    $sum: 1
-                                }
+                        "$group": {
+                            _id: { day: "$datePartDay", StudyID: "$StudyID", StudyInitials: "$StudyInitials" },
+                            totalAmount: {
+                                $sum: "$Duration"
+                            },
+                            count: {
+                                $sum: 1
                             }
+                        }
                     }
                 ])
-                    .exec(function (err, result) {
-                        if (err) res.send(err);
-                        else
-                            console.log("tiem");
-                        var group = result.map((row) => {
-                            var secs = row.totalAmount;
-                            var hours = Math.floor(secs / (60 * 60));
-   
-                            var divisor_for_minutes = secs % (60 * 60);
-                            var minutes = Math.floor(divisor_for_minutes / 60);
-                         
-                            var divisor_for_seconds = divisor_for_minutes % 60;
-                            var seconds = Math.floor(divisor_for_seconds);
-                            var result = (hours < 10 ? "0" + hours : hours) + ":" + (minutes < 10 ? "0" + minutes : minutes) + ":" + (seconds  < 10 ? "0" + seconds : seconds);
+                .exec(function(err, result) {
+                    if (err) res.send(err);
+                    else
+                        console.log("tiem");
+                    var group = result.map((row) => {
+                        var secs = row.totalAmount;
+                        var hours = Math.floor(secs / (60 * 60));
 
-                            var time = result;
+                        var divisor_for_minutes = secs % (60 * 60);
+                        var minutes = Math.floor(divisor_for_minutes / 60);
+
+                        var divisor_for_seconds = divisor_for_minutes % 60;
+                        var seconds = Math.floor(divisor_for_seconds);
+                        var result = (hours < 10 ? "0" + hours : hours) + ":" + (minutes < 10 ? "0" + minutes : minutes) + ":" + (seconds < 10 ? "0" + seconds : seconds);
+
+                        var time = result;
                         row.Time = time;
                         return row;
                     });
-                        res.status(200).json({
-                            'status': true,
-                            'message': 'Success',
-                            'result': data,
-                            'Group': group,
-                        })
+                    res.status(200).json({
+                        'status': true,
+                        'message': 'Success',
+                        'result': data,
+                        'Group': group,
                     })
+                })
         })
 }
 
 
 // getAllDashboard
-exports.getAllDashboard = function (req, res, next) {
+exports.getAllDashboard = function(req, res, next) {
     dashboard.find()
-        .sort({_id: 'desc'})
-        .exec(function (err, data) {
+        .sort({ _id: 'desc' })
+        .exec(function(err, data) {
             if (err) res.send(err);
             else
-                dashboard.aggregate([
-                    {
-                        "$project":
-                            {
-                                _id: 0,
-                                'StudyInitials': "$StudyInitials",
-                                'Duration': "$Duration",
-                                'StudyID': "$StudyID",
-                                "datePartDay": {
-                                    "$concat": [
-                                        {"$substr": [{"$month": "$DateTime"}, 0, 2]}, "/",
-                                        {"$substr": [{"$dayOfMonth": "$DateTime"}, 0, 2]}, "/",
-                                        {"$substr": [{"$year": "$DateTime"}, 0, 4]}, " ",
-                                        {"$substr": [{"$hour": "$DateTime"}, 0, 2]}, ":",
-                                        {"$substr": [{"$minute": "$DateTime"}, 0, 2]}, ":",
-                                        {"$substr": [{"$second": "$DateTime"}, 0, 2]}
-                                    ]
-                                },
-                            }
+                dashboard.aggregate([{
+                        "$project": {
+                            _id: 0,
+                            'StudyInitials': "$StudyInitials",
+                            'Duration': "$Duration",
+                            'StudyID': "$StudyID",
+                            "datePartDay": {
+                                "$concat": [
+                                    { "$substr": [{ "$month": "$DateTime" }, 0, 2] }, "/",
+                                    { "$substr": [{ "$dayOfMonth": "$DateTime" }, 0, 2] }, "/",
+                                    { "$substr": [{ "$year": "$DateTime" }, 0, 4] }, " ",
+                                    { "$substr": [{ "$hour": "$DateTime" }, 0, 2] }, ":",
+                                    { "$substr": [{ "$minute": "$DateTime" }, 0, 2] }, ":",
+                                    { "$substr": [{ "$second": "$DateTime" }, 0, 2] }
+                                ]
+                            },
+                        }
                     },
                     {
-                        "$group":
-                            {
-                                _id: {day: "$datePartDay", StudyID: "$StudyID", StudyInitials: "$StudyInitials"},
-                                totalAmount:
-                                    {
-                                        $sum: "$Duration"
-                                    }
-                                ,
-                                count: {
-                                    $sum: 1
-                                }
+                        "$group": {
+                            _id: { day: "$datePartDay", StudyID: "$StudyID", StudyInitials: "$StudyInitials" },
+                            totalAmount: {
+                                $sum: "$Duration"
+                            },
+                            count: {
+                                $sum: 1
                             }
+                        }
                     }
                 ])
-                    .exec(function (err, result) {
-                        if (err) res.send(err);
-                        else
-                            var group = result.map((row) => {
-                                var secs = row.totalAmount;
-                            var hours = Math.floor(secs / (60 * 60));
-   
-                            var divisor_for_minutes = secs % (60 * 60);
-                            var minutes = Math.floor(divisor_for_minutes / 60);
-                         
-                            var divisor_for_seconds = divisor_for_minutes % 60;
-                            var seconds = Math.floor(divisor_for_seconds);
-                            var result = (hours < 10 ? "0" + hours : hours) + ":" + (minutes < 10 ? "0" + minutes : minutes) + ":" + (seconds  < 10 ? "0" + seconds : seconds);
-
-                            var time = result;
-                        row.Time = time;
-                        return row;
-                    })
-                        ;
-                        res.status(200).json({
-                            'status': true,
-                            'message': 'Success',
-                            'result': data,
-                            'Group': group,
-                        })
-                    })
-        })
-}
-
-
-// getAllLoginUsByFilter
-exports.getAllDashboardByFilter = function (req, res, next) {
-    let From = req.body.FromDate;
-    let To = req.body.ToDate;
-    let startDate = dateFormat(From, 'yyyy-mm-dd 00:00:00');
-    let endDate = dateFormat(To, 'yyyy-mm-dd 23:59:59');
-    let StudyInitials = req.body.StudyInitials;
-    let StudyID = req.body.StudyID;
-    var condition = {};
-    if (StudyInitials != null || StudyInitials != undefined) {
-        condition.StudyInitials = {'$regex': StudyInitials};
-    }
-    if (StudyID != null || StudyID != undefined) {
-        condition.StudyID = {'$regex': StudyID};
-    }
-    if (From != null || From != undefined) {
-        condition.DateTime = {"$gte": new Date(startDate), "$lt": new Date(endDate)};
-    }
-    console.log(condition)
-    dashboard.find(condition)
-        .sort({_id: 'desc'})
-        .exec(function (err, data) {
-            if (err) res.send(err);
-            else
-                dashboard.aggregate([
-                    {
-                        "$match": condition
-                    },
-                    {
-                        "$project":
-                            {
-                                _id: 0,
-                                'StudyInitials': "$StudyInitials",
-                                'Duration': "$Duration",
-                                'StudyID': "$StudyID",
-                                "datePartDay": {
-                                    "$concat": [
-                                        {"$substr": [{"$month": "$DateTime"}, 0, 2]}, "/",
-                                        {"$substr": [{"$dayOfMonth": "$DateTime"}, 0, 2]}, "/",
-                                        {"$substr": [{"$year": "$DateTime"}, 0, 4]}, " ",
-                                        {"$substr": [{"$hour": "$DateTime"}, 0, 2]}, ":",
-                                        {"$substr": [{"$minute": "$DateTime"}, 0, 2]}, ":",
-                                        {"$substr": [{"$second": "$DateTime"}, 0, 2]}
-                                    ]
-                                },
-                            }
-                    },
-                    {
-                        "$group":
-                            {
-                                _id: {day: "$datePartDay", StudyID: "$StudyID", StudyInitials: "$StudyInitials"},
-                                totalAmount:
-                                    {
-                                        $sum: "$Duration"
-                                    }
-                                ,
-                                count: {
-                                    $sum: 1
-                                }
-                            }
-                    }
-                ])
-                    .exec(function (err, result) {
-                        if (err) res.send(err);
-                        else
-                            console.log("tiem");
+                .exec(function(err, result) {
+                    if (err) res.send(err);
+                    else
                         var group = result.map((row) => {
                             var secs = row.totalAmount;
                             var hours = Math.floor(secs / (60 * 60));
-   
+
                             var divisor_for_minutes = secs % (60 * 60);
                             var minutes = Math.floor(divisor_for_minutes / 60);
-                         
+
                             var divisor_for_seconds = divisor_for_minutes % 60;
                             var seconds = Math.floor(divisor_for_seconds);
-                            var result = (hours < 10 ? "0" + hours : hours) + ":" + (minutes < 10 ? "0" + minutes : minutes) + ":" + (seconds  < 10 ? "0" + seconds : seconds);
-
-                            var time = result;
-                        row.Time = time;
-                        return row;
-                    })
-                        ;
-                        res.status(200).json({
-                            'status': true,
-                            'message': 'Success',
-                            'result': data,
-                            'Group': group,
-                        })
-                    })
-        })
-}
-
-// getAllContactUs
-exports.getAllContactUs = function (req, res, next) {
-    contactUs.find()
-        .sort({_id: 'desc'})
-        .exec(function (err, data) {
-            if (err) res.send(err);
-            else
-                contactUs.aggregate([
-                    {
-                        "$project":
-                            {
-                                _id: 0,
-                                'StudyInitials': "$StudyInitials",
-                                'Duration': "$Duration",
-                                'StudyID': "$StudyID",
-                                "datePartDay": {
-                                    "$concat": [
-                                        {"$substr": [{"$month": "$DateTime"}, 0, 2]}, "/",
-                                        {"$substr": [{"$dayOfMonth": "$DateTime"}, 0, 2]}, "/",
-                                        {"$substr": [{"$year": "$DateTime"}, 0, 4]}, " ",
-                                        {"$substr": [{"$hour": "$DateTime"}, 0, 2]}, ":",
-                                        {"$substr": [{"$minute": "$DateTime"}, 0, 2]}, ":",
-                                        {"$substr": [{"$second": "$DateTime"}, 0, 2]}
-                                    ]
-                                },
-                            }
-                    },
-                    {
-                        "$group":
-                            {
-                                _id: {day: "$datePartDay", StudyID: "$StudyID", StudyInitials: "$StudyInitials"},
-                                totalAmount:
-                                    {
-                                        $sum: "$Duration"
-                                    }
-                                ,
-                                count: {
-                                    $sum: 1
-                                }
-                            }
-                    }
-                ])
-                    .exec(function (err, result) {
-                        if (err) res.send(err);
-                        else
-                            var group = result.map((row) => {
-                                var secs = row.totalAmount;
-                            var hours = Math.floor(secs / (60 * 60));
-   
-                            var divisor_for_minutes = secs % (60 * 60);
-                            var minutes = Math.floor(divisor_for_minutes / 60);
-                         
-                            var divisor_for_seconds = divisor_for_minutes % 60;
-                            var seconds = Math.floor(divisor_for_seconds);
-                            var result = (hours < 10 ? "0" + hours : hours) + ":" + (minutes < 10 ? "0" + minutes : minutes) + ":" + (seconds  < 10 ? "0" + seconds : seconds);
-
-                            var time = result;
-                        row.Time = time;
-                        return row;
-                    })
-                        ;
-                        res.status(200).json({
-                            'status': true,
-                            'message': 'Success',
-                            'result': data,
-                            'Group': group,
-                        })
-                    })
-        })
-}
-
-
-// getAllContactUsByFilter
-exports.getAllContactUsByFilter = function (req, res, next) {
-    let From = req.body.FromDate;
-    let To = req.body.ToDate;
-    let startDate = dateFormat(From, 'yyyy-mm-dd 00:00:00');
-    let endDate = dateFormat(To, 'yyyy-mm-dd 23:59:59');
-    let StudyInitials = req.body.StudyInitials;
-    let StudyID = req.body.StudyID;
-    var condition = {};
-    if (StudyInitials != null || StudyInitials != undefined) {
-        condition.StudyInitials = {'$regex': StudyInitials};
-    }
-    if (StudyID != null || StudyID != undefined) {
-        condition.StudyID = {'$regex': StudyID};
-    }
-    if (From != null || From != undefined) {
-        condition.DateTime = {"$gte": new Date(startDate), "$lt": new Date(endDate)};
-    }
-    console.log(condition)
-    contactUs.find(condition)
-        .sort({_id: 'desc'})
-        .exec(function (err, data) {
-            if (err) res.send(err);
-            else
-                contactUs.aggregate([
-                    {
-                        "$match": condition
-                    },
-                    {
-                        "$project":
-                            {
-                                _id: 0,
-                                'StudyInitials': "$StudyInitials",
-                                'Duration': "$Duration",
-                                'StudyID': "$StudyID",
-                                "datePartDay": {
-                                    "$concat": [
-                                        {"$substr": [{"$month": "$DateTime"}, 0, 2]}, "/",
-                                        {"$substr": [{"$dayOfMonth": "$DateTime"}, 0, 2]}, "/",
-                                        {"$substr": [{"$year": "$DateTime"}, 0, 4]}, " ",
-                                        {"$substr": [{"$hour": "$DateTime"}, 0, 2]}, ":",
-                                        {"$substr": [{"$minute": "$DateTime"}, 0, 2]}, ":",
-                                        {"$substr": [{"$second": "$DateTime"}, 0, 2]}
-                                    ]
-                                },
-                            }
-                    },
-                    {
-                        "$group":
-                            {
-                                _id: {day: "$datePartDay", StudyID: "$StudyID", StudyInitials: "$StudyInitials"},
-                                totalAmount:
-                                    {
-                                        $sum: "$Duration"
-                                    }
-                                ,
-                                count: {
-                                    $sum: 1
-                                }
-                            }
-                    }
-                ])
-                    .exec(function (err, result) {
-                        if (err) res.send(err);
-                        else
-                            console.log("tiem");
-                        var group = result.map((row) => {
-                            var secs = row.totalAmount;
-                            var hours = Math.floor(secs / (60 * 60));
-   
-                            var divisor_for_minutes = secs % (60 * 60);
-                            var minutes = Math.floor(divisor_for_minutes / 60);
-                         
-                            var divisor_for_seconds = divisor_for_minutes % 60;
-                            var seconds = Math.floor(divisor_for_seconds);
-                            var result = (hours < 10 ? "0" + hours : hours) + ":" + (minutes < 10 ? "0" + minutes : minutes) + ":" + (seconds  < 10 ? "0" + seconds : seconds);
-
-                            var time = result;
-                        row.Time = time;
-                        return row;
-                    })
-                        ;
-                        res.status(200).json({
-                            'status': true,
-                            'message': 'Success',
-                            'result': data,
-                            'Group': group,
-                        })
-                    })
-        })
-}
-
-// getAllAboutUs
-exports.getAllAboutUs = function (req, res, next) {
-    aboutUs.find()
-        .sort({_id: 'desc'})
-        .exec(function (err, data) {
-            if (err) res.send(err);
-            else
-                aboutUs.aggregate([
-                    {
-                        "$project":
-                            {
-                                _id: 0,
-                                'Event':"$Event",
-                                'Session':"$Session",
-                                'StudyInitials': "$StudyInitials",
-                                'Duration': "$Duration",
-                                'StudyID': "$StudyID",
-                                "datePartDay": {
-                                    "$concat": [
-                                        {"$substr": [{"$month": "$DateTime"}, 0, 2]}, "/",
-                                        {"$substr": [{"$dayOfMonth": "$DateTime"}, 0, 2]}, "/",
-                                        {"$substr": [{"$year": "$DateTime"}, 0, 4]}, " ",
-                                        {"$substr": [{"$hour": "$DateTime"}, 0, 2]}, ":",
-                                        {"$substr": [{"$minute": "$DateTime"}, 0, 2]}, ":",
-                                        {"$substr": [{"$second": "$DateTime"}, 0, 2]}
-                                    ]
-                                },
-                            }
-                    },
-                    {
-                        "$group":
-                            {
-                                _id: {day: "$datePartDay", StudyID: "$StudyID", StudyInitials: "$StudyInitials", Session: "$Session",Event:"$Event"},
-                                totalAmount:
-                                    {
-                                        $sum: "$Duration"
-                                    }
-                                ,
-                                count: {
-                                    $sum: 1
-                                }
-                            }
-                    }
-                ])
-                    .exec(function (err, result) {
-                        if (err) res.send(err);
-                        else
-                            var group = result.map((row) => {
-                            var secs = row.totalAmount;
-                            var hours = Math.floor(secs / (60 * 60));
-   
-                            var divisor_for_minutes = secs % (60 * 60);
-                            var minutes = Math.floor(divisor_for_minutes / 60);
-                         
-                            var divisor_for_seconds = divisor_for_minutes % 60;
-                            var seconds = Math.floor(divisor_for_seconds);
-                            var result = (hours < 10 ? "0" + hours : hours) + ":" + (minutes < 10 ? "0" + minutes : minutes) + ":" + (seconds  < 10 ? "0" + seconds : seconds);
-
-                            var time = result;
-                            row.Time = time;
-                            return row;
-                        //         var hor = parseInt(parseInt(row.totalAmount) / (60));
-                        // var h = hor.toString();
-                        // if(h.length == 1){
-                        //     h = "0"+h;
-                        // }
-                        // var min = parseInt(parseInt(row.totalAmount) % 60);
-                        // var m = min.toString();
-                        // if(m.length == 1){
-                        //     m = "0"+m;
-                        // }
-                        // var time = h + ":" + m + ':' + '00';
-                        // row.Time = time;
-                        // return row;
-                    });
-                        res.status(200).json({
-                            'status': true,
-                            'message': 'Success',
-                            'result': data,
-                            'Group': group,
-                        })
-                    })
-        })
-}
-
-// getAllAboutUsByDate
-exports.getAllAboutUsByFilter = function (req, res, next) {
-    let From = req.body.FromDate;
-    let To = req.body.ToDate;
-    let startDate = dateFormat(From, 'yyyy-mm-dd 00:00:00');
-    let endDate = dateFormat(To, 'yyyy-mm-dd 23:59:59');
-    let Session = req.body.Session;
-    let StudyInitials = req.body.StudyInitials;
-    let StudyID = req.body.StudyID;
-    var condition = {};
-    if (Session != null || Session != undefined) {
-        condition.Session = {'$regex': Session};
-    }
-    if (StudyInitials != null || StudyInitials != undefined) {
-        condition.StudyInitials = {'$regex': StudyInitials};
-    }
-    if (StudyID != null || StudyID != undefined) {
-        condition.StudyID = {'$regex': StudyID};
-    }
-    if (From != null || From != undefined) {
-        condition.DateTime = {"$gte": new Date(startDate), "$lt": new Date(endDate)};
-    }
-    console.log(condition)
-    aboutUs.find(condition)
-        .sort({_id: 'desc'})
-        .exec(function (err, data) {
-            if (err) res.send(err);
-            else
-                aboutUs.aggregate([
-                    {
-                        "$match": condition
-                    },
-                    {
-                        "$project":
-                            {
-                                _id: 0,
-                                'Event':"$Event",
-                                'Session':"$Session",
-                                'StudyInitials': "$StudyInitials",
-                                'Duration': "$Duration",
-                                'StudyID': "$StudyID",
-                                "datePartDay": {
-                                    "$concat": [
-                                        {"$substr": [{"$month": "$DateTime"}, 0, 2]}, "/",
-                                        {"$substr": [{"$dayOfMonth": "$DateTime"}, 0, 2]}, "/",
-                                        {"$substr": [{"$year": "$DateTime"}, 0, 4]}, " ",
-                                        {"$substr": [{"$hour": "$DateTime"}, 0, 2]}, ":",
-                                        {"$substr": [{"$minute": "$DateTime"}, 0, 2]}, ":",
-                                        {"$substr": [{"$second": "$DateTime"}, 0, 2]}
-                                    ]
-                                },
-                            }
-                    },
-                    {
-                        "$group":
-                            {
-                                _id: {day: "$datePartDay", StudyID: "$StudyID", StudyInitials: "$StudyInitials", Session: "$Session",Event:"$Event"},
-                                totalAmount:
-                                    {
-                                        $sum: "$Duration"
-                                    }
-                                ,
-                                count: {
-                                    $sum: 1
-                                }
-                            }
-                    }
-                ])
-                    .exec(function (err, result) {
-                        if (err) res.send(err);
-                        else
-                            console.log("tiem");
-                        var group = result.map((row) => {
-
-                            var secs = row.totalAmount;
-                            var hours = Math.floor(secs / (60 * 60));
-   
-                            var divisor_for_minutes = secs % (60 * 60);
-                            var minutes = Math.floor(divisor_for_minutes / 60);
-                         
-                            var divisor_for_seconds = divisor_for_minutes % 60;
-                            var seconds = Math.floor(divisor_for_seconds);
-                            var result = (hours < 10 ? "0" + hours : hours) + ":" + (minutes < 10 ? "0" + minutes : minutes) + ":" + (seconds  < 10 ? "0" + seconds : seconds);
+                            var result = (hours < 10 ? "0" + hours : hours) + ":" + (minutes < 10 ? "0" + minutes : minutes) + ":" + (seconds < 10 ? "0" + seconds : seconds);
 
                             var time = result;
                             row.Time = time;
                             return row;
                         });
-                        res.status(200).json({
-                            'status': true,
-                            'message': 'Success',
-                            'result': data,
-                            'Group': group,
-                        })
+                    res.status(200).json({
+                        'status': true,
+                        'message': 'Success',
+                        'result': data,
+                        'Group': group,
                     })
+                })
         })
 }
 
-// getAllAboutGroundingLog
-exports.getAllAboutGroundingLog = function (req, res, next) {
-    aboutGroundingLog.find()
-        .sort({_id: 'desc'})
-        .exec(function (err, data) {
+
+// getAllLoginUsByFilter
+exports.getAllDashboardByFilter = function(req, res, next) {
+    let From = req.body.FromDate;
+    let To = req.body.ToDate;
+    let startDate = dateFormat(From, 'yyyy-mm-dd 00:00:00');
+    let endDate = dateFormat(To, 'yyyy-mm-dd 23:59:59');
+    let StudyInitials = req.body.StudyInitials;
+    let StudyID = req.body.StudyID;
+    var condition = {};
+    if (StudyInitials != null || StudyInitials != undefined) {
+        condition.StudyInitials = { '$regex': StudyInitials };
+    }
+    if (StudyID != null || StudyID != undefined) {
+        condition.StudyID = { '$regex': StudyID };
+    }
+    if (From != null || From != undefined) {
+        condition.DateTime = { "$gte": new Date(startDate), "$lt": new Date(endDate) };
+    }
+    console.log(condition)
+    dashboard.find(condition)
+        .sort({ _id: 'desc' })
+        .exec(function(err, data) {
             if (err) res.send(err);
             else
-                aboutGroundingLog.aggregate([
-                    {
-                        "$project":
-                            {
-                                _id: 0,
-                                'StudyInitials': "$StudyInitials",
-                                'Duration': "$Duration",
-                                'StudyID': "$StudyID",
-                                "datePartDay": {
-                                    "$concat": [
-                                        {"$substr": [{"$month": "$DateTime"}, 0, 2]}, "/",
-                                        {"$substr": [{"$dayOfMonth": "$DateTime"}, 0, 2]}, "/",
-                                        {"$substr": [{"$year": "$DateTime"}, 0, 4]}, " ",
-                                        {"$substr": [{"$hour": "$DateTime"}, 0, 2]}, ":",
-                                        {"$substr": [{"$minute": "$DateTime"}, 0, 2]}, ":",
-                                        {"$substr": [{"$second": "$DateTime"}, 0, 2]}
-                                    ]
-                                },
-                            }
+                dashboard.aggregate([{
+                        "$match": condition
                     },
                     {
-                        "$group":
-                            {
-                                _id: {day: "$datePartDay", StudyID: "$StudyID", StudyInitials: "$StudyInitials"},
-                                totalAmount:
-                                    {
-                                        $sum: "$Duration"
-                                    }
-                                ,
-                                count: {
-                                    $sum: 1
-                                }
+                        "$project": {
+                            _id: 0,
+                            'StudyInitials': "$StudyInitials",
+                            'Duration': "$Duration",
+                            'StudyID': "$StudyID",
+                            "datePartDay": {
+                                "$concat": [
+                                    { "$substr": [{ "$month": "$DateTime" }, 0, 2] }, "/",
+                                    { "$substr": [{ "$dayOfMonth": "$DateTime" }, 0, 2] }, "/",
+                                    { "$substr": [{ "$year": "$DateTime" }, 0, 4] }, " ",
+                                    { "$substr": [{ "$hour": "$DateTime" }, 0, 2] }, ":",
+                                    { "$substr": [{ "$minute": "$DateTime" }, 0, 2] }, ":",
+                                    { "$substr": [{ "$second": "$DateTime" }, 0, 2] }
+                                ]
+                            },
+                        }
+                    },
+                    {
+                        "$group": {
+                            _id: { day: "$datePartDay", StudyID: "$StudyID", StudyInitials: "$StudyInitials" },
+                            totalAmount: {
+                                $sum: "$Duration"
+                            },
+                            count: {
+                                $sum: 1
                             }
+                        }
                     }
                 ])
-                    .exec(function (err, result) {
-                        if (err) res.send(err);
-                        else
-                            var group = result.map((row) => {
-                                 var secs = row.totalAmount;
+                .exec(function(err, result) {
+                    if (err) res.send(err);
+                    else
+                        console.log("tiem");
+                    var group = result.map((row) => {
+                        var secs = row.totalAmount;
+                        var hours = Math.floor(secs / (60 * 60));
+
+                        var divisor_for_minutes = secs % (60 * 60);
+                        var minutes = Math.floor(divisor_for_minutes / 60);
+
+                        var divisor_for_seconds = divisor_for_minutes % 60;
+                        var seconds = Math.floor(divisor_for_seconds);
+                        var result = (hours < 10 ? "0" + hours : hours) + ":" + (minutes < 10 ? "0" + minutes : minutes) + ":" + (seconds < 10 ? "0" + seconds : seconds);
+
+                        var time = result;
+                        row.Time = time;
+                        return row;
+                    });
+                    res.status(200).json({
+                        'status': true,
+                        'message': 'Success',
+                        'result': data,
+                        'Group': group,
+                    })
+                })
+        })
+}
+
+// getAllContactUs
+exports.getAllContactUs = function(req, res, next) {
+    contactUs.find()
+        .sort({ _id: 'desc' })
+        .exec(function(err, data) {
+            if (err) res.send(err);
+            else
+                contactUs.aggregate([{
+                        "$project": {
+                            _id: 0,
+                            'StudyInitials': "$StudyInitials",
+                            'Duration': "$Duration",
+                            'StudyID': "$StudyID",
+                            "datePartDay": {
+                                "$concat": [
+                                    { "$substr": [{ "$month": "$DateTime" }, 0, 2] }, "/",
+                                    { "$substr": [{ "$dayOfMonth": "$DateTime" }, 0, 2] }, "/",
+                                    { "$substr": [{ "$year": "$DateTime" }, 0, 4] }, " ",
+                                    { "$substr": [{ "$hour": "$DateTime" }, 0, 2] }, ":",
+                                    { "$substr": [{ "$minute": "$DateTime" }, 0, 2] }, ":",
+                                    { "$substr": [{ "$second": "$DateTime" }, 0, 2] }
+                                ]
+                            },
+                        }
+                    },
+                    {
+                        "$group": {
+                            _id: { day: "$datePartDay", StudyID: "$StudyID", StudyInitials: "$StudyInitials" },
+                            totalAmount: {
+                                $sum: "$Duration"
+                            },
+                            count: {
+                                $sum: 1
+                            }
+                        }
+                    }
+                ])
+                .exec(function(err, result) {
+                    if (err) res.send(err);
+                    else
+                        var group = result.map((row) => {
+                            var secs = row.totalAmount;
                             var hours = Math.floor(secs / (60 * 60));
-   
+
                             var divisor_for_minutes = secs % (60 * 60);
                             var minutes = Math.floor(divisor_for_minutes / 60);
-                         
+
                             var divisor_for_seconds = divisor_for_minutes % 60;
                             var seconds = Math.floor(divisor_for_seconds);
-                            var result = (hours < 10 ? "0" + hours : hours) + ":" + (minutes < 10 ? "0" + minutes : minutes) + ":" + (seconds  < 10 ? "0" + seconds : seconds);
+                            var result = (hours < 10 ? "0" + hours : hours) + ":" + (minutes < 10 ? "0" + minutes : minutes) + ":" + (seconds < 10 ? "0" + seconds : seconds);
 
                             var time = result;
                             row.Time = time;
                             return row;
+                        });
+                    res.status(200).json({
+                        'status': true,
+                        'message': 'Success',
+                        'result': data,
+                        'Group': group,
                     })
-                        ;
-                        res.status(200).json({
-                            'status': true,
-                            'message': 'Success',
-                            'result': data,
-                            'Group': group,
-                        })
+                })
+        })
+}
+
+
+// getAllContactUsByFilter
+exports.getAllContactUsByFilter = function(req, res, next) {
+    let From = req.body.FromDate;
+    let To = req.body.ToDate;
+    let startDate = dateFormat(From, 'yyyy-mm-dd 00:00:00');
+    let endDate = dateFormat(To, 'yyyy-mm-dd 23:59:59');
+    let StudyInitials = req.body.StudyInitials;
+    let StudyID = req.body.StudyID;
+    var condition = {};
+    if (StudyInitials != null || StudyInitials != undefined) {
+        condition.StudyInitials = { '$regex': StudyInitials };
+    }
+    if (StudyID != null || StudyID != undefined) {
+        condition.StudyID = { '$regex': StudyID };
+    }
+    if (From != null || From != undefined) {
+        condition.DateTime = { "$gte": new Date(startDate), "$lt": new Date(endDate) };
+    }
+    console.log(condition)
+    contactUs.find(condition)
+        .sort({ _id: 'desc' })
+        .exec(function(err, data) {
+            if (err) res.send(err);
+            else
+                contactUs.aggregate([{
+                        "$match": condition
+                    },
+                    {
+                        "$project": {
+                            _id: 0,
+                            'StudyInitials': "$StudyInitials",
+                            'Duration': "$Duration",
+                            'StudyID': "$StudyID",
+                            "datePartDay": {
+                                "$concat": [
+                                    { "$substr": [{ "$month": "$DateTime" }, 0, 2] }, "/",
+                                    { "$substr": [{ "$dayOfMonth": "$DateTime" }, 0, 2] }, "/",
+                                    { "$substr": [{ "$year": "$DateTime" }, 0, 4] }, " ",
+                                    { "$substr": [{ "$hour": "$DateTime" }, 0, 2] }, ":",
+                                    { "$substr": [{ "$minute": "$DateTime" }, 0, 2] }, ":",
+                                    { "$substr": [{ "$second": "$DateTime" }, 0, 2] }
+                                ]
+                            },
+                        }
+                    },
+                    {
+                        "$group": {
+                            _id: { day: "$datePartDay", StudyID: "$StudyID", StudyInitials: "$StudyInitials" },
+                            totalAmount: {
+                                $sum: "$Duration"
+                            },
+                            count: {
+                                $sum: 1
+                            }
+                        }
+                    }
+                ])
+                .exec(function(err, result) {
+                    if (err) res.send(err);
+                    else
+                        console.log("tiem");
+                    var group = result.map((row) => {
+                        var secs = row.totalAmount;
+                        var hours = Math.floor(secs / (60 * 60));
+
+                        var divisor_for_minutes = secs % (60 * 60);
+                        var minutes = Math.floor(divisor_for_minutes / 60);
+
+                        var divisor_for_seconds = divisor_for_minutes % 60;
+                        var seconds = Math.floor(divisor_for_seconds);
+                        var result = (hours < 10 ? "0" + hours : hours) + ":" + (minutes < 10 ? "0" + minutes : minutes) + ":" + (seconds < 10 ? "0" + seconds : seconds);
+
+                        var time = result;
+                        row.Time = time;
+                        return row;
+                    });
+                    res.status(200).json({
+                        'status': true,
+                        'message': 'Success',
+                        'result': data,
+                        'Group': group,
                     })
+                })
+        })
+}
+
+// getAllAboutUs
+exports.getAllAboutUs = function(req, res, next) {
+    aboutUs.find()
+        .sort({ _id: 'desc' })
+        .exec(function(err, data) {
+            if (err) res.send(err);
+            else
+                aboutUs.aggregate([{
+                        "$project": {
+                            _id: 0,
+                            'Event': "$Event",
+                            'Session': "$Session",
+                            'StudyInitials': "$StudyInitials",
+                            'Duration': "$Duration",
+                            'StudyID': "$StudyID",
+                            "datePartDay": {
+                                "$concat": [
+                                    { "$substr": [{ "$month": "$DateTime" }, 0, 2] }, "/",
+                                    { "$substr": [{ "$dayOfMonth": "$DateTime" }, 0, 2] }, "/",
+                                    { "$substr": [{ "$year": "$DateTime" }, 0, 4] }, " ",
+                                    { "$substr": [{ "$hour": "$DateTime" }, 0, 2] }, ":",
+                                    { "$substr": [{ "$minute": "$DateTime" }, 0, 2] }, ":",
+                                    { "$substr": [{ "$second": "$DateTime" }, 0, 2] }
+                                ]
+                            },
+                        }
+                    },
+                    {
+                        "$group": {
+                            _id: { day: "$datePartDay", StudyID: "$StudyID", StudyInitials: "$StudyInitials", Session: "$Session", Event: "$Event" },
+                            totalAmount: {
+                                $sum: "$Duration"
+                            },
+                            count: {
+                                $sum: 1
+                            }
+                        }
+                    }
+                ])
+                .exec(function(err, result) {
+                    if (err) res.send(err);
+                    else
+                        var group = result.map((row) => {
+                            var secs = row.totalAmount;
+                            var hours = Math.floor(secs / (60 * 60));
+
+                            var divisor_for_minutes = secs % (60 * 60);
+                            var minutes = Math.floor(divisor_for_minutes / 60);
+
+                            var divisor_for_seconds = divisor_for_minutes % 60;
+                            var seconds = Math.floor(divisor_for_seconds);
+                            var result = (hours < 10 ? "0" + hours : hours) + ":" + (minutes < 10 ? "0" + minutes : minutes) + ":" + (seconds < 10 ? "0" + seconds : seconds);
+
+                            var time = result;
+                            row.Time = time;
+                            return row;
+                            //         var hor = parseInt(parseInt(row.totalAmount) / (60));
+                            // var h = hor.toString();
+                            // if(h.length == 1){
+                            //     h = "0"+h;
+                            // }
+                            // var min = parseInt(parseInt(row.totalAmount) % 60);
+                            // var m = min.toString();
+                            // if(m.length == 1){
+                            //     m = "0"+m;
+                            // }
+                            // var time = h + ":" + m + ':' + '00';
+                            // row.Time = time;
+                            // return row;
+                        });
+                    res.status(200).json({
+                        'status': true,
+                        'message': 'Success',
+                        'result': data,
+                        'Group': group,
+                    })
+                })
+        })
+}
+
+// getAllAboutUsByDate
+exports.getAllAboutUsByFilter = function(req, res, next) {
+    let From = req.body.FromDate;
+    let To = req.body.ToDate;
+    let startDate = dateFormat(From, 'yyyy-mm-dd 00:00:00');
+    let endDate = dateFormat(To, 'yyyy-mm-dd 00:00:00');
+    let Session = req.body.Session;
+    let StudyInitials = req.body.StudyInitials;
+    let StudyID = req.body.StudyID;
+    var condition = {};
+    if (Session != null || Session != undefined) {
+        condition.Session = { '$regex': Session };
+    }
+    if (StudyInitials != null || StudyInitials != undefined) {
+        condition.StudyInitials = { '$regex': StudyInitials };
+    }
+    if (StudyID != null || StudyID != undefined) {
+        condition.StudyID = { '$regex': StudyID };
+    }
+    if (From != null || From != undefined) {
+        condition.DateTime = { "$gte": new Date(startDate), "$lt": new Date(endDate) };
+    }
+    console.log(condition)
+    aboutUs.find(condition)
+        .sort({ _id: 'desc' })
+        .exec(function(err, data) {
+            if (err) res.send(err);
+            else
+                aboutUs.aggregate([{
+                        "$match": condition
+                    },
+                    {
+                        "$project": {
+                            _id: 0,
+                            'Event': "$Event",
+                            'Session': "$Session",
+                            'StudyInitials': "$StudyInitials",
+                            'Duration': "$Duration",
+                            'StudyID': "$StudyID",
+                            "datePartDay": {
+                                "$concat": [
+                                    { "$substr": [{ "$month": "$DateTime" }, 0, 2] }, "/",
+                                    { "$substr": [{ "$dayOfMonth": "$DateTime" }, 0, 2] }, "/",
+                                    { "$substr": [{ "$year": "$DateTime" }, 0, 4] }, " ",
+                                    { "$substr": [{ "$hour": "$DateTime" }, 0, 2] }, ":",
+                                    { "$substr": [{ "$minute": "$DateTime" }, 0, 2] }, ":",
+                                    { "$substr": [{ "$second": "$DateTime" }, 0, 2] }
+                                ]
+                            },
+                        }
+                    },
+                    {
+                        "$group": {
+                            _id: { day: "$datePartDay", StudyID: "$StudyID", StudyInitials: "$StudyInitials", Session: "$Session", Event: "$Event" },
+                            totalAmount: {
+                                $sum: "$Duration"
+                            },
+                            count: {
+                                $sum: 1
+                            }
+                        }
+                    }
+                ])
+                .exec(function(err, result) {
+                    if (err) res.send(err);
+                    else
+                        console.log("tiem");
+                    var group = result.map((row) => {
+
+                        var secs = row.totalAmount;
+                        var hours = Math.floor(secs / (60 * 60));
+
+                        var divisor_for_minutes = secs % (60 * 60);
+                        var minutes = Math.floor(divisor_for_minutes / 60);
+
+                        var divisor_for_seconds = divisor_for_minutes % 60;
+                        var seconds = Math.floor(divisor_for_seconds);
+                        var result = (hours < 10 ? "0" + hours : hours) + ":" + (minutes < 10 ? "0" + minutes : minutes) + ":" + (seconds < 10 ? "0" + seconds : seconds);
+
+                        var time = result;
+                        row.Time = time;
+                        return row;
+                    });
+                    res.status(200).json({
+                        'status': true,
+                        'message': 'Success',
+                        'result': data,
+                        'Group': group,
+                    })
+                })
+        })
+}
+
+// getAllAboutGroundingLog
+exports.getAllAboutGroundingLog = function(req, res, next) {
+    aboutGroundingLog.find()
+        .sort({ _id: 'desc' })
+        .exec(function(err, data) {
+            if (err) res.send(err);
+            else
+                aboutGroundingLog.aggregate([{
+                        "$project": {
+                            _id: 0,
+                            'StudyInitials': "$StudyInitials",
+                            'Duration': "$Duration",
+                            'StudyID': "$StudyID",
+                            "datePartDay": {
+                                "$concat": [
+                                    { "$substr": [{ "$month": "$DateTime" }, 0, 2] }, "/",
+                                    { "$substr": [{ "$dayOfMonth": "$DateTime" }, 0, 2] }, "/",
+                                    { "$substr": [{ "$year": "$DateTime" }, 0, 4] }, " ",
+                                    { "$substr": [{ "$hour": "$DateTime" }, 0, 2] }, ":",
+                                    { "$substr": [{ "$minute": "$DateTime" }, 0, 2] }, ":",
+                                    { "$substr": [{ "$second": "$DateTime" }, 0, 2] }
+                                ]
+                            },
+                        }
+                    },
+                    {
+                        "$group": {
+                            _id: { day: "$datePartDay", StudyID: "$StudyID", StudyInitials: "$StudyInitials" },
+                            totalAmount: {
+                                $sum: "$Duration"
+                            },
+                            count: {
+                                $sum: 1
+                            }
+                        }
+                    }
+                ])
+                .exec(function(err, result) {
+                    if (err) res.send(err);
+                    else
+                        var group = result.map((row) => {
+                            var secs = row.totalAmount;
+                            var hours = Math.floor(secs / (60 * 60));
+
+                            var divisor_for_minutes = secs % (60 * 60);
+                            var minutes = Math.floor(divisor_for_minutes / 60);
+
+                            var divisor_for_seconds = divisor_for_minutes % 60;
+                            var seconds = Math.floor(divisor_for_seconds);
+                            var result = (hours < 10 ? "0" + hours : hours) + ":" + (minutes < 10 ? "0" + minutes : minutes) + ":" + (seconds < 10 ? "0" + seconds : seconds);
+
+                            var time = result;
+                            row.Time = time;
+                            return row;
+                        });
+                    res.status(200).json({
+                        'status': true,
+                        'message': 'Success',
+                        'result': data,
+                        'Group': group,
+                    })
+                })
         })
 }
 
 
 // getAllAboutGroundingLogByFilter
-exports.getAllAboutGroungingLogByFilter = function (req, res, next) {
+exports.getAllAboutGroungingLogByFilter = function(req, res, next) {
     let From = req.body.FromDate;
     let To = req.body.ToDate;
     let startDate = dateFormat(From, 'yyyy-mm-dd 00:00:00');
@@ -916,161 +859,149 @@ exports.getAllAboutGroungingLogByFilter = function (req, res, next) {
     let StudyID = req.body.StudyID;
     var condition = {};
     if (StudyInitials != null || StudyInitials != undefined) {
-        condition.StudyInitials = {'$regex': StudyInitials};
+        condition.StudyInitials = { '$regex': StudyInitials };
     }
     if (StudyID != null || StudyID != undefined) {
-        condition.StudyID = {'$regex': StudyID};
+        condition.StudyID = { '$regex': StudyID };
     }
     if (From != null || From != undefined) {
-        condition.DateTime = {"$gte": new Date(startDate), "$lt": new Date(endDate)};
+        condition.DateTime = { "$gte": new Date(startDate), "$lt": new Date(endDate) };
     }
     console.log(condition)
     aboutGroundingLog.find(condition)
-        .sort({_id: 'desc'})
-        .exec(function (err, data) {
+        .sort({ _id: 'desc' })
+        .exec(function(err, data) {
             if (err) res.send(err);
             else
-                aboutGroundingLog.aggregate([
-                    {
+                aboutGroundingLog.aggregate([{
                         "$match": condition
                     },
                     {
-                        "$project":
-                            {
-                                _id: 0,
-                                'StudyInitials': "$StudyInitials",
-                                'Duration': "$Duration",
-                                'StudyID': "$StudyID",
-                                "datePartDay": {
-                                    "$concat": [
-                                        {"$substr": [{"$month": "$DateTime"}, 0, 2]}, "/",
-                                        {"$substr": [{"$dayOfMonth": "$DateTime"}, 0, 2]}, "/",
-                                        {"$substr": [{"$year": "$DateTime"}, 0, 4]}, " ",
-                                        {"$substr": [{"$hour": "$DateTime"}, 0, 2]}, ":",
-                                        {"$substr": [{"$minute": "$DateTime"}, 0, 2]}, ":",
-                                        {"$substr": [{"$second": "$DateTime"}, 0, 2]}
-                                    ]
-                                },
-                            }
+                        "$project": {
+                            _id: 0,
+                            'StudyInitials': "$StudyInitials",
+                            'Duration': "$Duration",
+                            'StudyID': "$StudyID",
+                            "datePartDay": {
+                                "$concat": [
+                                    { "$substr": [{ "$month": "$DateTime" }, 0, 2] }, "/",
+                                    { "$substr": [{ "$dayOfMonth": "$DateTime" }, 0, 2] }, "/",
+                                    { "$substr": [{ "$year": "$DateTime" }, 0, 4] }, " ",
+                                    { "$substr": [{ "$hour": "$DateTime" }, 0, 2] }, ":",
+                                    { "$substr": [{ "$minute": "$DateTime" }, 0, 2] }, ":",
+                                    { "$substr": [{ "$second": "$DateTime" }, 0, 2] }
+                                ]
+                            },
+                        }
                     },
                     {
-                        "$group":
-                            {
-                                _id: {day: "$datePartDay", StudyID: "$StudyID", StudyInitials: "$StudyInitials"},
-                                totalAmount:
-                                    {
-                                        $sum: "$Duration"
-                                    }
-                                ,
-                                count: {
-                                    $sum: 1
-                                }
+                        "$group": {
+                            _id: { day: "$datePartDay", StudyID: "$StudyID", StudyInitials: "$StudyInitials" },
+                            totalAmount: {
+                                $sum: "$Duration"
+                            },
+                            count: {
+                                $sum: 1
                             }
+                        }
                     }
                 ])
-                    .exec(function (err, result) {
-                        if (err) res.send(err);
-                        else
-                            console.log("tiem");
-                        var group = result.map((row) => {
-                            var secs = row.totalAmount;
-                            var hours = Math.floor(secs / (60 * 60));
-   
-                            var divisor_for_minutes = secs % (60 * 60);
-                            var minutes = Math.floor(divisor_for_minutes / 60);
-                         
-                            var divisor_for_seconds = divisor_for_minutes % 60;
-                            var seconds = Math.floor(divisor_for_seconds);
-                            var result = (hours < 10 ? "0" + hours : hours) + ":" + (minutes < 10 ? "0" + minutes : minutes) + ":" + (seconds  < 10 ? "0" + seconds : seconds);
+                .exec(function(err, result) {
+                    if (err) res.send(err);
+                    else
+                        console.log("tiem");
+                    var group = result.map((row) => {
+                        var secs = row.totalAmount;
+                        var hours = Math.floor(secs / (60 * 60));
 
-                            var time = result;
+                        var divisor_for_minutes = secs % (60 * 60);
+                        var minutes = Math.floor(divisor_for_minutes / 60);
+
+                        var divisor_for_seconds = divisor_for_minutes % 60;
+                        var seconds = Math.floor(divisor_for_seconds);
+                        var result = (hours < 10 ? "0" + hours : hours) + ":" + (minutes < 10 ? "0" + minutes : minutes) + ":" + (seconds < 10 ? "0" + seconds : seconds);
+
+                        var time = result;
                         row.Time = time;
                         return row;
+                    });
+                    res.status(200).json({
+                        'status': true,
+                        'message': 'Success',
+                        'result': data,
+                        'Group': group,
                     })
-                        ;
-                        res.status(200).json({
-                            'status': true,
-                            'message': 'Success',
-                            'result': data,
-                            'Group': group,
-                        })
-                    })
+                })
         })
 }
 
 // getAllPdf
-exports.getAllPdf = function (req, res, next) {
+exports.getAllPdf = function(req, res, next) {
     pdf.find()
-        .sort({_id: 'desc'})
-        .exec(function (err, data) {
+        .sort({ _id: 'desc' })
+        .exec(function(err, data) {
             if (err) res.send(err);
             else
-                pdf.aggregate([
-                    {
-                        "$project":
-                            {
-                                _id: 0,
-                                'StudyInitials': "$StudyInitials",
-                                'Duration': "$Duration",
-                                'StudyID': "$StudyID",
-                                "datePartDay": {
-                                    "$concat": [
-                                        {"$substr": [{"$month": "$DateTime"}, 0, 2]}, "/",
-                                        {"$substr": [{"$dayOfMonth": "$DateTime"}, 0, 2]}, "/",
-                                        {"$substr": [{"$year": "$DateTime"}, 0, 4]}, " ",
-                                        {"$substr": [{"$hour": "$DateTime"}, 0, 2]}, ":",
-                                        {"$substr": [{"$minute": "$DateTime"}, 0, 2]}, ":",
-                                        {"$substr": [{"$second": "$DateTime"}, 0, 2]}
-                                    ]
-                                },
-                            }
+                pdf.aggregate([{
+                        "$project": {
+                            _id: 0,
+                            'StudyInitials': "$StudyInitials",
+                            'Duration': "$Duration",
+                            'StudyID': "$StudyID",
+                            "datePartDay": {
+                                "$concat": [
+                                    { "$substr": [{ "$month": "$DateTime" }, 0, 2] }, "/",
+                                    { "$substr": [{ "$dayOfMonth": "$DateTime" }, 0, 2] }, "/",
+                                    { "$substr": [{ "$year": "$DateTime" }, 0, 4] }, " ",
+                                    { "$substr": [{ "$hour": "$DateTime" }, 0, 2] }, ":",
+                                    { "$substr": [{ "$minute": "$DateTime" }, 0, 2] }, ":",
+                                    { "$substr": [{ "$second": "$DateTime" }, 0, 2] }
+                                ]
+                            },
+                        }
                     },
                     {
-                        "$group":
-                            {
-                                _id: {day: "$datePartDay", StudyID: "$StudyID", StudyInitials: "$StudyInitials"},
-                                totalAmount:
-                                    {
-                                        $sum: "$Duration"
-                                    }
-                                ,
-                                count: {
-                                    $sum: 1
-                                }
+                        "$group": {
+                            _id: { day: "$datePartDay", StudyID: "$StudyID", StudyInitials: "$StudyInitials" },
+                            totalAmount: {
+                                $sum: "$Duration"
+                            },
+                            count: {
+                                $sum: 1
                             }
+                        }
                     }
                 ])
-                    .exec(function (err, result) {
-                        if (err) res.send(err);
-                        else
-                            var group = result.map((row) => {
-                                var secs = row.totalAmount;
+                .exec(function(err, result) {
+                    if (err) res.send(err);
+                    else
+                        var group = result.map((row) => {
+                            var secs = row.totalAmount;
                             var hours = Math.floor(secs / (60 * 60));
-   
+
                             var divisor_for_minutes = secs % (60 * 60);
                             var minutes = Math.floor(divisor_for_minutes / 60);
-                         
+
                             var divisor_for_seconds = divisor_for_minutes % 60;
                             var seconds = Math.floor(divisor_for_seconds);
-                            var result = (hours < 10 ? "0" + hours : hours) + ":" + (minutes < 10 ? "0" + minutes : minutes) + ":" + (seconds  < 10 ? "0" + seconds : seconds);
+                            var result = (hours < 10 ? "0" + hours : hours) + ":" + (minutes < 10 ? "0" + minutes : minutes) + ":" + (seconds < 10 ? "0" + seconds : seconds);
 
                             var time = result;
-                        row.Time = time;
-                        return row;
+                            row.Time = time;
+                            return row;
+                        });
+                    res.status(200).json({
+                        'status': true,
+                        'message': 'Success',
+                        'result': data,
+                        'Group': group,
                     })
-                        ;
-                        res.status(200).json({
-                            'status': true,
-                            'message': 'Success',
-                            'result': data,
-                            'Group': group,
-                        })
-                    })
+                })
         })
 }
 
 // getAllPdfByFilter
-exports.getAllPdfByFilter = function (req, res, next) {
+exports.getAllPdfByFilter = function(req, res, next) {
     let From = req.body.FromDate;
     let To = req.body.ToDate;
     let startDate = dateFormat(From, 'yyyy-mm-dd 00:00:00');
@@ -1079,162 +1010,150 @@ exports.getAllPdfByFilter = function (req, res, next) {
     let StudyID = req.body.StudyID;
     var condition = {};
     if (StudyInitials != null || StudyInitials != undefined) {
-        condition.StudyInitials = {'$regex': StudyInitials};
+        condition.StudyInitials = { '$regex': StudyInitials };
     }
     if (StudyID != null || StudyID != undefined) {
-        condition.StudyID = {'$regex': StudyID};
+        condition.StudyID = { '$regex': StudyID };
     }
     if (From != null || From != undefined) {
-        condition.DateTime = {"$gte": new Date(startDate), "$lt": new Date(endDate)};
+        condition.DateTime = { "$gte": new Date(startDate), "$lt": new Date(endDate) };
     }
     console.log(condition)
     pdf.find(condition)
-        .sort({_id: 'desc'})
-        .exec(function (err, data) {
+        .sort({ _id: 'desc' })
+        .exec(function(err, data) {
             if (err) res.send(err);
             else
-                pdf.aggregate([
-                    {
+                pdf.aggregate([{
                         "$match": condition
                     },
                     {
-                        "$project":
-                            {
-                                _id: 0,
-                                'StudyInitials': "$StudyInitials",
-                                'Duration': "$Duration",
-                                'StudyID': "$StudyID",
-                                "datePartDay": {
-                                    "$concat": [
-                                        {"$substr": [{"$month": "$DateTime"}, 0, 2]}, "/",
-                                        {"$substr": [{"$dayOfMonth": "$DateTime"}, 0, 2]}, "/",
-                                        {"$substr": [{"$year": "$DateTime"}, 0, 4]}, " ",
-                                        {"$substr": [{"$hour": "$DateTime"}, 0, 2]}, ":",
-                                        {"$substr": [{"$minute": "$DateTime"}, 0, 2]}, ":",
-                                        {"$substr": [{"$second": "$DateTime"}, 0, 2]}
-                                    ]
-                                },
-                            }
+                        "$project": {
+                            _id: 0,
+                            'StudyInitials': "$StudyInitials",
+                            'Duration': "$Duration",
+                            'StudyID': "$StudyID",
+                            "datePartDay": {
+                                "$concat": [
+                                    { "$substr": [{ "$month": "$DateTime" }, 0, 2] }, "/",
+                                    { "$substr": [{ "$dayOfMonth": "$DateTime" }, 0, 2] }, "/",
+                                    { "$substr": [{ "$year": "$DateTime" }, 0, 4] }, " ",
+                                    { "$substr": [{ "$hour": "$DateTime" }, 0, 2] }, ":",
+                                    { "$substr": [{ "$minute": "$DateTime" }, 0, 2] }, ":",
+                                    { "$substr": [{ "$second": "$DateTime" }, 0, 2] }
+                                ]
+                            },
+                        }
                     },
                     {
-                        "$group":
-                            {
-                                _id: {day: "$datePartDay", StudyID: "$StudyID", StudyInitials: "$StudyInitials"},
-                                totalAmount:
-                                    {
-                                        $sum: "$Duration"
-                                    }
-                                ,
-                                count: {
-                                    $sum: 1
-                                }
+                        "$group": {
+                            _id: { day: "$datePartDay", StudyID: "$StudyID", StudyInitials: "$StudyInitials" },
+                            totalAmount: {
+                                $sum: "$Duration"
+                            },
+                            count: {
+                                $sum: 1
                             }
+                        }
                     }
                 ])
-                    .exec(function (err, result) {
-                        if (err) res.send(err);
-                        else
-                            console.log("tiem");
-                        var group = result.map((row) => {
-                            var secs = row.totalAmount;
-                            var hours = Math.floor(secs / (60 * 60));
-   
-                            var divisor_for_minutes = secs % (60 * 60);
-                            var minutes = Math.floor(divisor_for_minutes / 60);
-                         
-                            var divisor_for_seconds = divisor_for_minutes % 60;
-                            var seconds = Math.floor(divisor_for_seconds);
-                            var result = (hours < 10 ? "0" + hours : hours) + ":" + (minutes < 10 ? "0" + minutes : minutes) + ":" + (seconds  < 10 ? "0" + seconds : seconds);
+                .exec(function(err, result) {
+                    if (err) res.send(err);
+                    else
+                        console.log("tiem");
+                    var group = result.map((row) => {
+                        var secs = row.totalAmount;
+                        var hours = Math.floor(secs / (60 * 60));
 
-                            var time = result;
+                        var divisor_for_minutes = secs % (60 * 60);
+                        var minutes = Math.floor(divisor_for_minutes / 60);
+
+                        var divisor_for_seconds = divisor_for_minutes % 60;
+                        var seconds = Math.floor(divisor_for_seconds);
+                        var result = (hours < 10 ? "0" + hours : hours) + ":" + (minutes < 10 ? "0" + minutes : minutes) + ":" + (seconds < 10 ? "0" + seconds : seconds);
+
+                        var time = result;
                         row.Time = time;
                         return row;
+                    });
+                    res.status(200).json({
+                        'status': true,
+                        'message': 'Success',
+                        'result': data,
+                        'Group': group,
                     })
-                        ;
-                        res.status(200).json({
-                            'status': true,
-                            'message': 'Success',
-                            'result': data,
-                            'Group': group,
-                        })
-                    })
+                })
         })
 }
 
 
 // getAlllogout
-exports.getAllLogout = function (req, res, next) {
+exports.getAllLogout = function(req, res, next) {
     logout.find()
-        .sort({_id: 'desc'})
-        .exec(function (err, data) {
+        .sort({ _id: 'desc' })
+        .exec(function(err, data) {
             if (err) res.send(err);
             else
-                logout.aggregate([
-                    {
-                        "$project":
-                            {
-                                _id: 0,
-                                'StudyInitials': "$StudyInitials",
-                                'Duration': "$Duration",
-                                'StudyID': "$StudyID",
-                                "datePartDay": {
-                                    "$concat": [
-                                        {"$substr": [{"$month": "$DateTime"}, 0, 2]}, "/",
-                                        {"$substr": [{"$dayOfMonth": "$DateTime"}, 0, 2]}, "/",
-                                        {"$substr": [{"$year": "$DateTime"}, 0, 4]}, " ",
-                                        {"$substr": [{"$hour": "$DateTime"}, 0, 2]}, ":",
-                                        {"$substr": [{"$minute": "$DateTime"}, 0, 2]}, ":",
-                                        {"$substr": [{"$second": "$DateTime"}, 0, 2]}
-                                    ]
-                                },
-                            }
+                logout.aggregate([{
+                        "$project": {
+                            _id: 0,
+                            'StudyInitials': "$StudyInitials",
+                            'Duration': "$Duration",
+                            'StudyID': "$StudyID",
+                            "datePartDay": {
+                                "$concat": [
+                                    { "$substr": [{ "$month": "$DateTime" }, 0, 2] }, "/",
+                                    { "$substr": [{ "$dayOfMonth": "$DateTime" }, 0, 2] }, "/",
+                                    { "$substr": [{ "$year": "$DateTime" }, 0, 4] }, " ",
+                                    { "$substr": [{ "$hour": "$DateTime" }, 0, 2] }, ":",
+                                    { "$substr": [{ "$minute": "$DateTime" }, 0, 2] }, ":",
+                                    { "$substr": [{ "$second": "$DateTime" }, 0, 2] }
+                                ]
+                            },
+                        }
                     },
                     {
-                        "$group":
-                            {
-                                _id: {day: "$datePartDay", StudyID: "$StudyID", StudyInitials: "$StudyInitials"},
-                                totalAmount:
-                                    {
-                                        $sum: "$Duration"
-                                    }
-                                ,
-                                count: {
-                                    $sum: 1
-                                }
+                        "$group": {
+                            _id: { day: "$datePartDay", StudyID: "$StudyID", StudyInitials: "$StudyInitials" },
+                            totalAmount: {
+                                $sum: "$Duration"
+                            },
+                            count: {
+                                $sum: 1
                             }
+                        }
                     }
                 ])
-                    .exec(function (err, result) {
-                        if (err) res.send(err);
-                        else
-                            var group = result.map((row) => {
-                                var secs = row.totalAmount;
-                            var hours = Math.floor(secs / (60 * 60));   
+                .exec(function(err, result) {
+                    if (err) res.send(err);
+                    else
+                        var group = result.map((row) => {
+                            var secs = row.totalAmount;
+                            var hours = Math.floor(secs / (60 * 60));
                             var divisor_for_minutes = secs % (60 * 60);
 
-                            var minutes = Math.floor(divisor_for_minutes / 60);                         
+                            var minutes = Math.floor(divisor_for_minutes / 60);
                             var divisor_for_seconds = divisor_for_minutes % 60;
-                            
+
                             var seconds = Math.floor(divisor_for_seconds);
-                            var result = (hours < 10 ? "0" + hours : hours) + ":" + (minutes < 10 ? "0" + minutes : minutes) + ":" + (seconds  < 10 ? "0" + seconds : seconds);
+                            var result = (hours < 10 ? "0" + hours : hours) + ":" + (minutes < 10 ? "0" + minutes : minutes) + ":" + (seconds < 10 ? "0" + seconds : seconds);
 
                             var time = result;
-                        row.Time = time;
-                        return row;
+                            row.Time = time;
+                            return row;
+                        });
+                    res.status(200).json({
+                        'status': true,
+                        'message': 'Success',
+                        'result': data,
+                        'Group': group,
                     })
-                        ;
-                        res.status(200).json({
-                            'status': true,
-                            'message': 'Success',
-                            'result': data,
-                            'Group': group,
-                        })
-                    })
+                })
         })
 }
 
 // getAllLogoutByFilter
-exports.getAllLogoutByFilter = function (req, res, next) {
+exports.getAllLogoutByFilter = function(req, res, next) {
     let From = req.body.FromDate;
     let To = req.body.ToDate;
     let startDate = dateFormat(From, 'yyyy-mm-dd 00:00:00');
@@ -1243,85 +1162,78 @@ exports.getAllLogoutByFilter = function (req, res, next) {
     let StudyID = req.body.StudyID;
     var condition = {};
     if (StudyInitials != null || StudyInitials != undefined) {
-        condition.StudyInitials = {'$regex': StudyInitials};
+        condition.StudyInitials = { '$regex': StudyInitials };
     }
     if (StudyID != null || StudyID != undefined) {
-        condition.StudyID = {'$regex': StudyID};
+        condition.StudyID = { '$regex': StudyID };
     }
     if (From != null || From != undefined) {
-        condition.DateTime = {"$gte": new Date(startDate), "$lt": new Date(endDate)};
+        condition.DateTime = { "$gte": new Date(startDate), "$lt": new Date(endDate) };
     }
     console.log(condition)
     logout.find(condition)
-        .sort({_id: 'desc'})
-        .exec(function (err, data) {
+        .sort({ _id: 'desc' })
+        .exec(function(err, data) {
             if (err) res.send(err);
             else
-                logout.aggregate([
-                    {
+                logout.aggregate([{
                         "$match": condition
                     },
                     {
-                        "$project":
-                            {
-                                _id: 0,
-                                'StudyInitials': "$StudyInitials",
-                                'Duration': "$Duration",
-                                'StudyID': "$StudyID",
-                                "datePartDay": {
-                                    "$concat": [
-                                        {"$substr": [{"$month": "$DateTime"}, 0, 2]}, "/",
-                                        {"$substr": [{"$dayOfMonth": "$DateTime"}, 0, 2]}, "/",
-                                        {"$substr": [{"$year": "$DateTime"}, 0, 4]}, " ",
-                                        {"$substr": [{"$hour": "$DateTime"}, 0, 2]}, ":",
-                                        {"$substr": [{"$minute": "$DateTime"}, 0, 2]}, ":",
-                                        {"$substr": [{"$second": "$DateTime"}, 0, 2]}
-                                    ]
-                                },
-                            }
+                        "$project": {
+                            _id: 0,
+                            'StudyInitials': "$StudyInitials",
+                            'Duration': "$Duration",
+                            'StudyID': "$StudyID",
+                            "datePartDay": {
+                                "$concat": [
+                                    { "$substr": [{ "$month": "$DateTime" }, 0, 2] }, "/",
+                                    { "$substr": [{ "$dayOfMonth": "$DateTime" }, 0, 2] }, "/",
+                                    { "$substr": [{ "$year": "$DateTime" }, 0, 4] }, " ",
+                                    { "$substr": [{ "$hour": "$DateTime" }, 0, 2] }, ":",
+                                    { "$substr": [{ "$minute": "$DateTime" }, 0, 2] }, ":",
+                                    { "$substr": [{ "$second": "$DateTime" }, 0, 2] }
+                                ]
+                            },
+                        }
                     },
                     {
-                        "$group":
-                            {
-                                _id: {day: "$datePartDay", StudyID: "$StudyID", StudyInitials: "$StudyInitials"},
-                                totalAmount:
-                                    {
-                                        $sum: "$Duration"
-                                    }
-                                ,
-                                count: {
-                                    $sum: 1
-                                }
+                        "$group": {
+                            _id: { day: "$datePartDay", StudyID: "$StudyID", StudyInitials: "$StudyInitials" },
+                            totalAmount: {
+                                $sum: "$Duration"
+                            },
+                            count: {
+                                $sum: 1
                             }
+                        }
                     }
                 ])
-                    .exec(function (err, result) {
-                        if (err) res.send(err);
-                        else
-                            console.log("tiem");
-                        var group = result.map((row) => {
-                            var secs = row.totalAmount;
-                            var hours = Math.floor(secs / (60 * 60));
-   
-                            var divisor_for_minutes = secs % (60 * 60);
-                            var minutes = Math.floor(divisor_for_minutes / 60);
-                         
-                            var divisor_for_seconds = divisor_for_minutes % 60;
-                            var seconds = Math.floor(divisor_for_seconds);
-                            var result = (hours < 10 ? "0" + hours : hours) + ":" + (minutes < 10 ? "0" + minutes : minutes) + ":" + (seconds  < 10 ? "0" + seconds : seconds);
+                .exec(function(err, result) {
+                    if (err) res.send(err);
+                    else
+                        console.log("tiem");
+                    var group = result.map((row) => {
+                        var secs = row.totalAmount;
+                        var hours = Math.floor(secs / (60 * 60));
 
-                            var time = result;
+                        var divisor_for_minutes = secs % (60 * 60);
+                        var minutes = Math.floor(divisor_for_minutes / 60);
+
+                        var divisor_for_seconds = divisor_for_minutes % 60;
+                        var seconds = Math.floor(divisor_for_seconds);
+                        var result = (hours < 10 ? "0" + hours : hours) + ":" + (minutes < 10 ? "0" + minutes : minutes) + ":" + (seconds < 10 ? "0" + seconds : seconds);
+
+                        var time = result;
                         row.Time = time;
                         return row;
+                    });
+                    res.status(200).json({
+                        'status': true,
+                        'message': 'Success',
+                        'result': data,
+                        'Group': group,
                     })
-                        ;
-                        res.status(200).json({
-                            'status': true,
-                            'message': 'Success',
-                            'result': data,
-                            'Group': group,
-                        })
-                    })
+                })
         })
 }
-

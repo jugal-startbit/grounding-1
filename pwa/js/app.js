@@ -117,7 +117,6 @@
                 var data = "Event=" + previouspage + "&StudyID=" + StudyID + "&StudyInitials=" + StudyInitials + "&Duration=" + timeDifference + "&Session=" + localStorage.getItem('Session');
 
                 var xhr = new XMLHttpRequest();
-                xhr.withCredentials = true;
 
                 xhr.addEventListener("readystatechange", function() {
                     if (this.readyState === 4) {
@@ -172,7 +171,6 @@
                 var data = "Event=" + previouspage + "&StudyID=" + StudyID + "&StudyInitials=" + StudyInitials + "&Duration=" + timeDifference + "&Session=" + localStorage.getItem('Session');
 
                 var xhr = new XMLHttpRequest();
-                xhr.withCredentials = true;
 
                 xhr.addEventListener("readystatechange", function() {
                     if (this.readyState === 4) {
@@ -182,6 +180,7 @@
                 });
 
                 xhr.open("POST", "https://grounding.herokuapp.com/API/eventLogCreate");
+                xhr.withCredentials = false;
                 xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
                 xhr.setRequestHeader("Access-Control-Allow-Origin", "https://facing-forward.org");
                 xhr.setRequestHeader("cache-control", "no-cache");
@@ -235,7 +234,6 @@
                 var data = "Event=" + previouspage + "&StudyID=" + StudyID + "&StudyInitials=" + StudyInitials + "&Duration=" + timeDifference + "&Session=" + localStorage.getItem('Session');
 
                 var xhr = new XMLHttpRequest();
-
                 xhr.addEventListener("readystatechange", function() {
                     if (this.readyState === 4) {
                         console.log(this.responseText);
@@ -244,6 +242,7 @@
                 });
 
                 xhr.open("POST", "https://grounding.herokuapp.com/API/eventLogCreate");
+                xhr.withCredentials = false;
                 xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
                 xhr.setRequestHeader("Access-Control-Allow-Origin", "https://facing-forward.org");
                 xhr.setRequestHeader("cache-control", "no-cache");
@@ -285,7 +284,6 @@
                 var data = "Event=" + previouspage + "&StudyID=" + StudyID + "&StudyInitials=" + StudyInitials + "&Duration=" + timeDifference + "&Session=" + localStorage.getItem('Session');
 
                 var xhr = new XMLHttpRequest();
-                xhr.withCredentials = true;
 
                 xhr.addEventListener("readystatechange", function() {
                     if (this.readyState === 4) {
@@ -295,6 +293,7 @@
                 });
 
                 xhr.open("POST", "https://grounding.herokuapp.com/API/eventLogCreate");
+                xhr.withCredentials = false;
                 xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
                 xhr.setRequestHeader("Access-Control-Allow-Origin", "https://facing-forward.org");
                 xhr.setRequestHeader("cache-control", "no-cache");
@@ -334,7 +333,6 @@
                 var data = "Event=" + previouspage + "&StudyID=" + StudyID + "&StudyInitials=" + StudyInitials + "&Duration=" + timeDifference + "&Session=" + localStorage.getItem('Session');
 
                 var xhr = new XMLHttpRequest();
-                xhr.withCredentials = true;
 
                 xhr.addEventListener("readystatechange", function() {
                     if (this.readyState === 4) {
@@ -423,7 +421,6 @@
         document.querySelector('#StudyInitialslb').innerHTML = StudyInitials;
         document.querySelector('#StudyIDlb').innerHTML = StudyID;
         var xhr = new XMLHttpRequest();
-        xhr.withCredentials = true;
 
         xhr.addEventListener("readystatechange", function() {
             if (this.readyState === 4) {
@@ -501,7 +498,6 @@
         var data = "StudyID=" + StudyID + "&StudyInitials=" + StudyInitials + "&RatingComment=" + comments + "&Rating=" + rating + "&GroundingRate=" + GroundingRate + "&Session=" + localStorage.getItem('Session');
 
         var xhr = new XMLHttpRequest();
-        xhr.withCredentials = true;
 
         xhr.addEventListener("readystatechange", function() {
             if (this.readyState === 4) {
@@ -594,7 +590,6 @@
                 var data = "Event=" + previouspage + "&StudyID=" + StudyID + "&StudyInitials=" + StudyInitials + "&Duration=" + timeDifference + "&Session=" + localStorage.getItem('Session');
 
                 var xhr = new XMLHttpRequest();
-                xhr.withCredentials = true;
 
                 xhr.addEventListener("readystatechange", function() {
                     if (this.readyState === 4) {
