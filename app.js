@@ -1,6 +1,7 @@
 'use strict';
 var createError = require('http-errors');
 var express = require('express');
+var morgan = require('morgan');
 var bodyParser = require('body-parser');
 var mainRoute = require('./routes/routes');
 var signin = require('./routes/signin');
@@ -40,6 +41,7 @@ app.use(express.static(__dirname));
     next();
 }); */
 
+app.use(morgan('dev'));
 //To server index.html page
 // app.get('/', function (req, res) {
 //   res.sendFile(__dirname + '/index.html');
@@ -57,6 +59,8 @@ const contactUs = require('./models/contactUs.model');
 const aboutUs = require('./models/aboutUs.model');
 const aboutGroundingLog = require('./models/aboutGroundingLog.model');
 const logout = require('./models/logout.model');
+const User = require('./models/user.model');
+
 app.post('/API/eventLogCreate', cors(corsOptionsDelegate), function(req, res, next) {
     let data = req.body;
     data.DateTime = new Date();
@@ -85,6 +89,19 @@ app.post('/API/eventLogCreate', cors(corsOptionsDelegate), function(req, res, ne
             'result': localVar
         });
     });
+});
+
+app.post('/API/Login/User', cors(corsOptionsDelegate), function(req, res, next) {
+
+    User.findOne({ 'StudyID': req.body.StudyID, 'StudyInitials': req.body.StudyInitials })
+        .populate()
+        .exec(function(err, data) {
+            if (data && err == null) {
+                res.status(200).json(1);
+            } else {
+                res.send(JSON.stringify(0))
+            }
+        })
 });
 
 // catch 404 and forward to error handler

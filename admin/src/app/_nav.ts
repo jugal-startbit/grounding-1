@@ -46,11 +46,11 @@ export const navItems: NavData[] = [
     name: 'Login Event',
     url: '/loginEvent',
     icon: 'icon-energy',
-  },{
-    name: 'Logout Event',
-    url: '/logoutEvent',
-    icon: 'icon-speedometer',
   },*/{
+    name: 'Users',
+    url: '/user',
+    icon: 'icon-speedometer',
+  },{
     name: 'Analytics',
     url: '/aboutusEvent',
     icon: 'icon-globe',

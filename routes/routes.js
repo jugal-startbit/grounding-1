@@ -20,9 +20,17 @@ var corsOptionsDelegate = function(req, callback) {
       }); */
 var eventLogCtrl = require('../controller/eventLog.controller');
 
+
 router.post('/eventLog/create', cors(corsOptionsDelegate), eventLogCtrl.create);
 router.post('/reviewCreate', cors(corsOptionsDelegate), eventLogCtrl.reviewCreate);
 router.post('/feedbackCreate', cors(corsOptionsDelegate), eventLogCtrl.feedbackCreate);
+
+// User Model Record
+router.post('/events/createUser', cors(corsOptionsDelegate), eventLogCtrl.createUser);
+router.delete('/events/deleteUser/:id', cors(corsOptionsDelegate), eventLogCtrl.deleteUser);
+
+router.get('/events/getAllUser', cors(corsOptionsDelegate), eventLogCtrl.getAllUser);
+router.post('/events/getAllUserByFilter', cors(corsOptionsDelegate), eventLogCtrl.getAllUserByFilter);
 
 // Login Model Record
 router.get('/events/getAllReview', cors(corsOptionsDelegate), eventLogCtrl.getAllReview);

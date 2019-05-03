@@ -8,8 +8,76 @@ const pdf = require('../models/pdf.model');
 const logout = require('../models/logout.model');
 const review = require('../models/review.model')
 const feedback = require('../models/feedback.model')
+const User = require('../models/user.model');
 var dateFormat = require('dateformat');
 
+
+
+exports.createUser = function(req, res, next) {
+    let StudyInitials = req.body.StudyInitials;
+    let StudyID = req.body.StudyID;
+    var condition = {};
+    if (StudyInitials != null || StudyInitials != undefined) {
+        condition.StudyInitials = { '$regex': StudyInitials };
+    }
+    if (StudyID != null || StudyID != undefined) {
+        condition.StudyID = { '$regex': StudyID };
+    }
+    User.find(condition)
+        .sort({ _id: 'desc' })
+        .exec(function(err, data1) {
+            if (err) res.send(err);
+            if (data1.length == 0) {
+                let data = req.body;
+                data.Active = 1;
+                let localVar;
+                localVar = new User(data);
+                localVar.save(function(err) {
+                    if (err) {
+                        return next(err);
+                    }
+                    User.find()
+                        .sort({ _id: 'desc' })
+                        .exec(function(err, data2) {
+                            if (err) res.send(err);
+                            else {
+                                res.status(200).json({
+                                    'status': true,
+                                    'message': 'Success',
+                                    'result': data2,
+                                })
+                            }
+                        })
+                });
+            } else
+                res.status(200).json({
+                    'status': true,
+                    'message': 'Success',
+                    'result': [],
+                })
+
+        })
+
+
+}
+
+
+
+exports.deleteUser = function(req, res, next) {
+    let id = req.params.id;
+    console.log(id);
+    User.findByIdAndRemove(id, (err, data) => {
+        if (err) {
+            return next(err);
+        } else {
+            res.status(200).json({
+                'status': true,
+                'message': 'Successfully deleted record',
+                'result': data
+            })
+        }
+    });
+}
 
 // create
 exports.create = function(req, res, next) {
@@ -141,6 +209,46 @@ exports.getAllReviewByFilter = function(req, res, next) {
         condition.StudyID = { '$regex': StudyID };
     }
     review.find(condition)
+        .sort({ _id: 'desc' })
+        .exec(function(err, data) {
+            if (err) res.send(err);
+            else
+                res.status(200).json({
+                    'status': true,
+                    'message': 'Success',
+                    'result': data,
+                })
+        })
+}
+
+// getAlllogin
+exports.getAllUser = function(req, res, next) {
+    User.find()
+        .sort({ _id: 'desc' })
+        .exec(function(err, data) {
+            if (err) res.send(err);
+            else {
+                res.status(200).json({
+                    'status': true,
+                    'message': 'Success',
+                    'result': data,
+                })
+            }
+        })
+}
+
+// getAlllogin
+exports.getAllUserByFilter = function(req, res, next) {
+    let StudyInitials = req.body.StudyInitials;
+    let StudyID = req.body.StudyID;
+    var condition = {};
+    if (StudyInitials != null || StudyInitials != undefined) {
+        condition.StudyInitials = { '$regex': StudyInitials };
+    }
+    if (StudyID != null || StudyID != undefined) {
+        condition.StudyID = { '$regex': StudyID };
+    }
+    User.find(condition)
         .sort({ _id: 'desc' })
         .exec(function(err, data) {
             if (err) res.send(err);

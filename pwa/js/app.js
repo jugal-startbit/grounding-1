@@ -43,6 +43,8 @@
 
     var menusLogoutElmt = document.querySelector('.menusLogout');
     menusLogoutElmt.myParam = menusLogoutElmt.getAttribute('value');
+
+    document.querySelector('#pwa_loader').style.display = 'none';
     //localStorage.clear();
     localStorage.setItem("CurrentPage", "doLogin");
     localStorage.setItem("PreviousPage", "None");
@@ -69,7 +71,7 @@
             document.querySelector('#aboutUsMenuDIV').style.position = 'initial';
             document.querySelector('#aboutUsMenuDIV').style.left = '0';
             document.querySelector('#aboutUsMenuDIV').style.top = '0';
-        }, 3000);
+        }, 1000);
     } else {
         //Menus listing on first load loginDIV
         document.querySelector('#authorMenuDIV').style.display = 'none';
@@ -86,7 +88,7 @@
             document.querySelector('#aboutUsMenuDIV').style.position = 'initial';
             document.querySelector('#aboutUsMenuDIV').style.left = '0';
             document.querySelector('#aboutUsMenuDIV').style.top = '0';
-        }, 3000);
+        }, 1000);
     }
     //Event listener on click of Menus
     menusAuthorElmt.addEventListener('click', displayMenusPage, false);
@@ -345,6 +347,9 @@
                             if (this.readyState === 4) {
                                 console.log(this.responseText);
                                 logClickEvent('Logout', StudyInitials);
+
+                                localStorage.clear();
+                                window.location.reload();
                             }
                         });
 
@@ -362,8 +367,6 @@
                             eventAction: 'read',
                             eventLabel: 'Logout'
                         }); */
-                        localStorage.clear();
-                        window.location.reload();
                     }
                 });
 
@@ -402,56 +405,76 @@
             return;
         }
 
+        var PayLoad = "StudyID=" + StudyID + "&StudyInitials=" + StudyInitials;
+        var xhrLogin = new XMLHttpRequest();
 
-        divStudyID.value = '';
-        divStudyInitials.value = '';
-        localStorage.setItem('StudyID', StudyID);
-        localStorage.setItem('StudyInitials', StudyInitials);
-        var random = Math.random() * 100000000000000000;
-        localStorage.setItem('Session', random);
-        fetchReqInfo(StudyID);
-
-        var previouspage = localStorage.getItem("CurrentPage");
-
-        localStorage.setItem("PreviousPage", previouspage);
-        localStorage.setItem("CurrentPage", "aboutUs");
-        localStorage.setItem("CurrentPageTimeStamp", Date.now());
-        var data = "Event=doLogin&StudyID=" + StudyID + "&StudyInitials=" + StudyInitials + "&Duration=" + 0 + "&Session=" + localStorage.getItem('Session');
-
-        document.querySelector('#StudyInitialslb').innerHTML = StudyInitials;
-        document.querySelector('#StudyIDlb').innerHTML = StudyID;
-        var xhr = new XMLHttpRequest();
-
-        xhr.addEventListener("readystatechange", function() {
+        xhrLogin.addEventListener("readystatechange", function() {
             if (this.readyState === 4) {
-                console.log(this.responseText);
-                logClickEvent('Login', StudyInitials);
-                document.querySelector('#menu_header').style.display = 'inherit';
-                document.querySelector('#authorMenuDIV').style.display = 'inherit';
-                document.querySelector('#aboutUsMenuDIV').style.display = 'none';
-                document.querySelector('#contactMenuDIV').style.display = 'none';
-                document.querySelector('#loginDIV').style.display = 'none';
-                document.querySelector('#ratingMenuDIV').style.display = 'none';
-                document.querySelector('.menu').classList.remove("menu--show");
-                document.querySelector('.menu__overlay').classList.remove("menu__overlay--show");
-                document.querySelector('.menu').style.transform = 'translateX(-110%)';
-                logClickEvent('About Us', StudyInitials);
-                /* gtag('set', 'userId', StudyID + "_" + StudyInitials); // Set the user ID using signed-in user_id.
-                gtag('send', {
-                    hitType: 'event',
-                    eventCategory: 'Login',
-                    eventAction: 'read',
-                    eventLabel: 'Login'
-                }); */
+                if (this.responseText == 1) {
+                    document.querySelector('#pwa_loader').style.display = 'inherit';
+                    divStudyID.value = '';
+                    divStudyInitials.value = '';
+                    localStorage.setItem('StudyID', StudyID);
+                    localStorage.setItem('StudyInitials', StudyInitials);
+                    var random = Math.random() * 100000000000000000;
+                    localStorage.setItem('Session', random);
+                    fetchReqInfo(StudyID);
+
+                    var previouspage = localStorage.getItem("CurrentPage");
+
+                    localStorage.setItem("PreviousPage", previouspage);
+                    localStorage.setItem("CurrentPage", "aboutUs");
+                    localStorage.setItem("CurrentPageTimeStamp", Date.now());
+                    var data = "Event=doLogin&StudyID=" + StudyID + "&StudyInitials=" + StudyInitials + "&Duration=" + 0 + "&Session=" + localStorage.getItem('Session');
+
+                    document.querySelector('#StudyInitialslb').innerHTML = StudyInitials;
+                    document.querySelector('#StudyIDlb').innerHTML = StudyID;
+                    var xhr = new XMLHttpRequest();
+
+                    xhr.addEventListener("readystatechange", function() {
+                        if (this.readyState === 4) {
+                            console.log(this.responseText);
+                            logClickEvent('Login', StudyInitials);
+                            document.querySelector('#pwa_loader').style.display = 'none';
+                            document.querySelector('#menu_header').style.display = 'inherit';
+                            document.querySelector('#authorMenuDIV').style.display = 'inherit';
+                            document.querySelector('#aboutUsMenuDIV').style.display = 'none';
+                            document.querySelector('#contactMenuDIV').style.display = 'none';
+                            document.querySelector('#loginDIV').style.display = 'none';
+                            document.querySelector('#ratingMenuDIV').style.display = 'none';
+                            document.querySelector('.menu').classList.remove("menu--show");
+                            document.querySelector('.menu__overlay').classList.remove("menu__overlay--show");
+                            document.querySelector('.menu').style.transform = 'translateX(-110%)';
+                            logClickEvent('About Us', StudyInitials);
+                            /* gtag('set', 'userId', StudyID + "_" + StudyInitials); // Set the user ID using signed-in user_id.
+                            gtag('send', {
+                                hitType: 'event',
+                                eventCategory: 'Login',
+                                eventAction: 'read',
+                                eventLabel: 'Login'
+                            }); */
+                        }
+                    });
+                    xhr.open("POST", "https://grounding.herokuapp.com/API/eventLogCreate");
+                    xhr.withCredentials = false;
+                    xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+                    xhr.setRequestHeader("Access-Control-Allow-Origin", "https://facing-forward.org");
+                    xhr.setRequestHeader("cache-control", "no-cache");
+                    xhr.setRequestHeader("Postman-Token", "a5a1754d-842e-46d6-88f1-478c94bdf132");
+                    xhr.send(data);
+                } else {
+                    alert('Invalid StudyID & StudyInitials!!');
+                }
             }
         });
-        xhr.open("POST", "https://grounding.herokuapp.com/API/eventLogCreate");
-        xhr.withCredentials = false;
-        xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-        xhr.setRequestHeader("Access-Control-Allow-Origin", "https://facing-forward.org");
-        xhr.setRequestHeader("cache-control", "no-cache");
-        xhr.setRequestHeader("Postman-Token", "a5a1754d-842e-46d6-88f1-478c94bdf132");
-        xhr.send(data);
+        xhrLogin.open("POST", "https://grounding.herokuapp.com/API/Login/User");
+        xhrLogin.withCredentials = false;
+        xhrLogin.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+        xhrLogin.setRequestHeader("Access-Control-Allow-Origin", "https://facing-forward.org");
+        xhrLogin.setRequestHeader("cache-control", "no-cache");
+        xhrLogin.setRequestHeader("Postman-Token", "a5a1754d-842e-46d6-88f1-478c94bdf132");
+        xhrLogin.send(PayLoad);
+
     }
     //Add card click event
     addLoginBtnElement.addEventListener('click', doLoginFun, false);
@@ -502,7 +525,7 @@
         xhr.addEventListener("readystatechange", function() {
             if (this.readyState === 4) {
                 console.log("successB: " + this.responseText);
-                alert("Thanks for providing Feedback");
+                alert("Thanks for providing feedback.");
                 //window.location.reload();
                 document.querySelector('#comments').value = '';
                 document.getElementById('str1').checked = false;

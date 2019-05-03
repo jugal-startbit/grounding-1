@@ -112,6 +112,11 @@ export class AboutusEventsComponent implements OnInit {
       }
     }
 
+    if(this.FromDate === this.ToDate){      
+      this.FromDate.setDate(this.FromDate.getDate() + 1);
+      this.ToDate.setDate(this.ToDate.getDate() + 1);
+    }
+
     let condition = {
       'FromDate': this.FromDate,
       'ToDate': this.ToDate,

@@ -103,8 +103,24 @@ export class DashboardService {
     return this.http.post<any>(this.url + 'getAllReviewByFilter/' , JSON.stringify(data) , httpOptions).pipe(
       map(this.extractData));
   }
-
-
+  getAllUser(): Observable<any> {
+    return this.http.get(this.url + 'getAllUser').pipe(
+      map(this.extractData));
+  }
+  getAllUserByFilter(data): Observable<any> {
+    return this.http.post<any>(this.url + 'getAllUserByFilter/' , JSON.stringify(data) , httpOptions).pipe(
+      map(this.extractData));
+  }
+  deleteUser(id): Observable<any> {
+    return this.http.delete<any>(this.url + 'deleteUser/' + id, httpOptions).pipe(
+      tap(() => console.log(`deleted department w/ id=${id}`)),
+      catchError(this.handleError<any>('deleteUser'))
+    );
+  }
+  addUser(data): Observable<any> {
+    return this.http.post<any>(this.url + 'createUser/' , JSON.stringify(data) , httpOptions).pipe(
+      map(this.extractData));
+  }
 
   private handleError<T> (operation = 'operation', result?: any) {
     return (error: any): Observable<any> => {
