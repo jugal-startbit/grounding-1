@@ -410,7 +410,7 @@
 
         xhrLogin.addEventListener("readystatechange", function() {
             if (this.readyState === 4) {
-                if (this.responseText == 1) {
+                if (this.responseText === 1) {
                     document.querySelector('#pwa_loader').style.display = 'inherit';
                     divStudyID.value = '';
                     divStudyInitials.value = '';
@@ -463,7 +463,7 @@
                     xhr.setRequestHeader("Postman-Token", "a5a1754d-842e-46d6-88f1-478c94bdf132");
                     xhr.send(data);
                 } else {
-                    alert('Invalid StudyID & StudyInitials!!');
+                    alert('Incorrect login.  Please try again.');
                 }
             }
         });
