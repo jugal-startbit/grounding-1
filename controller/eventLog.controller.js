@@ -61,7 +61,30 @@ exports.createUser = function(req, res, next) {
 
 }
 
-
+exports.editUser = function(req, res, next) {
+    let id = req.params.id;
+    let data = req.body;
+    data['Modified'] = new Date();
+    data.Active = 1;
+    User.findByIdAndUpdate(id, data, { new: true }, (err, data) => {
+        if (err) {
+            return next(err);
+        } else {
+            User.find()
+                .sort({ _id: 'desc' })
+                .exec(function(err, data2) {
+                    if (err) res.send(err);
+                    else {
+                        res.status(200).json({
+                            'status': true,
+                            'message': 'Success',
+                            'result': data2,
+                        })
+                    }
+                })
+        }
+    });
+}
 
 exports.deleteUser = function(req, res, next) {
     let id = req.params.id;

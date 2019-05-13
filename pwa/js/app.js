@@ -463,7 +463,7 @@
                     xhr.setRequestHeader("Postman-Token", "a5a1754d-842e-46d6-88f1-478c94bdf132");
                     xhr.send(data);
                 } else {
-                    alert('Incorrect login.  Please try again.');
+                    alert('Incorrect login. If you don\'t know your study ID and/or initials, text 617-299-1630 or email research@treatment-innovations.org for help with that.');
                 }
             }
         });

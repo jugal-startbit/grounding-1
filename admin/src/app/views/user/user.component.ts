@@ -67,7 +67,33 @@ export class UserComponent implements OnInit {
       });
     });
   }
+  editExisting(id){
+    let condition = {
+      'StudyInitials': this.StudyInitials,
+      'StudyID': this.StudyID,
+    }
 
+    this.dashboardService.editUser(id,condition).subscribe((data: {}) => {
+      this.dataSource = new MatTableDataSource(data['result']);
+      this.Entries = data['result'];
+      this.dataSource.paginator = this.paginator;
+      this.dataSource.sort = this.sort;
+      this.spinnerService.hide();
+      this.snackBar.open("User updated successfully", 'success', {
+        duration: 5000,
+        panelClass: ['success-snackbar'],
+        verticalPosition: 'top'
+      });
+      this.getAllUsers();
+    }, err => {
+      this.spinnerService.hide();
+      this.snackBar.open('Server Error', 'Error', {
+        duration: 5000,
+        panelClass: ['danger-snackbar'],
+        verticalPosition: 'top'
+      });
+    });
+  }
 
   filter(){
     let condition = {

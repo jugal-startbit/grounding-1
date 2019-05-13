@@ -51,6 +51,7 @@
                                 <ng-container matColumnDef="Action">
                                     <th id="department_actionButton" mat-header-cell *matHeaderCellDef>Action</th>
                                     <td mat-cell *matCellDef="let row">
+                                        <a class="text-primary" (click)="editExisting(row._id)" style="cursor:pointer;"><i class="material-icons">edit</i></a>&nbsp;
                                         <a class="text-danger" (click)="deleteExisting(row._id)" style="cursor:pointer;"><i class="material-icons">delete_forever</i></a>
                                     </td>
                                 </ng-container>

@@ -121,6 +121,10 @@ export class DashboardService {
     return this.http.post<any>(this.url + 'createUser/' , JSON.stringify(data) , httpOptions).pipe(
       map(this.extractData));
   }
+  editUser(id,data): Observable<any> {
+    return this.http.put<any>(this.url + 'editUser/' + id, JSON.stringify(data) , httpOptions).pipe(
+      map(this.extractData));
+  }
 
   private handleError<T> (operation = 'operation', result?: any) {
     return (error: any): Observable<any> => {
