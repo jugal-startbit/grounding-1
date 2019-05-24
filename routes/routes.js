@@ -27,7 +27,7 @@ router.post('/feedbackCreate', cors(corsOptionsDelegate), eventLogCtrl.feedbackC
 
 // User Model Record
 router.post('/events/createUser', cors(corsOptionsDelegate), eventLogCtrl.createUser);
-router.put('/events/editUser/:id', cors(corsOptionsDelegate), eventLogCtrl.deleteUser);
+router.put('/events/editUser/:id', cors(corsOptionsDelegate), eventLogCtrl.editUser);
 router.delete('/events/deleteUser/:id', cors(corsOptionsDelegate), eventLogCtrl.deleteUser);
 
 router.get('/events/getAllUser', cors(corsOptionsDelegate), eventLogCtrl.getAllUser);
