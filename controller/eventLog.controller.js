@@ -246,7 +246,7 @@ exports.getAllReviewByFilter = function(req, res, next) {
 
 // getAlllogin
 exports.getAllUser = function(req, res, next) {
-    User.find()
+    User.find({})
         .sort({ _id: 'desc' })
         .exec(function(err, data) {
             if (err) res.send(err);
