@@ -23,11 +23,11 @@ exports.createUser = function(req, res, next) {
     if (StudyID != null || StudyID != undefined) {
         condition.StudyID = { '$regex': StudyID };
     }
-    User.find(condition)
+    User.find({ "StudyInitials": StudyInitials, "StudyID": StudyID })
         .sort({ _id: 'desc' })
         .exec(function(err, data1) {
             if (err) res.send(err);
-            if (data1.length == 0) {
+            if (data1.length < 1) {
                 let data = req.body;
                 data.Active = 1;
                 let localVar;

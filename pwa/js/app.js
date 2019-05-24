@@ -410,7 +410,8 @@
 
         xhrLogin.addEventListener("readystatechange", function() {
             if (this.readyState === 4) {
-                if (this.responseText === 1) {
+                console.log(this.responseText);
+                if (this.responseText == 1) {
                     document.querySelector('#pwa_loader').style.display = 'inherit';
                     divStudyID.value = '';
                     divStudyInitials.value = '';
@@ -433,7 +434,7 @@
 
                     xhr.addEventListener("readystatechange", function() {
                         if (this.readyState === 4) {
-                            console.log(this.responseText);
+                            //console.log(this.responseText);
                             logClickEvent('Login', StudyInitials);
                             document.querySelector('#pwa_loader').style.display = 'none';
                             document.querySelector('#menu_header').style.display = 'inherit';
