@@ -246,17 +246,17 @@ exports.getAllReviewByFilter = function(req, res, next) {
 
 // getAlllogin
 exports.getAllUser = function(req, res, next) {
-    User.find({})
+    var condition = {};
+    User.find(condition)
         .sort({ _id: 'desc' })
         .exec(function(err, data) {
             if (err) res.send(err);
-            else {
+            else
                 res.status(200).json({
                     'status': true,
                     'message': 'Success',
                     'result': data,
                 })
-            }
         })
 }
 
