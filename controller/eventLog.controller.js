@@ -36,7 +36,7 @@ exports.createUser = function(req, res, next) {
                     if (err) {
                         return next(err);
                     }
-                    User.find()
+                    User.find({})
                         .sort({ _id: 'desc' })
                         .exec(function(err, data2) {
                             if (err) res.send(err);
@@ -70,7 +70,7 @@ exports.editUser = function(req, res, next) {
         if (err) {
             return next(err);
         } else {
-            User.find()
+            User.find({})
                 .sort({ _id: 'desc' })
                 .exec(function(err, data2) {
                     if (err) res.send(err);
@@ -206,7 +206,7 @@ exports.feedbackCreate = function(req, res, next) {
 
 // getAlllogin
 exports.getAllReview = function(req, res, next) {
-    review.find()
+    review.find({})
         .sort({ _id: 'desc' })
         .exec(function(err, data) {
             if (err) res.send(err);
@@ -286,7 +286,7 @@ exports.getAllUserByFilter = function(req, res, next) {
 
 // getAlllogin
 exports.getAllLogin = function(req, res, next) {
-    login.find()
+    login.find({})
         .sort({ _id: 'desc' })
         .exec(function(err, data) {
             if (err) res.send(err);
@@ -439,7 +439,7 @@ exports.getAllLoginByFilter = function(req, res, next) {
 
 // getAllDashboard
 exports.getAllDashboard = function(req, res, next) {
-    dashboard.find()
+    dashboard.find({})
         .sort({ _id: 'desc' })
         .exec(function(err, data) {
             if (err) res.send(err);
@@ -591,7 +591,7 @@ exports.getAllDashboardByFilter = function(req, res, next) {
 
 // getAllContactUs
 exports.getAllContactUs = function(req, res, next) {
-    contactUs.find()
+    contactUs.find({})
         .sort({ _id: 'desc' })
         .exec(function(err, data) {
             if (err) res.send(err);
@@ -743,7 +743,7 @@ exports.getAllContactUsByFilter = function(req, res, next) {
 
 // getAllAboutUs
 exports.getAllAboutUs = function(req, res, next) {
-    aboutUs.find()
+    aboutUs.find({})
         .sort({ _id: 'desc' })
         .exec(function(err, data) {
             if (err) res.send(err);
@@ -918,7 +918,7 @@ exports.getAllAboutUsByFilter = function(req, res, next) {
 
 // getAllAboutGroundingLog
 exports.getAllAboutGroundingLog = function(req, res, next) {
-    aboutGroundingLog.find()
+    aboutGroundingLog.find({})
         .sort({ _id: 'desc' })
         .exec(function(err, data) {
             if (err) res.send(err);
@@ -1070,7 +1070,7 @@ exports.getAllAboutGroungingLogByFilter = function(req, res, next) {
 
 // getAllPdf
 exports.getAllPdf = function(req, res, next) {
-    pdf.find()
+    pdf.find({})
         .sort({ _id: 'desc' })
         .exec(function(err, data) {
             if (err) res.send(err);
@@ -1222,7 +1222,7 @@ exports.getAllPdfByFilter = function(req, res, next) {
 
 // getAlllogout
 exports.getAllLogout = function(req, res, next) {
-    logout.find()
+    logout.find({})
         .sort({ _id: 'desc' })
         .exec(function(err, data) {
             if (err) res.send(err);
