@@ -222,8 +222,8 @@ exports.getAllReview = function(req, res, next) {
 
 // getAlllogin
 exports.getAllReviewByFilter = function(req, res, next) {
-    let StudyInitials = req.body.StudyInitials;
-    let StudyID = req.body.StudyID;
+    let StudyInitials = req.body.StudyID;
+    let StudyID = req.body.StudyInitials;
     var condition = {};
     if (StudyInitials != null || StudyInitials != undefined) {
         condition.StudyInitials = { '$regex': StudyInitials };
