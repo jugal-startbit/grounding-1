@@ -222,8 +222,8 @@ exports.getAllReview = function(req, res, next) {
 
 // getAlllogin
 exports.getAllReviewByFilter = function(req, res, next) {
-    let StudyInitials = req.body.StudyID;
-    let StudyID = req.body.StudyInitials;
+    let StudyInitials = req.body.StudyInitials;
+    let StudyID = req.body.StudyID;
     var condition = {};
     if (StudyInitials != null || StudyInitials != undefined) {
         condition.StudyInitials = { '$regex': StudyInitials };
@@ -830,8 +830,8 @@ exports.getAllAboutUsByFilter = function(req, res, next) {
     let endDate = dateFormat(To, 'yyyy-mm-dd 23:59:59');
     //endDate.setDate(endDate.getDate() - 1);
     let Session = req.body.Session;
-    let StudyInitials = req.body.StudyInitials;
-    let StudyID = req.body.StudyID;
+    let StudyInitials = req.body.StudyID;
+    let StudyID = req.body.StudyInitials;
     var condition = {};
     if (Session != null || Session != undefined) {
         condition.Session = { '$regex': Session };
