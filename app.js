@@ -29,7 +29,7 @@ app.use(bodyParser.json());
 //h5bp({ root: __dirname + '/public' })
 app.use(express.static(__dirname));
 //To allow cross origin request
-/* app.use(function(req, res, next) {
+ app.use(function(req, res, next) {
     res.header('Access-Control-Allow-Origin', '*');
     res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE,OPTIONS');
     res.header('Access-Control-Allow-Headers', 'Content-type,Accept,X-Custom-Header');
@@ -39,7 +39,7 @@ app.use(express.static(__dirname));
         res.header('Access-Control-Allow-Origin', '*');
     }
     next();
-}); */
+}); 
 
 app.use(morgan('dev'));
 //To server index.html page
